@@ -83,7 +83,7 @@ export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => asy
 
 export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
     dispatch(actionsApp.setFetching(true))
-    const response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
+    let response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
     dispatch(actions.setAssetsHistoryById(response))
     dispatch(actionsApp.setFetching(false))
 }

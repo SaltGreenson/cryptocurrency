@@ -8,6 +8,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import {Provider} from "react-redux";
 import store from "./redux/redux-store";
+import Header from "./components/Header/Header";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 
@@ -27,6 +28,7 @@ const App: React.FC = (props) => {
 
     return (
         <div className="App">
+            <Header/>
             <Routes>
                 <Route path='/' element={<SuspendedMainPage/>}/>
             </Routes>

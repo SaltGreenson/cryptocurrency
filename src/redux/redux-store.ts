@@ -2,10 +2,12 @@ import {Action, applyMiddleware, combineReducers, compose, createStore} from 're
 import thunkMiddleWare, {ThunkAction} from 'redux-thunk'
 import appReducer from './app-reducer'
 import marketsReducer from "./markets-reducer";
+import assetsReducer from "./assets-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
-    crypto: marketsReducer
+    markets: marketsReducer,
+    assets: assetsReducer
 })
 
 type RootReducerType = typeof rootReducer

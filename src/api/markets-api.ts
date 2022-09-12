@@ -1,8 +1,8 @@
 import {instance} from "./api"
-import {ResponseDataType} from "./types-api";
+import {ResponseType} from "./types-api";
 
 export const marketsApi = {
     async markets() {
-        return await instance.get<ResponseDataType, any>('markets')
+        return await instance.get<ResponseType>('markets').then(res => res.data)
     }
 }

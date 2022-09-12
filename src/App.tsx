@@ -19,7 +19,7 @@ const App: React.FC = (props) => {
 
     useEffect(() => {
         dispatch(initializeApp())
-    }, [initialized])
+    }, [])
 
     if (!initialized) {
         return <Preloader/>
@@ -27,7 +27,6 @@ const App: React.FC = (props) => {
 
     return (
         <div className="App">
-            {!initialized? <Preloader/>: null}
             <Routes>
                 <Route path='/' element={<SuspendedMainPage/>}/>
             </Routes>

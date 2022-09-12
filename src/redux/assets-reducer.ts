@@ -1,40 +1,47 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
-import {AssetsHistoryType, AssetsMarket, AssetsType} from "../api/types-api";
+import {AssetsHistoryType, AssetsMarket, AssetsType, ResponseType} from "../api/types-api";
 import {assetsApi, IntervalEnum} from "../api/assets-api";
 import {Dispatch} from "react";
+import {actionsApp, ActionsAppTypes} from './app-reducer'
 
 const SET_ASSETS = 'SET_ASSETS'
-const SET_FETCHING = 'SET_FETCHING'
 const SET_ASSETS_BY_ID = 'SET_ASSETS_BY_ID'
 const SET_ASSETS_HISTORY_BY_ID = 'SET_ASSETS_HISTORY_BY_ID'
 const SET_ASSETS_MARKETS_BY_ID = 'SET_ASSETS_MARKETS_BY_ID'
 
 const initialState = {
-    assets: [] as Array<AssetsType>,
-    isFetching: false,
-    assetsById: {} as AssetsType,
-    assetsHistoryById: [] as Array<AssetsHistoryType>,
-    assetsMarketsById: [] as Array<AssetsMarket>
+    assets: {
+        data: [] as Array<AssetsType>,
+        timestamp: null as Date | null
+    },
+    assetsById: {
+        data: {} as AssetsType,
+        timestamp: null as Date | null
+    },
+    assetsHistoryById: {
+        data: [] as Array<AssetsHistoryType>,
+        timestamp: null as Date | null
+    },
+    assetsMarketsById: {
+        data: [] as Array<AssetsMarket>,
+        timestamp: null as Date | null
+    }
 }
 
 const actions = {
-    setFetching: (isFetching: boolean) => ({
-        type: SET_FETCHING,
-        payload: {isFetching}
-    } as const),
-    setAssets: (assets: Array<AssetsType>) => ({
+    setAssets: (assets: any) => ({
         type: SET_ASSETS,
         payload: {assets}
     } as const),
-    setAssetsById: (assetsById: AssetsType) => ({
+    setAssetsById: (assetsById: any) => ({
         type: SET_ASSETS_BY_ID,
         payload: {assetsById}
     } as const),
-    setAssetsHistoryById: (assetsHistoryById: Array<AssetsHistoryType>) => ({
+    setAssetsHistoryById: (assetsHistoryById: any) => ({
         type: SET_ASSETS_HISTORY_BY_ID,
         payload: {assetsHistoryById}
     } as const),
-    setAssetsMarketsById: (assetsMarketsById: Array<AssetsMarket>) => ({
+    setAssetsMarketsById: (assetsMarketsById: any) => ({
         type: SET_ASSETS_MARKETS_BY_ID,
         payload: {assetsMarketsById}
     } as const)
@@ -45,7 +52,6 @@ type ActionsTypes = InferActionsTypes<typeof actions>
 
 const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStateType => {
     switch (actions.type) {
-        case "SET_FETCHING":
         case "SET_ASSETS_BY_ID":
         case "SET_ASSETS_HISTORY_BY_ID":
         case "SET_ASSETS_MARKETS_BY_ID":
@@ -61,32 +67,32 @@ const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStat
     return state
 }
 
-export const setAssets = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
-    dispatch(actions.setFetching(true))
-    const response: Array<AssetsType> = await assetsApi.assets()
+export const setAssets = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actionsApp.setFetching(true))
+    const response: ResponseType = await assetsApi.assets()
     dispatch(actions.setAssets(response))
-    dispatch(actions.setFetching(false))
+    dispatch(actionsApp.setFetching(false))
 }
 
-export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
-    dispatch(actions.setFetching(true))
-    const response: AssetsType = await assetsApi.assetsById(id)
+export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actionsApp.setFetching(true))
+    const response: ResponseType = await assetsApi.assetsById(id)
     dispatch(actions.setAssetsById(response))
-    dispatch(actions.setFetching(false))
+    dispatch(actionsApp.setFetching(false))
 }
 
-export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
-    dispatch(actions.setFetching(true))
-    const response: Array<AssetsHistoryType> = await assetsApi.assetsHistoryById(id, interval)
+export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actionsApp.setFetching(true))
+    const response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
     dispatch(actions.setAssetsHistoryById(response))
-    dispatch(actions.setFetching(false))
+    dispatch(actionsApp.setFetching(false))
 }
 
-export const setAssetsMarketsById = (id: string, limit: number = 10): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
-    dispatch(actions.setFetching(true))
-    const response: Array<AssetsMarket> = await assetsApi.assetsMarketsById(id, limit)
+export const setAssetsMarketsById = (id: string, limit: number = 10): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actionsApp.setFetching(true))
+    const response: ResponseType = await assetsApi.assetsMarketsById(id, limit)
     dispatch(actions.setAssetsMarketsById(response))
-    dispatch(actions.setFetching(false))
+    dispatch(actionsApp.setFetching(false))
 }
 
 export default assetsReducer

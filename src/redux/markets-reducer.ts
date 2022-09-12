@@ -1,23 +1,22 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
 import {marketsApi} from "../api/markets-api";
-import {MarketsType, ResponseDataType} from "../api/types-api";
+import {MarketsType, ResponseType} from "../api/types-api";
+import {Dispatch} from "react";
+import {actionsApp, ActionsAppTypes} from "./app-reducer";
 
 const SET_MARKETS = 'SET_MARKETS'
-const SET_FETCHING = 'SET_FETCHING'
 
-const initialState  = {
-    data: [] as Array<MarketsType>,
-    isFetching: false
+const initialState = {
+    markets: {
+        data: [] as Array<MarketsType>,
+        timestamp: null as Date | null
+    }
 }
 
 const actions = {
-    setMarkets: (markets: ResponseDataType) => ({
+    setMarkets: (markets: any) => ({
         type: SET_MARKETS,
         payload: {markets}
-    } as const),
-    setFetching: (fetching: boolean) => ({
-        type: SET_FETCHING,
-        payload: {fetching}
     } as const)
 }
 
@@ -25,8 +24,7 @@ export type InitialStateType = typeof initialState
 type ActionsTypes = InferActionsTypes<typeof actions>
 
 const marketsReducer = (state = initialState, actions: ActionsTypes): InitialStateType => {
-    switch (actions.type){
-        case "SET_FETCHING":
+    switch (actions.type) {
         case "SET_MARKETS": {
             return {
                 ...state,
@@ -39,11 +37,11 @@ const marketsReducer = (state = initialState, actions: ActionsTypes): InitialSta
     return state
 }
 
-export const collectMarkets = (): GenericThunkType<ActionsTypes> => async (dispatch) => {
-    dispatch(actions.setFetching(true))
-    const response: ResponseDataType = await marketsApi.markets()
+export const collectMarkets = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actionsApp.setFetching(true))
+    const response: ResponseType = await marketsApi.markets()
     dispatch(actions.setMarkets(response))
-    dispatch(actions.setFetching(false))
+    dispatch(actionsApp.setFetching(false))
 }
 
 export default marketsReducer

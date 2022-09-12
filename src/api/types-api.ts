@@ -42,3 +42,8 @@ export type AssetsMarket = {
     priceUsd: number,
     volumePercent: number
 }
+
+export type ResponseType = {
+    data: Array<AssetsMarket | AssetsType | AssetsHistoryType> | AssetsType,
+    timestamp: Date
+}

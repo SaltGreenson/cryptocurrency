@@ -1,27 +1,28 @@
 import React from 'react'
 import {useSelector} from "react-redux";
-import {getIsFetching} from "../../selectors/main-selectors";
 import Preloader from "../../components/common/Preloader/Preloader";
 import {AssetsType} from "../../api/types-api";
+import {getIsFetching} from "../../selectors/app-selectors";
+import {getAssets} from "../../selectors/assets-selectors";
 
 const MainPage: React.FC = (props) => {
     const isFetching = useSelector(getIsFetching)
     return <>
-        {isFetching? <Preloader/>: null}
-        <Main/>
+        {isFetching? <Preloader/>: <Main/>}
+
     </>
 }
 
 const Main: React.FC = (props) => {
-    // const assetsCrypto = useSelector()
+    const assets = [...useSelector(getAssets)]
     return <div>
-        Main
+        {assets.map((coin) => <CoinElement key={coin.id} coin={coin}/>)}
     </div>
 }
 
-function CoinElement (props:React.PropsWithChildren<AssetsType>) {
+const CoinElement: React.FC<{coin: AssetsType}> = ({coin}) => {
     return <div>
-        <p>{props.name}</p>
+        <p>{coin.name}</p>
     </div>
 }
 

@@ -1,21 +1,27 @@
-import React, {useEffect} from 'react'
-import {useDispatch} from "react-redux";
-import {collectCryptocurrencies} from "../../redux/crypto-reducer";
+import React from 'react'
+import {useSelector} from "react-redux";
+import {getIsFetching} from "../../selectors/main-selectors";
+import Preloader from "../../components/common/Preloader/Preloader";
+import {AssetsType} from "../../api/types-api";
 
 const MainPage: React.FC = (props) => {
-    return <div>
+    const isFetching = useSelector(getIsFetching)
+    return <>
+        {isFetching? <Preloader/>: null}
         <Main/>
-    </div>
+    </>
 }
 
 const Main: React.FC = (props) => {
-
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(collectCryptocurrencies())
-    }, [])
+    // const assetsCrypto = useSelector()
     return <div>
         Main
+    </div>
+}
+
+function CoinElement (props:React.PropsWithChildren<AssetsType>) {
+    return <div>
+        <p>{props.name}</p>
     </div>
 }
 

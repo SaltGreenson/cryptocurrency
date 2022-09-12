@@ -1,11 +1,11 @@
 import {Action, applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import thunkMiddleWare, {ThunkAction} from 'redux-thunk'
 import appReducer from './app-reducer'
-import cryptoReducer from "./crypto-reducer";
+import marketsReducer from "./markets-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
-    crypto: cryptoReducer
+    crypto: marketsReducer
 })
 
 type RootReducerType = typeof rootReducer

@@ -1,4 +1,5 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
+import {setAssets} from "./assets-reducer";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 
@@ -30,8 +31,11 @@ const appReducer = (state = initialState, action: ActionsTypes): InitialStateTyp
     return state
 }
 
-export const initializeApp = () => (dispatch: any) => {
-    dispatch(actions.initializedSuccess())
+export const initializeApp = (): GenericThunkType<ActionsTypes> => async (dispatch) => {
+    const promise = dispatch(setAssets())
+    Promise.all([promise]).then(() => {
+        dispatch(actions.initializedSuccess())
+    })
 }
 
 export default appReducer

@@ -68,39 +68,12 @@ const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStat
 }
 
 export const setAssets = (offset: number, limit: number): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-
-/*    NOTE: since the api does not provide the number of elements,
-     you can use this code,
-     but it will collect all the information,
-     which greatly affects the initial loading of the page,
-     but in the future there will be an instant receipt of information.  */
-
-
-    // dispatch(actionsApp.setFetching(true))
-    // let offset = 1
-    // let response: ResponseType = await assetsApi.assets(offset, 2000)
-    // const assets = {
-    //     data: [...response.data],
-    //     timestamp: response.timestamp
-    // }
-    // let rank = 1
-    // while (response.data.length) {
-    //     rank = response.data[response.data.length - 1].rank
-    //     offset = rank
-    //     dispatch(actionsApp.setLastRank(rank))
-    //     response = await assetsApi.assets(offset, 300)
-    //     assets.data.push(...response.data)
-    //     assets.timestamp = response.timestamp
-    // }
-    // dispatch(actionsApp.setLastRank(rank))
-    // dispatch(actions.setAssets(assets))
-    // dispatch(actionsApp.setFetching(false))
-
-
     dispatch(actionsApp.setFetching(true))
+    if (!offset) {
+        offset = 0
+    }
     const response: ResponseType = await assetsApi.assets(offset, limit)
     dispatch(actions.setAssets(response))
-    console.log(offset, limit)
     dispatch(actionsApp.setFetching(false))
 }
 

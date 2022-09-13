@@ -5,14 +5,15 @@ import {Provider, useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
 import {getInitialized} from "./selectors/app-selectors";
 import Preloader from "./components/common/Preloader/Preloader";
-import {HashRouter, Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import store from "./redux/redux-store";
 import Header from "./components/Header/Header";
-import {getAssets} from "./selectors/assets-selectors";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
+const CoinDescrLazy = React.lazy(() => import('./pages/Main/Assets/CoinElement/CoinDescription/CoinDescription'))
 
 const SuspendedMainPage = withSuspense(MainLazy)
+const SuspendedCoinDescr = withSuspense(CoinDescrLazy)
 
 const App: React.FC = (props) => {
     const dispatch = useDispatch()
@@ -36,6 +37,7 @@ const App: React.FC = (props) => {
                 <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
+                <Route path='/:id' element={<SuspendedCoinDescr/>}/>
                 <Route path='' element={<Navigate to='/coins/:page=1'/>}/>
             </Routes>
         </div>

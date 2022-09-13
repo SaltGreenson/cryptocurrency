@@ -1,12 +1,19 @@
 import React from "react";
 import {AssetsType} from "../../../../api/types-api";
 import classes from './CoinElement.module.css'
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setAssetsByID} from "../../../../redux/assets-reducer";
 
 export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+
     const formatNumber = (value: number) => {
         let fraction = 2
-        if (value < 0.1){
+        if (value < 0.1 && value > 0){
             fraction = 5
         }
         return new Intl.NumberFormat('USD', {
@@ -16,9 +23,15 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
         }).format(+value)
     }
 
-    return <tr>
+    const onClick = (id: string) => {
+        dispatch(setAssetsByID(id))
+        navigate(`/:${id}`)
+    }
+
+    return <tr onClick={(e) => {onClick(coin.id)}}>
         <td>
             {coin.rank}
+            <span className={classes.hidden}>{coin.id}</span>
         </td>
         <td>
             <div className={classes.titleWrap}>
@@ -34,11 +47,9 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
         </td>
         <td>
             <p className={classes.number}>{formatNumber(+coin.marketCapUsd)}</p>
-
         </td>
         <td>
             <p className={classes.number}>{formatNumber(+coin.volumeUsd24Hr)}</p>
-
         </td>
     </tr>
 }

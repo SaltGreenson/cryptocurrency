@@ -2,20 +2,23 @@ import React from "react";
 import {AssetsType} from "../../../../api/types-api";
 import classes from './CoinElement.module.css'
 
-export const CoinElement: React.FC<{ coin: AssetsType, count: number }> = ({coin, count}) => {
+export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
 
     const formatNumber = (value: number) => {
+        let fraction = 2
+        if (value < 0.1){
+            fraction = 5
+        }
         return new Intl.NumberFormat('USD', {
             currency: 'usd',
             style: 'currency',
-            maximumFractionDigits: 2,
+            maximumFractionDigits: fraction,
         }).format(+value)
     }
 
-    return <tbody>
-    <tr>
+    return <tr>
         <td>
-            {count}
+            {coin.rank}
         </td>
         <td>
             <div className={classes.titleWrap}>
@@ -38,5 +41,4 @@ export const CoinElement: React.FC<{ coin: AssetsType, count: number }> = ({coin
 
         </td>
     </tr>
-    </tbody>
 }

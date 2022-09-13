@@ -8,8 +8,16 @@
     margin-inline-end: 0;
 }
 
+@media (max-width: 780px) {
+    tbody td:nth-child(2) {
+        position: sticky;
+        left: 24px;
+        z-index: 100;
+    }
+}
+
 .symbol {
-    margin-left: 1rem;
+    margin-left: 0.6rem;
     font-weight: 500;
     font-size: 14px;
     color: #afafaf;

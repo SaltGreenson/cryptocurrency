@@ -44,6 +44,6 @@ export type AssetsMarket = {
 }
 
 export type ResponseType = {
-    data: Array<AssetsMarket | AssetsType | AssetsHistoryType> | AssetsType,
+    data: Array<AssetsMarket & AssetsType & AssetsHistoryType> & AssetsType,
     timestamp: Date
 }

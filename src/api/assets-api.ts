@@ -14,8 +14,8 @@ export enum IntervalEnum {
 }
 
 export const assetsApi = {
-    async assets() {
-        return await instance.get<ResponseType>('assets').then(res => res.data)
+    async assets(offset: number, limit: number) {
+        return await instance.get<ResponseType>(`assets?offset=${offset}&limit=${limit}`).then(res => res.data)
     },
     async assetsById(id: string) {
         return await instance.get<ResponseType>(`assets/${id}`).then(res => res.data)

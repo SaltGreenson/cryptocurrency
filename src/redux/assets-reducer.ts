@@ -100,6 +100,7 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
     dispatch(actionsApp.setFetching(true))
     const response: ResponseType = await assetsApi.assets(offset, limit)
     dispatch(actions.setAssets(response))
+    console.log(offset, limit)
     dispatch(actionsApp.setFetching(false))
 }
 

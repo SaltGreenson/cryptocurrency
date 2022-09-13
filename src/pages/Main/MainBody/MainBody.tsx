@@ -14,7 +14,7 @@ export const MainBody: React.FC = (props) => {
     const getValueFromParams = (params: string) => {
         return params.split('=')[1]
     }
-    const assets = [...useSelector(getAssets)]
+    const assets = useSelector(getAssets)
     const lastRank = useSelector(getLastRank)
     const limit = useSelector(getLimit)
     const currentPage = useSelector(getCurrentPage)
@@ -22,20 +22,15 @@ export const MainBody: React.FC = (props) => {
     const params: Readonly<Params<string>> = useParams()
     const navigate = useNavigate()
     const page:number = +getValueFromParams(params.page as string)
+    // dispatch(setAssets(page * limit - limit, limit))
     useEffect(() => {
         dispatch(setAppCurrentPage(page))
-        dispatch(setAssets(currentPage * limit - limit, limit))
     }, [page])
-
-    useEffect(() => {
-    }, [])
-
     const onPageChanged = (page: number) => {
         navigate(`/coins/:page=${page}`)
         dispatch(setAppCurrentPage(page))
         dispatch(setAssets((page) * limit - limit, limit))
     }
-
     return <div className={classes.container}>
         <div className={classes.wrap}>
             <table>

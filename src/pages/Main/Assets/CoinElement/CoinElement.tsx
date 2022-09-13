@@ -5,27 +5,29 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setAssetsByID} from "../../../../redux/assets-reducer";
 
+export const formatPrice = (value: number) => {
+    let fraction = 2
+    if (value < 0.1 && value > 0){
+        fraction = 5
+    }
+    return new Intl.NumberFormat('USD', {
+        currency: 'usd',
+        style: 'currency',
+        maximumFractionDigits: fraction,
+    }).format(+value)
+}
+
 export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
 
-    const formatNumber = (value: number) => {
-        let fraction = 2
-        if (value < 0.1 && value > 0){
-            fraction = 5
-        }
-        return new Intl.NumberFormat('USD', {
-            currency: 'usd',
-            style: 'currency',
-            maximumFractionDigits: fraction,
-        }).format(+value)
-    }
+
 
     const onClick = (id: string) => {
         dispatch(setAssetsByID(id))
-        navigate(`/:${id}`)
+        navigate(`/:id=${id}`)
     }
 
     return <tr onClick={(e) => {onClick(coin.id)}}>
@@ -40,16 +42,16 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
             </div>
         </td>
         <td>
-            <p className={classes.number}>{formatNumber(+coin.priceUsd)}</p>
+            <p className={classes.number}>{formatPrice(+coin.priceUsd)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatNumber(+coin.changePercent24Hr)}</p>
+            <p className={classes.number}>{formatPrice(+coin.changePercent24Hr)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatNumber(+coin.marketCapUsd)}</p>
+            <p className={classes.number}>{formatPrice(+coin.marketCapUsd)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatNumber(+coin.volumeUsd24Hr)}</p>
+            <p className={classes.number}>{formatPrice(+coin.volumeUsd24Hr)}</p>
         </td>
     </tr>
 }

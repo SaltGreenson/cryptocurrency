@@ -10,10 +10,12 @@ import {Params, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import {setAppCurrentPage} from "../../../redux/app-reducer";
 
+export const getValueFromParams = (params: string) => {
+    return params.split('=')[1]
+}
+
 export const Assets: React.FC = (props) => {
-    const getValueFromParams = (params: string) => {
-        return params.split('=')[1]
-    }
+
     const assets = useSelector(getAssets)
     const lastRank = useSelector(getLastRank)
     const limit = useSelector(getLimit)

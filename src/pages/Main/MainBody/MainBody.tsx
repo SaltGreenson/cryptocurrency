@@ -21,13 +21,13 @@ export const MainBody: React.FC = (props) => {
     const dispatch = useDispatch()
     const params: Readonly<Params<string>> = useParams()
     const navigate = useNavigate()
+    const page:number = +getValueFromParams(params.page as string)
     useEffect(() => {
-        const page:number = +getValueFromParams(params.page as string)
         dispatch(setAppCurrentPage(page))
-    }, [currentPage])
+        dispatch(setAssets(currentPage * limit - limit, limit))
+    }, [page])
 
     useEffect(() => {
-        // dispatch(setAssets(currentPage * limit - limit, limit))
     }, [])
 
     const onPageChanged = (page: number) => {

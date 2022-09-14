@@ -59,11 +59,17 @@ const CoinDescription: React.FC = (props) => {
                         label: "Price",
                         data: assetHistory.map(a => a.priceUsd),
                         borderColor: 'white',
-                        borderWidth: 3
+                        borderWidth: 1,
                     },
                 ],
             },
             options: {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     x: {
                         display: false,

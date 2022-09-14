@@ -20,7 +20,7 @@ const App: React.FC = (props) => {
     const initialized = useSelector(getInitialized)
     useEffect(() => {
         let offset = 0
-        let limit = 100
+        let limit = 50
         dispatch(setAssetsOffsets(offset))
         dispatch(setAssetsLimit(limit))
         dispatch(initializeApp(offset, limit))

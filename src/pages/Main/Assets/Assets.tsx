@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getAssets, getTop3Assets} from "../../../selectors/assets-selectors";
 import {CoinElement} from "./CoinElement/CoinElement";
 import classes from './Assets.module.css'
 import Paginator from "../../../components/Paginator/Paginator";
-import {getCurrentPage, getIsFetching, getLastRank, getLimit} from "../../../selectors/app-selectors";
+import {getCurrentPage, getLastRank, getLimit} from "../../../selectors/app-selectors";
 import {setAssets} from "../../../redux/assets-reducer";
-import {Params, useLocation, useNavigate, useParams} from "react-router-dom";
-import {useQuery} from "react-query";
+import {Params, useNavigate, useParams} from "react-router-dom";
 import {setAppCurrentPage} from "../../../redux/app-reducer";
-import Card from "../../../components/common/Card/Card";
+import Card from "../../../components/Card/Card";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]

@@ -44,8 +44,8 @@ export const Assets: React.FC = (props) => {
 
 
     return <div className={classes.container}>
-        <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
-        <div className={classes.wrap}>
+        <div className={classes.tableWrap}>
+            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
             <table>
                 <thead className={classes.theadStyle}>
                 <tr className={classes.headerTable}>
@@ -61,8 +61,9 @@ export const Assets: React.FC = (props) => {
                 {assets.map((coin) => <CoinElement key={coin.id} coin={coin}/>)}
                 </tbody>
             </table>
+            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
+
         </div>
-        <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
 
     </div>
 }

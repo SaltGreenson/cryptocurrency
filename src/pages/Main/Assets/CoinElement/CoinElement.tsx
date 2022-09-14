@@ -4,6 +4,7 @@ import classes from './CoinElement.module.css'
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setAssetsByID} from "../../../../redux/assets-reducer";
+import classNames from "classnames";
 
 export const formatPrice = (value: number) => {
     let fraction = 2
@@ -23,16 +24,13 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
     const dispatch = useDispatch()
 
 
-
-
     const onClick = (id: string) => {
         dispatch(setAssetsByID(id))
         navigate(`/:id=${id}`)
     }
-
     return <tr onClick={(e) => {onClick(coin.id)}}>
         <td>
-            {coin.rank}
+            <p className={classes.number}>{coin.rank}</p>
             <span className={classes.hidden}>{coin.id}</span>
         </td>
         <td>
@@ -48,7 +46,7 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
             <p className={classes.number}>{formatPrice(+coin.changePercent24Hr)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatPrice(+coin.marketCapUsd)}</p>
+            <p className={classNames(classes.number, classes.marketCap)}>{formatPrice(+coin.marketCapUsd)}</p>
         </td>
         <td>
             <p className={classes.number}>{formatPrice(+coin.volumeUsd24Hr)}</p>

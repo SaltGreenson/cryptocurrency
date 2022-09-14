@@ -3,12 +3,13 @@ import classes from "./Paginator.module.css"
 import classNames from "classnames"
 
 
-
-const Paginator: React.FC<PropsType> = ({totalItemsCount,
+const Paginator: React.FC<PropsType> = ({
+                                            totalItemsCount,
                                             pageSize,
                                             currentPage = 1,
                                             onPageChanged = x => x,
-                                            portionSize = 5}) => {
+                                            portionSize = 5
+                                        }) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
     const pages: Array<number> = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -18,29 +19,38 @@ const Paginator: React.FC<PropsType> = ({totalItemsCount,
     const [portionNumber, setPortionNumber] = useState<number>(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
-    return (
-        <div className={classes.paginator}>
+    return <div className={classes.container}>
+        <ul className={classes.paginatorWrap}>
             {portionNumber > 1 &&
-            <button onClick={() => {
-                setPortionNumber(portionNumber - 1)
-            }}>PREV</button>}
+                <div className={classes.navigationElement}>
+                    <p onClick={() => {
+                        setPortionNumber(portionNumber - 1)
+                    }}>&#11013;</p>
+                </div>
+            }
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => {
-                    return <span className={classNames({
-                        [classes.selectedPage]: currentPage === p
-                    }, classes.pageNumber)}
-                                 key={p} onClick={(e) => {
-                        onPageChanged(p)
-                    }
-                    }> {p} </span>
+                    return <div className={classes.pageNumberWrap}>
+                        <li className={classNames({
+                            [classes.selectedPage]: currentPage === p
+                        }, classes.pageNumber)}
+                            key={p} onClick={(e) => {
+                            onPageChanged(p)
+                        }
+                        }> {p} </li>
+                    </div>
                 })}
             {portionCount > portionNumber &&
-            <button onClick={() => {
-                setPortionNumber(portionNumber + 1)
-            }}>NEXT</button>}
-        </div>
-    )
+                <div className={classes.navigationElement}>
+                    <p onClick={() => {
+                        setPortionNumber(portionNumber + 1)
+                    }}>&#10145;</p>
+                </div>
+            }
+
+        </ul>
+    </div>
 }
 
 export default Paginator
@@ -53,7 +63,6 @@ type PropsType = {
     onPageChanged?: (offset: number) => void
     portionSize?: number
 }
-
 
 
 // -===========================================================================

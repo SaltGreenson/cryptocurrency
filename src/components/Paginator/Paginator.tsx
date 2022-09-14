@@ -31,7 +31,7 @@ const Paginator: React.FC<PropsType> = ({
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => {
-                    return <div className={classes.pageNumberWrap}>
+                    return <div key={p} className={classes.pageNumberWrap}>
                         <li className={classNames({
                             [classes.selectedPage]: currentPage === p
                         }, classes.pageNumber)}

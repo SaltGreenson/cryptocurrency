@@ -28,8 +28,7 @@ const initialState = {
         timestamp: null as Date | null
     },
     assetsTop3: {
-        data: [] as Array<AssetsType>,
-        timestamp: null as Date | null
+        data: [] as Array<AssetsType>
     }
 }
 
@@ -85,9 +84,11 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
     }
 
     const response: ResponseType = await assetsApi.assets(offset, limit)
-    const assetsTop3 = response.data
-        .sort((a, b) => a.rank - b.rank)
-        .slice(0, 3)
+    const assetsTop3 = {
+        data: response.data
+            .sort((a, b) => a.rank - b.rank)
+            .slice(0, 3)
+    }
 
     dispatch(actions.setAssetsTop3(assetsTop3))
     dispatch(actions.setAssets(response))

@@ -10,7 +10,6 @@ import {Params, useParams} from "react-router-dom";
 import {getValueFromParams} from "../../Assets";
 import {setAssetsByID, setAssetsHistoryById} from "../../../../../redux/assets-reducer";
 import {IntervalEnum} from "../../../../../api/assets-api";
-import {formatPrice} from "../CoinElement";
 
 const CoinDescription: React.FC = (props) => {
 
@@ -59,6 +58,8 @@ const CoinDescription: React.FC = (props) => {
                     {
                         label: "Price",
                         data: assetHistory.map(a => a.priceUsd),
+                        borderColor: 'white',
+                        borderWidth: 3
                     },
                 ],
             },
@@ -67,11 +68,18 @@ const CoinDescription: React.FC = (props) => {
                     x: {
                         display: false,
                         grid: {
-                            display: false
+                            display: false,
                         }
+                    },
+                    y: {
+                        display: true,
+                        grid: {
+                            display: true
+                        },
                     }
                 },
                 elements: {
+
                     point: {
                         radius: 1,
                         pointStyle: 'line',
@@ -84,7 +92,7 @@ const CoinDescription: React.FC = (props) => {
                     line: {
                         tension: 0,
                         borderWidth: 2,
-                        borderColor: 'black',
+                        borderColor: '#4fc180',
                         borderDashOffset: 0
                     }
                 }

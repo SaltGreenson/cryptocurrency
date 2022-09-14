@@ -5,3 +5,4 @@ export const getAssets = (state: AppStateType):Array<AssetsType> => state.assets
 export const getAsset = (state: AppStateType): AssetsType => state.assets.assetsById.data
 export const getAssetsHistory = (state: AppStateType): Array<AssetsHistoryType> => state.assets.assetsHistoryById.data
 export const getAssetsMarkets = (state: AppStateType): Array<AssetsMarket> => state.assets.assetsMarketsById.data
+export const getTop3Assets = (state: AppStateType): Array<AssetsType> => state.assets.assetsTop3.data

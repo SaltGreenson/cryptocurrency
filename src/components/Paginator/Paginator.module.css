@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
 .container {
     padding: 1rem 0;
 }
@@ -11,10 +9,7 @@
     justify-content: space-between;
 }
 
-.pageNumber {
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-}
+
 
 .pageNumberWrap, .selectedPage  {
     color: white;
@@ -28,13 +23,19 @@
     align-items: center;
 }
 
+.pageNumber {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
 .selectedPage {
     font-weight: 700;
     background-color: #ff0000;
+
 }
 
 .pageNumberWrap:hover{
-    border: 2px solid #ff0000;
+    border: 1px solid #ff0000;
     background-color: rgba(255, 0, 0, 0.1);
 }
 

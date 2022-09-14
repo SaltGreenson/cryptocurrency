@@ -18,6 +18,13 @@ export const formatPrice = (value: number) => {
     }).format(+value)
 }
 
+export const formatPercents = (value: number) => {
+    return new Intl.NumberFormat('USD', {
+        maximumFractionDigits: 2,
+        style: 'decimal'
+    }).format(value)
+}
+
 export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
 
     const navigate = useNavigate()
@@ -43,7 +50,7 @@ export const CoinElement: React.FC<{ coin: AssetsType }> = ({coin}) => {
             <p className={classes.number}>{formatPrice(+coin.priceUsd)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatPrice(+coin.changePercent24Hr)}</p>
+            <p className={classes.number}>{formatPercents(+coin.changePercent24Hr)}</p>
         </td>
         <td>
             <p className={classNames(classes.number, classes.marketCap)}>{formatPrice(+coin.marketCapUsd)}</p>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAssets} from "../../../selectors/assets-selectors";
+import {getAssets, getTop3Assets} from "../../../selectors/assets-selectors";
 import {CoinElement} from "./CoinElement/CoinElement";
 import classes from './Assets.module.css'
 import Paginator from "../../../components/Paginator/Paginator";
@@ -9,6 +9,7 @@ import {setAssets} from "../../../redux/assets-reducer";
 import {Params, useLocation, useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "react-query";
 import {setAppCurrentPage} from "../../../redux/app-reducer";
+import Card from "../../../components/common/Card/Card";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]
@@ -22,9 +23,10 @@ export const Assets: React.FC = (props) => {
     const currentPage = useSelector(getCurrentPage)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const top3Assets = useSelector(getTop3Assets)
 
     const params: Readonly<Params<string>> = useParams()
-    const page:number = +getValueFromParams(params.page as string)
+    const page: number = +getValueFromParams(params.page as string)
 
     useEffect(() => {
         if (page && page === +page) {
@@ -35,7 +37,6 @@ export const Assets: React.FC = (props) => {
         }
     }, [page])
 
-
     const onPageChanged = (page: number) => {
         navigate(`/coins/:page=${page}`)
         dispatch(setAppCurrentPage(page))
@@ -44,8 +45,12 @@ export const Assets: React.FC = (props) => {
 
 
     return <div className={classes.container}>
+        <div className={classes.heading}>
+            {top3Assets.map(coin => <Card key={coin.id} coin={coin}/>)}
+        </div>
         <div className={classes.tableWrap}>
-            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
+            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit}
+                       onPageChanged={onPageChanged}/>
             <table>
                 <thead className={classes.theadStyle}>
                 <tr className={classes.headerTable}>
@@ -61,7 +66,8 @@ export const Assets: React.FC = (props) => {
                 {assets.map((coin) => <CoinElement key={coin.id} coin={coin}/>)}
                 </tbody>
             </table>
-            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit} onPageChanged={onPageChanged}/>
+            <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit}
+                       onPageChanged={onPageChanged}/>
 
         </div>
 

@@ -101,6 +101,7 @@ export const initializeApp = (offset: number, limit: number): GenericThunkType<A
     dispatch(actionsApp.setFetching(true))
     await dispatch(setAssets(offset, limit))
     await dispatch(setAssetsLastRank())
+    // await dispatch(setAssetsTop3())
     dispatch(actionsApp.isInitialized(true))
     dispatch(actionsApp.setFetching(false))
 }

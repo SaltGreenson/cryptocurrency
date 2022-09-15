@@ -17,9 +17,10 @@
 
 .symbol {
     margin-left: 0.6rem;
-    font-size: 14px;
+    font-size: 16px;
     color: #afafaf;
 }
+
 @media (max-width: 780px) {
     .symbol {
         font-size: 16px;
@@ -31,6 +32,9 @@
     align-items: center;
 }
 
+.title, .symbol {
+    cursor: pointer;
+}
 
 .number {
     font-size: 14px;
@@ -42,11 +46,34 @@
 }
 
 
-
 .hidden {
     display: none;
 }
 
 .marketCap {
     color: #95a0a6;
+}
+
+.alreadyFavourite {
+    color: yellow;
+}
+
+.favourite, .alreadyFavourite {
+    cursor: pointer;
+    font-size: 26px;
+    transition: .3s;
+    transition-timing-function: linear;
+}
+
+.favourite {
+    color: #375f86;
+
+}
+
+.favourite:hover {
+    color: #79b4ee;
+}
+
+.alreadyFavourite:hover {
+    color: #ff8000;
 }

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import classes from "./Paginator.module.css"
 import classNames from "classnames"
+import {Link} from "react-router-dom";
 
 
 const Paginator: React.FC<PropsType> = ({
@@ -12,40 +13,45 @@ const Paginator: React.FC<PropsType> = ({
                                         }) => {
     const pagesCount = Math.ceil(totalItemsCount / pageSize)
     const pages: Array<number> = []
+
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
     const portionCount = Math.ceil(pagesCount / portionSize)
     const [portionNumber, setPortionNumber] = useState<number>(1)
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
+
+    const onClickPage = (pageNum: number) => {
+        onPageChanged(pageNum)
+    }
+
+    const onClickBtn = (portion: number) => {
+        setPortionNumber(portion)
+    }
+
     return <div className={classes.container}>
         <ul className={classes.paginatorWrap}>
             {portionNumber > 1 &&
                 <div className={classes.navigationElement}>
-                    <p onClick={() => {
-                        setPortionNumber(portionNumber - 1)
-                    }}>&#11013;</p>
+                    <p onClick={() => onClickBtn(portionNumber - 1)}>&#11013;</p>
                 </div>
             }
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                 .map(p => {
-                    return <div key={p} className={classes.pageNumberWrap}>
-                        <li className={classNames({
-                            [classes.selectedPage]: currentPage === p
-                        }, classes.pageNumber)}
-                            key={p} onClick={(e) => {
-                            onPageChanged(p)
-                        }
-                        }> {p} </li>
+                    return <div key={p} className={classes.pageNumberWrap} onClick={() => onClickPage(p)}>
+                        <Link to={`/coins/:page=${p}`}
+                              className={classNames({
+                                  [classes.selectedPage]: currentPage === p
+                              }, classes.pageNumber)}
+                              key={p}> {p} </Link>
                     </div>
                 })}
             {portionCount > portionNumber &&
                 <div className={classes.navigationElement}>
-                    <p onClick={() => {
-                        setPortionNumber(portionNumber + 1)
-                    }}>&#10145;</p>
+                    <p onClick={() => onClickBtn(portionNumber + 1)}>&#10145;</p>
                 </div>
             }
 

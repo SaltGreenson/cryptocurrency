@@ -6,4 +6,5 @@ export const getAssets = (state: AppStateType):Array<AssetsType> => state.assets
 export const getAsset = (state: AppStateType): AssetsType => state.assets.assetsById.data
 export const getAssetsHistory = (state: AppStateType): Array<AssetsHistoryType> => state.assets.assetsHistoryById.data
 export const getAssetsMarkets = (state: AppStateType): Array<AssetsMarket> => state.assets.assetsMarketsById.data
-export const getTop3Assets = (state: AppStateType): AssetsTop3Type | null => state.assets.assetsTop3
+export const getTop3Assets = (state: AppStateType): AssetsTop3Type => state.assets.assetsTop3
+export const getIsFetchingCard = (state: AppStateType): boolean => state.assets.isFetchingCard

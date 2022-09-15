@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import './App.module.css';
 import {withSuspense} from "./components/hoc/withSuspense";
 import {Provider, useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
@@ -8,46 +8,41 @@ import Preloader from "./components/common/Preloader/Preloader";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import store from "./redux/redux-store";
 import Header from "./components/Header/Header";
-import {getAssets} from "./selectors/assets-selectors";
 import {setAssetsTop3} from "./redux/assets-reducer";
+import classes from './App.module.css'
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
-const CoinDescrLazy = React.lazy(() => import('./pages/Main/Assets/CoinElement/CoinDescription/CoinDescription'))
+const SuspendedDescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
 
 const SuspendedMainPage = withSuspense(MainLazy)
-const SuspendedCoinDescr = withSuspense(CoinDescrLazy)
+const SuspendedDescription = withSuspense(SuspendedDescriptionLazy)
 
 const App: React.FC = (props) => {
 
     const dispatch = useDispatch()
     const initialized = useSelector(getInitialized)
-    const assets = useSelector(getAssets)
 
     useEffect(() => {
         let offset = 0
         let limit = 50
-        if (!assets.length) {
-            dispatch(initializeApp(offset, limit))
-        } else {
-            dispatch(setAssetsOffsets(offset))
-            dispatch(setAssetsLimit(limit))
-            dispatch(setAssetsTop3(offset, limit, assets))
-        }
-
-    }, [assets])
+        dispatch(setAssetsOffsets(offset))
+        dispatch(setAssetsLimit(limit))
+        dispatch(initializeApp(offset, limit))
+        dispatch(setAssetsTop3())
+    }, [])
 
     if (!initialized) {
         return <Preloader/>
     }
 
     return (
-        <div className="App">
+        <div className={classes.appContainer}>
             <Header/>
             <Routes>
                 <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
-                <Route path='/:id' element={<SuspendedCoinDescr/>}/>
+                <Route path='/:id' element={<SuspendedDescription/>}/>
                 <Route path='' element={<Navigate to='/coins/:page=1'/>}/>
             </Routes>
         </div>

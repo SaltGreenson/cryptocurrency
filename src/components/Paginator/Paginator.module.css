@@ -9,8 +9,6 @@
     justify-content: space-between;
 }
 
-
-
 .pageNumberWrap, .selectedPage  {
     color: white;
     cursor: pointer;

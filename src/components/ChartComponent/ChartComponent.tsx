@@ -9,6 +9,7 @@ import {IntervalEnum} from "../../api/assets-api";
 import LittlePreloader from "../common/LittlePreloader/LittlePreloader";
 import classes from './ChartComponent.module.css'
 import {AssetsHistoryType} from "../../api/types-api";
+import {useNavigate} from "react-router-dom";
 
 export const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
@@ -39,9 +40,10 @@ const ChartComponent: React.FC<PropsTypes> = ({
                                                   borderColor = '#4fc180'
                                               }) => {
 
-    const [tempAssetHistory, setTempHistory] = useState(assetHistory)
-
     useEffect(() => {
+
+
+
         Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
 
         const chartExist = Chart.getChart(id)
@@ -53,11 +55,11 @@ const ChartComponent: React.FC<PropsTypes> = ({
         new Chart(id, {
             type: "line",
             data: {
-                labels: tempAssetHistory.map(a => formatDate(a.time)),
+                labels: assetHistory.map(a => formatDate(a.time)),
                 datasets: [
                     {
                         label: "Price",
-                        data: tempAssetHistory.map(a => a.priceUsd),
+                        data: assetHistory.map(a => a.priceUsd),
                         borderColor: borderColor,
                         borderWidth: borderWidth
                     },

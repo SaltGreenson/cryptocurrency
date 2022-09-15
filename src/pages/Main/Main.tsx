@@ -1,19 +1,40 @@
 import React from 'react'
-import {useSelector} from "react-redux";
-import Preloader from "../../components/common/Preloader/Preloader";
-import {getIsFetching} from "../../selectors/app-selectors";
-import {Assets} from "./Assets/Assets";
+import {useDispatch, useSelector} from "react-redux";
+import {getCurrentPage, getLastRank, getLimit} from "../../selectors/app-selectors";
+import {Assets} from "../../components/Assets/Assets";
 import classes from './Main.module.css'
 import Card from "../../components/Card/Card";
+import {getIsFetchingCard, getTop3Assets} from "../../selectors/assets-selectors";
+import Paginator from "../../components/Paginator/Paginator";
+import {setAppCurrentPage} from "../../redux/app-reducer";
+import {setAssets} from "../../redux/assets-reducer";
+import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
 
 const MainPage: React.FC = (props) => {
-    const isFetching = useSelector(getIsFetching)
-    return <>
-        {/*<div className={classes.heading}>*/}
-        {/*    {top3Assets.map(coin => <Card key={coin.id} coin={coin}/>)}*/}
-        {/*</div>*/}
-        {isFetching? <Preloader/>: <Assets/>}
 
+    const top3Assets = useSelector(getTop3Assets)
+    const lastRank = useSelector(getLastRank)
+    const limit = useSelector(getLimit)
+    const currentPage = useSelector(getCurrentPage)
+    const isFetching = useSelector(getIsFetchingCard)
+
+    const dispatch = useDispatch()
+
+    const onPageChanged = (page: number) => {
+        dispatch(setAppCurrentPage(page))
+        dispatch(setAssets((page) * limit - limit, limit))
+    }
+
+    return <>
+        {isFetching? <LittlePreloader/> : <div className={classes.heading}>
+            {top3Assets.data.map(coin => <Card key={coin.id} coinData={coin.data} coinHistory={coin.history}/>)}
+        </div>
+        }
+        <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit}
+                   onPageChanged={onPageChanged}/>
+        <Assets/>
+        <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit}
+                   onPageChanged={onPageChanged}/>
     </>
 }
 

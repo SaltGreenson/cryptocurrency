@@ -9,6 +9,7 @@ const SET_ASSETS_BY_ID = 'SET_ASSETS_BY_ID'
 const SET_ASSETS_HISTORY_BY_ID = 'SET_ASSETS_HISTORY_BY_ID'
 const SET_ASSETS_MARKETS_BY_ID = 'SET_ASSETS_MARKETS_BY_ID'
 const SET_ASSETS_TOP_3 = 'SET_ASSETS_TOP_3'
+const SET_IS_FETCHING_CARD = 'SET_IS_FETCHING_CARD'
 
 export type AssetsTop3Type = {
     data: [{
@@ -34,7 +35,8 @@ const initialState = {
         data: [] as Array<AssetsMarket>,
         timestamp: null as Date | null
     },
-    assetsTop3: {} as AssetsTop3Type | null
+    assetsTop3: {} as AssetsTop3Type,
+    isFetchingCard: false
 }
 
 const actions = {
@@ -57,6 +59,10 @@ const actions = {
     setAssetsTop3Action: (assetsTop3: AssetsTop3Type) => ({
         type: SET_ASSETS_TOP_3,
         payload: {assetsTop3}
+    } as const),
+    setIsFetchingCard: (isFetchingCard: boolean) => ({
+        type: SET_IS_FETCHING_CARD,
+        payload: {isFetchingCard}
     } as const)
 }
 
@@ -70,6 +76,7 @@ const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStat
         case 'SET_ASSETS_HISTORY_BY_ID':
         case 'SET_ASSETS_MARKETS_BY_ID':
         case "SET_ASSETS_TOP_3":
+        case "SET_IS_FETCHING_CARD":
         case 'SET_ASSETS': {
             return {
                 ...state,
@@ -87,18 +94,15 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
     if (!offset) {
         offset = 0
     }
-
     const response: ResponseType = await assetsApi.assets(offset, limit)
     dispatch(actions.setAssets(response))
 }
 
-export const setAssetsTop3 = (offset: number, limit: number, assets: Array<AssetsType>): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
 
-    if (!assets.length) {
-        return
-    }
-
-    const assetsTop3 =  assets
+    dispatch(actions.setIsFetchingCard(true))
+    const response: ResponseType = await assetsApi.assets(0, 10)
+    const assetsTop3 =  response.data
             .sort((a, b) => a.rank - b.rank)
             .slice(0, 3)
 
@@ -122,6 +126,7 @@ export const setAssetsTop3 = (offset: number, limit: number, assets: Array<Asset
     }
 
     dispatch(actions.setAssetsTop3Action(obj))
+    dispatch(actions.setIsFetchingCard(false))
 }
 
 export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {

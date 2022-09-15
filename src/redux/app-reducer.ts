@@ -1,8 +1,8 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
-import {setAssets} from "./assets-reducer";
+import {setAssets, setAssetsTop3} from "./assets-reducer";
 import {Dispatch} from "react";
 import {assetsApi} from "../api/assets-api";
-import {ResponseType} from "../api/types-api";
+import {AssetsType, ResponseType} from "../api/types-api";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 const SET_FETCHING = 'SET_FETCHING'

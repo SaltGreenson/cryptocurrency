@@ -10,6 +10,13 @@ const SET_ASSETS_HISTORY_BY_ID = 'SET_ASSETS_HISTORY_BY_ID'
 const SET_ASSETS_MARKETS_BY_ID = 'SET_ASSETS_MARKETS_BY_ID'
 const SET_ASSETS_TOP_3 = 'SET_ASSETS_TOP_3'
 
+export type AssetsTop3Type = {
+    data: [{
+        id: string,
+        history: Array<AssetsHistoryType>,
+        data: AssetsType
+    }]
+}
 const initialState = {
     assets: {
         data: [] as Array<AssetsType>,
@@ -27,9 +34,7 @@ const initialState = {
         data: [] as Array<AssetsMarket>,
         timestamp: null as Date | null
     },
-    assetsTop3: {
-        data: [] as Array<AssetsType>
-    }
+    assetsTop3: {} as AssetsTop3Type | null
 }
 
 const actions = {
@@ -49,7 +54,7 @@ const actions = {
         type: SET_ASSETS_MARKETS_BY_ID,
         payload: {assetsMarketsById}
     } as const),
-    setAssetsTop3: (assetsTop3: any) => ({
+    setAssetsTop3Action: (assetsTop3: AssetsTop3Type) => ({
         type: SET_ASSETS_TOP_3,
         payload: {assetsTop3}
     } as const)
@@ -57,6 +62,7 @@ const actions = {
 
 export type InitialStateType = typeof initialState
 type ActionsTypes = InferActionsTypes<typeof actions>
+
 
 const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStateType => {
     switch (actions.type) {
@@ -77,22 +83,45 @@ const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStat
 }
 
 export const setAssets = (offset: number, limit: number): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-    dispatch(actionsApp.setFetching(true))
 
     if (!offset) {
         offset = 0
     }
 
     const response: ResponseType = await assetsApi.assets(offset, limit)
-    const assetsTop3 = {
-        data: response.data
-            .sort((a, b) => a.rank - b.rank)
-            .slice(0, 3)
+    dispatch(actions.setAssets(response))
+}
+
+export const setAssetsTop3 = (offset: number, limit: number, assets: Array<AssetsType>): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+
+    if (!assets.length) {
+        return
     }
 
-    dispatch(actions.setAssetsTop3(assetsTop3))
-    dispatch(actions.setAssets(response))
-    dispatch(actionsApp.setFetching(false))
+    const assetsTop3 =  assets
+            .sort((a, b) => a.rank - b.rank)
+            .slice(0, 3)
+
+    const promise = assetsTop3.map((e) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
+    const histories: Array<ResponseType> = await Promise.all([...promise])
+
+    const obj: AssetsTop3Type = {
+        data: [{
+            id: assetsTop3[0].id,
+            history: [...histories[0].data],
+            data: assetsTop3[0]
+        }]
+    }
+
+    for (let i = 1; i < histories.length; i++) {
+        obj.data.push({
+            id: assetsTop3[i].id,
+            history: [...histories[i].data],
+            data: assetsTop3[i]
+        })
+    }
+
+    dispatch(actions.setAssetsTop3Action(obj))
 }
 
 export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {

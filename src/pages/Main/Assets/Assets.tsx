@@ -44,9 +44,7 @@ export const Assets: React.FC = (props) => {
 
 
     return <div className={classes.container}>
-        <div className={classes.heading}>
-            {top3Assets.map(coin => <Card key={coin.id} coin={coin}/>)}
-        </div>
+
         <div className={classes.tableWrap}>
             <Paginator totalItemsCount={lastRank} currentPage={currentPage} pageSize={limit}
                        onPageChanged={onPageChanged}/>

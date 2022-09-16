@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto';
 import {LinearScale, LineController, LineElement, PointElement, Title} from 'chart.js'
 import {getIsFetching} from "../../selectors/app-selectors";
 import {getAssetsHistory} from "../../selectors/assets-selectors";
-import {setAssetsByID, setAssetsHistoryById} from "../../redux/assets-reducer";
+import {setAssetByID, setAssetsHistoryById} from "../../redux/assets-reducer";
 import {IntervalEnum} from "../../api/assets-api";
 import LittlePreloader from "../common/LittlePreloader/LittlePreloader";
 import classes from './ChartComponent.module.css'
@@ -40,10 +40,8 @@ const ChartComponent: React.FC<PropsTypes> = ({
                                                   borderColor = '#4fc180'
                                               }) => {
 
+
     useEffect(() => {
-
-
-
         Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
 
         const chartExist = Chart.getChart(id)
@@ -76,7 +74,7 @@ const ChartComponent: React.FC<PropsTypes> = ({
                     x: {
                         display: isDisplayX,
                         grid: {
-                            display: false,
+                            display: false
                         }
                     },
                     y: {

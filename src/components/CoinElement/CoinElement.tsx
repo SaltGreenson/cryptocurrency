@@ -3,8 +3,9 @@ import {AssetsType} from "../../api/types-api";
 import classes from './CoinElement.module.css'
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setAssetsByID} from "../../redux/assets-reducer";
+import {setAssetByID} from "../../redux/assets-reducer";
 import classNames from "classnames";
+import Description from "../../pages/Description/Description";
 
 export const formatPrice = (value: number, fraction: number = 2) => {
     if (value < 0.1 && value > 0) {
@@ -36,27 +37,16 @@ export const CoinElement: React.FC<PropsTypes> = ({
                                                       addToFavourite
                                                   }) => {
 
-    const dispatch = useDispatch()
-
-
-    const onClick = (id: string) => {
-        dispatch(setAssetsByID(id))
-    }
-
-
-
-
     return <tr>
         <td>
             <p className={classes.number}>{coin.rank}</p>
         </td>
         <td>
-            <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite} onClick={() => addToFavourite(coin)}>&#10017;</p>
+            <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
+               onClick={() => addToFavourite(coin)}>&#10017;</p>
         </td>
         <td>
-            <div className={classes.titleWrap} onClick={(e) => {
-                onClick(coin.id)
-            }}>
+            <div className={classes.titleWrap}>
                 <Link to={`/:id=${coin.id}`} className={classes.title}>{coin.name}</Link>
                 <Link to={`/:id=${coin.id}`} className={classes.symbol}>{coin.symbol}</Link>
             </div>

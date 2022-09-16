@@ -4,7 +4,7 @@ import {getCurrentPage, getLastRank, getLimit} from "../../selectors/app-selecto
 import {Assets} from "../../components/Assets/Assets";
 import classes from './Main.module.css'
 import Card from "../../components/Card/Card";
-import {getIsFetchingCard, getTop3Assets} from "../../selectors/assets-selectors";
+import {getIsFetchingAssetsPage, getTop3Assets} from "../../selectors/assets-selectors";
 import Paginator from "../../components/Paginator/Paginator";
 import {setAppCurrentPage} from "../../redux/app-reducer";
 import {setAssets} from "../../redux/assets-reducer";
@@ -16,7 +16,7 @@ const MainPage: React.FC = (props) => {
     const lastRank = useSelector(getLastRank)
     const limit = useSelector(getLimit)
     const currentPage = useSelector(getCurrentPage)
-    const isFetching = useSelector(getIsFetchingCard)
+    const isFetching = useSelector(getIsFetchingAssetsPage)
 
     const dispatch = useDispatch()
 

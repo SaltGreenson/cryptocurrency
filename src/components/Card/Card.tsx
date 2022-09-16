@@ -5,9 +5,9 @@ import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import LittlePreloader from "../common/LittlePreloader/LittlePreloader";
 import ChartComponent from "../ChartComponent/ChartComponent";
 import {useDispatch, useSelector} from "react-redux";
-import {getAssetsHistory, getIsFetchingCard} from "../../selectors/assets-selectors";
+import {getAssetsHistory, getIsFetchingAssetsPage} from "../../selectors/assets-selectors";
 import {getIsFetching} from "../../selectors/app-selectors";
-import {AssetsTop3Type, setAssetsByID, setAssetsHistoryById, setAssetsTop3} from "../../redux/assets-reducer";
+import {AssetsTop3Type, setAssetByID, setAssetsHistoryById, setAssetsTop3} from "../../redux/assets-reducer";
 import {IntervalEnum} from "../../api/assets-api";
 import {useNavigate} from "react-router-dom";
 
@@ -18,7 +18,7 @@ const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryTyp
 
 
     const onClick = (id: string) => {
-        dispatch(setAssetsByID(id))
+        dispatch(setAssetByID(id))
         navigate(`/:id=${id}`)
     }
 

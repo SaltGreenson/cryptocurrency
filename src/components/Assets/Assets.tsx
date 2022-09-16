@@ -33,7 +33,6 @@ export const Assets: React.FC = () => {
     const dispatch = useDispatch()
 
     const params: Readonly<Params<string>> = useParams()
-
     const page: number = +getValueFromParams(params.page as string)
 
     const state = JSON.parse(localStorage.getItem(keys.localStorageName) as string)

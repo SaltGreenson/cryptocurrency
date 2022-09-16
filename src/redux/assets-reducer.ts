@@ -36,7 +36,7 @@ const initialState = {
         timestamp: null as Date | null
     },
     assetsTop3: {} as AssetsTop3Type,
-    isFetchingCard: false
+    isFetchingAssetPage: false
 }
 
 const actions = {
@@ -60,9 +60,9 @@ const actions = {
         type: SET_ASSETS_TOP_3,
         payload: {assetsTop3}
     } as const),
-    setIsFetchingCard: (isFetchingCard: boolean) => ({
+    setIsFetchingAssetPage: (isFetchingAssetPage: boolean) => ({
         type: SET_IS_FETCHING_CARD,
-        payload: {isFetchingCard}
+        payload: {isFetchingAssetPage}
     } as const)
 }
 
@@ -100,7 +100,7 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
 
 export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
 
-    dispatch(actions.setIsFetchingCard(true))
+    dispatch(actions.setIsFetchingAssetPage(true))
     const response: ResponseType = await assetsApi.assets(0, 10)
     const assetsTop3 =  response.data
             .sort((a, b) => a.rank - b.rank)
@@ -126,14 +126,14 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
     }
 
     dispatch(actions.setAssetsTop3Action(obj))
-    dispatch(actions.setIsFetchingCard(false))
+    dispatch(actions.setIsFetchingAssetPage(false))
 }
 
-export const setAssetsByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-    dispatch(actionsApp.setFetching(true))
+export const setAssetByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
+    dispatch(actions.setIsFetchingAssetPage(true))
     const response: ResponseType = await assetsApi.assetsById(id)
     dispatch(actions.setAssetsById(response))
-    dispatch(actionsApp.setFetching(false))
+    dispatch(actions.setIsFetchingAssetPage(false))
 }
 
 export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {

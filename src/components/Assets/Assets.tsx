@@ -11,13 +11,18 @@ import {setAppCurrentPage} from "../../redux/app-reducer";
 import Card from "../Card/Card";
 import {AssetsType} from "../../api/types-api";
 import PopUp from "../common/PopUp/PopUp";
-import CoinDescription, {FavouriteType} from "../CoinDescription/CoinDescription";
-import classesCoinElement from '../CoinElement/CoinElement.module.css'
+import CoinDescription from "../CoinDescription/CoinDescription";
+import {keys} from "../../keys";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]
 }
 
+export type FavouriteType = {
+    coin: AssetsType,
+    quantity: number,
+    totalPrice: number
+}
 
 export const Assets: React.FC = () => {
 
@@ -31,37 +36,33 @@ export const Assets: React.FC = () => {
 
     const page: number = +getValueFromParams(params.page as string)
 
-    const state = JSON.parse(localStorage.getItem('myCoins') as string)
-    const [favourite, setFavourite] = useState<Array<FavouriteType>>(state ? state : [])
+    const state = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
+    const [favourites, setFavourites] = useState<Array<FavouriteType>>(state ? state : [])
 
     const [isPopUpActive, setIsPopUpActive] = useState(false)
     const [selectedCoin, setSelectedCoin] = useState<AssetsType>({} as AssetsType)
 
     const [pageFromParams, setPageFromParams] = useState<number>(page ? page : 1)
 
-    const [currentFavouriteClass, setCurrentFavouriteClass] = useState<string>(classesCoinElement.favourite)
 
     const alreadyInFavourite = (coinId: string) => {
-        return favourite ? favourite.some(f => f.coin.id === coinId) : false
+        return favourites ? favourites.some(f => f.coin.id === coinId) : false
     }
 
-    const addToFavourite = (favouriteCoin: FavouriteType): boolean => {
+    const addToFavourite = (coin: AssetsType): boolean => {
         let was = false
-
-        if (alreadyInFavourite(favouriteCoin.coin.id)) {
-            setFavourite(favourite.filter(j => j.coin.id !== favouriteCoin.coin.id))
+        if (alreadyInFavourite(coin.id)) {
+            setFavourites(favourites.filter(j => j.coin.id !== coin.id))
             was = true
-            setCurrentFavouriteClass(classesCoinElement.favourite)
         } else {
-            setFavourite([...favourite, favouriteCoin])
-            setCurrentFavouriteClass(classesCoinElement.alreadyFavourite)
+            setPopUpActive(coin)
         }
         return was
     }
 
     useEffect(() => {
-        localStorage.setItem('myCoins', JSON.stringify(favourite))
-    }, [favourite])
+        localStorage.setItem(keys.localStorageName, JSON.stringify(favourites))
+    }, [favourites])
 
     useEffect(() => {
         if (pageFromParams && pageFromParams === +pageFromParams) {
@@ -94,16 +95,18 @@ export const Assets: React.FC = () => {
                 </thead>
                 <tbody>
                 {assets.map((coin) => <CoinElement key={coin.id}
-                                                   setPopUpActive={setPopUpActive}
+                                                   addToFavourite={addToFavourite}
                                                    coin={coin}
-                                                   alreadyInFavourite={alreadyInFavourite}
-                                                   currentFavouriteClass={currentFavouriteClass}
-                                                   setCurrentFavouriteClass={setCurrentFavouriteClass}/>)}
+                                                   alreadyInFavourite={alreadyInFavourite}/>)}
                 </tbody>
             </table>
         </div>
         <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
-            <CoinDescription coin={selectedCoin}/>
+            <CoinDescription coin={selectedCoin}
+                             setFavourites={setFavourites}
+                             favourites={favourites}
+                             setIsPopUpActive={setIsPopUpActive}
+            />
         </PopUp>
     </div>
 }

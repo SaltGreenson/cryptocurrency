@@ -4,32 +4,34 @@ import {AssetsType} from "../../api/types-api";
 import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
 import {Button, InputNumber} from "../common/FormsControls/FormsControls";
+import {FavouriteType} from "../Assets/Assets";
 
 type PropsTypes = {
     coin: AssetsType,
+    setFavourites: (f: Array<FavouriteType>) => void,
+    favourites: Array<FavouriteType>,
+    setIsPopUpActive: (b: boolean) => void
 }
 
-export type FavouriteType = {
-    coin: AssetsType,
-    quantity: number,
-    totalPrice: number
-}
-
-const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
+const CoinDescription: React.FC<PropsTypes> = ({
+                                                   coin,
+                                                   setFavourites,
+                                                   setIsPopUpActive,
+                                                   favourites
+                                               }) => {
 
     const [quantityCoin, setQuantityCoin] = useState<number>(0)
     const [totalPrice, setTotalPrice] = useState<string>('0')
 
     const changeTotalPrice = (quantity: number) => {
-        const tP:number = coin.priceUsd * quantity
+        const tP: number = coin.priceUsd * quantity
         const maxValue = Math.pow(10, 12)
-        if (tP > maxValue){
-            setTotalPrice( String(maxValue - 1))
+        if (tP > maxValue) {
+            setTotalPrice(String(maxValue - 1))
         } else {
             setTotalPrice(String(tP))
         }
     }
-
 
 
     const incrementQuantityCoin = () => {
@@ -54,12 +56,18 @@ const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const element = {
+        if (quantityCoin <= 0) {
+            return
+        }
+        const element: FavouriteType = {
             coin,
             quantity: quantityCoin,
-            totalPrice
+            totalPrice: +totalPrice
         }
-        console.log(element)
+        setFavourites([...favourites, element])
+        setQuantityCoin(0)
+        setTotalPrice('0')
+        setIsPopUpActive(false)
     }
 
     return <div className={classes.container}>

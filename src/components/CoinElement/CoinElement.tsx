@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {AssetsType} from "../../api/types-api";
 import classes from './CoinElement.module.css'
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {setAssetsByID} from "../../redux/assets-reducer";
 import classNames from "classnames";
-import {FavouriteType} from "../CoinDescription/CoinDescription";
 
 export const formatPrice = (value: number, fraction: number = 2) => {
     if (value < 0.1 && value > 0) {
@@ -26,19 +25,15 @@ export const formatPercents = (value: number) => {
 }
 
 type PropsTypes = {
-    setPopUpActive: (coin: AssetsType) => void,
     coin: AssetsType,
-    alreadyInFavourite: (id: string) => boolean,
-    currentFavouriteClass: string,
-    setCurrentFavouriteClass: (curClass:string) => void
+    alreadyInFavourite: (id: string) => boolean
+    addToFavourite: (coin: AssetsType) => boolean
 }
 
 export const CoinElement: React.FC<PropsTypes> = ({
                                                       coin,
-                                                      currentFavouriteClass,
                                                       alreadyInFavourite,
-                                                      setPopUpActive,
-                                                      setCurrentFavouriteClass
+                                                      addToFavourite
                                                   }) => {
 
     const dispatch = useDispatch()
@@ -49,12 +44,6 @@ export const CoinElement: React.FC<PropsTypes> = ({
     }
 
 
-    useEffect(() => {
-        if (alreadyInFavourite(coin.id)) {
-            setCurrentFavouriteClass(classes.alreadyFavourite)
-        }
-    }, [])
-
 
 
     return <tr>
@@ -62,7 +51,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
             <p className={classes.number}>{coin.rank}</p>
         </td>
         <td>
-            <p className={currentFavouriteClass} onClick={() => setPopUpActive(coin)}>&#10017;</p>
+            <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite} onClick={() => addToFavourite(coin)}>&#10017;</p>
         </td>
         <td>
             <div className={classes.titleWrap} onClick={(e) => {

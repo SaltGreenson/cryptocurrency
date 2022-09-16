@@ -81,7 +81,6 @@ export const CoinElement: React.FC<PropsTypes> = ({coin,
     return <tr>
         <td>
             <p className={classes.number}>{coin.rank}</p>
-            <span className={classes.hidden}>{coin.id}</span>
         </td>
         <td>
             <p className={currentFavouriteClass} onClick={() => addFavourite(coin)}>&#10017;</p>

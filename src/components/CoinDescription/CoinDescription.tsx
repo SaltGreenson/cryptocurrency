@@ -3,6 +3,7 @@ import classes from './CoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
 import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
+import {InputNumber} from "../common/FormsControls/FormsControls";
 
 type PropsTypes = {
     coin: AssetsType
@@ -37,7 +38,7 @@ const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
                 <p className={classNames(classes.internalTitle, classes.supply)}>Volume(24h):</p>
                 <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 0)}</span>
             </div>
-
+            <InputNumber/>
         </div>
     </div>
 }

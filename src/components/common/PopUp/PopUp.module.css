@@ -38,3 +38,40 @@
         margin: 0;
     }
 }
+
+.closeWrap {
+    position: fixed;
+    right: -40px;
+    top: -40px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+.close {
+    width: 15px;
+    height: 15px;
+}
+.closeWrap:hover {
+    opacity: 1;
+}
+
+.close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 15px;
+    width: 3px;
+    background-color: #ff0000;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}

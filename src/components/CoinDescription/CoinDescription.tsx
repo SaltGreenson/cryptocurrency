@@ -1,15 +1,66 @@
-import React from "react"
+import React, {FormEvent, useEffect, useState} from "react"
 import classes from './CoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
 import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
-import {InputNumber} from "../common/FormsControls/FormsControls";
+import {Button, InputNumber} from "../common/FormsControls/FormsControls";
 
 type PropsTypes = {
-    coin: AssetsType
+    coin: AssetsType,
+}
+
+export type FavouriteType = {
+    coin: AssetsType,
+    quantity: number,
+    totalPrice: number
 }
 
 const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
+
+    const [quantityCoin, setQuantityCoin] = useState<number>(0)
+    const [totalPrice, setTotalPrice] = useState<string>('0')
+
+    const changeTotalPrice = (quantity: number) => {
+        const tP:number = coin.priceUsd * quantity
+        const maxValue = Math.pow(10, 12)
+        if (tP > maxValue){
+            setTotalPrice( String(maxValue - 1))
+        } else {
+            setTotalPrice(String(tP))
+        }
+    }
+
+
+
+    const incrementQuantityCoin = () => {
+        const incr = +quantityCoin + 1
+        changeTotalPrice(incr)
+        setQuantityCoin(incr)
+    }
+
+    const decrementQuantityCoin = () => {
+        if (+quantityCoin > 0) {
+            const decr = +quantityCoin - 1
+            changeTotalPrice(decr)
+            setQuantityCoin(decr)
+        }
+    }
+
+    const handleChange = (event: any) => {
+        const quantity = event.target.value
+        changeTotalPrice(quantity)
+        setQuantityCoin(quantity)
+    }
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const element = {
+            coin,
+            quantity: quantityCoin,
+            totalPrice
+        }
+        console.log(element)
+    }
 
     return <div className={classes.container}>
         <div className={classes.cardWrap}>
@@ -18,9 +69,8 @@ const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
                 <span className={classes.rank}>RANK #{coin.rank}</span>
                 <span className={classes.price}>{formatPrice(coin.priceUsd)}</span>
             </div>
-
             <div className={classes.flexWrap}>
-                <p className={classes.internalTitle}>24h%:</p>
+                <p className={classNames(classes.internalTitle, classes.supply)}>24h%:</p>
                 <span className={classes.supply}>{formatPercents(coin.changePercent24Hr)}%</span>
             </div>
 
@@ -38,8 +88,23 @@ const CoinDescription: React.FC<PropsTypes> = ({coin}) => {
                 <p className={classNames(classes.internalTitle, classes.supply)}>Volume(24h):</p>
                 <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 0)}</span>
             </div>
-            <InputNumber/>
         </div>
+        <form onSubmit={handleSubmit}>
+            <div className={classes.formInternalContainer}>
+                <InputNumber name="quantitySigns"
+                             value={quantityCoin}
+                             increment={incrementQuantityCoin}
+                             decrement={decrementQuantityCoin}
+                             setValue={handleChange}
+                             placeholder={coin.symbol}/>
+                <div className={classes.totalPriceWrap}>
+                    <p className={classes.totalPriceTitle}>Total:</p>
+                    <p className={classes.totalPrice}>{formatPrice(+totalPrice, 2)}</p>
+                </div>
+            </div>
+            <Button type={"submit"} text="ADD TO BACKPACK"/>
+        </form>
+
     </div>
 }
 

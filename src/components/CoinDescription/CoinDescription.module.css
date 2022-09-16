@@ -4,7 +4,6 @@
 
 .cardWrap {
     position: relative;
-    margin: 0 auto;
     min-width: 400px;
     min-height: 150px;
     background-color: #303942;
@@ -13,6 +12,7 @@
     transition-timing-function: linear;
     padding: 1rem;
     border-radius: 15px;
+    margin-bottom: 2rem;
 }
 @media (max-width: 1200px) {
     .cardWrap {
@@ -51,35 +51,47 @@ span {
     display: flex;
     font-size: 20px;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 .flexWrap {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
+.formInternalContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.totalPriceWrap {
+    display: flex;
+}
+
+.totalPriceTitle {
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-right: 0.5rem;
+}
+
+.totalPrice {
+    font-size: 16px;
+}
 
 .changePercent, .internalTitle, .supply {
     font-size: 16px;
     display: flex;
     align-items: center;
-    color: #d6f6ff;
+    color: #ecfbff;
     margin-bottom: 5px;
-
-}
-
-
-@media (max-width: 780px) {
-    .internalTitle.supply, .supply {
-        font-size: 13px;
-    }
-
 }
 
 .internalTitle {
-    letter-spacing: 1px;
     font-weight: 700;
     margin-right: 1rem;
 }
@@ -94,5 +106,8 @@ span {
     margin-top: 1rem;
 }
 
+.internalTitle.supply {
+    font-weight: 400;
+}
 
 

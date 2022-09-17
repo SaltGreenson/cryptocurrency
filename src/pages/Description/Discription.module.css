@@ -1,5 +1,5 @@
 .container {
-    max-width: 80%;
+    max-width: 70%;
     margin: 0 auto;
 }
 
@@ -9,18 +9,18 @@
     }
 }
 
-@media (max-width: 768px) {
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-    }
-}
-
 .titleWrap {
     display: flex;
     justify-content: center;
     margin-right: 5rem;
+}
+
+@media (max-width: 768px) {
+    .titleWrap {
+        margin-right: 0;
+        margin-bottom: 3rem;
+        justify-content: left;
+    }
 }
 
 .name {
@@ -56,15 +56,26 @@
 
 .heading {
     display: flex;
-    justify-content: center;
-    max-height: 150px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    /*max-height: 150px;*/
 }
 
-
+/*.priceDescriptionContainer {*/
+/*    margin-right: 5rem;*/
+/*}*/
 
 .priceDescriptionWrap {
     color: #dcdbdb;
     font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .priceDescriptionWrap {
+        /*position: fixed;*/
+        /*left: 10px;*/
+    }
 }
 
 .priceDescription {
@@ -121,12 +132,19 @@
 
 .descriptionContainer {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 
 
 .chartWrap {
-    width: 400px;
-    height: 300px;
+    width: 350px;
+}
+
+@media (max-width: 768px) {
+    .chartWrap {
+        width: 300px;
+    }
 }
 

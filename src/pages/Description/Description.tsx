@@ -11,6 +11,7 @@ import classes from './Discription.module.css'
 import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElement";
 import classNames from "classnames";
+import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
 
 const Description: React.FC = (props) => {
 
@@ -44,7 +45,7 @@ const Description: React.FC = (props) => {
             </span>
             </div>
 
-            <div className={classes.priceDescriptionWrap}>
+            <div className={classes.priceDescriptionContainer}>
                 <div className={classes.priceDescriptionWrap}>
                     <p className={classes.priceDescription}>
                         {asset.name} Price
@@ -58,14 +59,14 @@ const Description: React.FC = (props) => {
                             <p className={classes.percentsPer24hWrap}>{formatPercents(+asset.changePercent24Hr)}%</p>
                         </div>
                     </div>
-
                 </div>
             </div>
-            <div className={classes.chartWrap}>
-                <ChartComponent assetHistory={assetHistory} id={id} isDisplayX={false} isDisplayY={false}/>
-            </div>
+            {!assetHistory ? <LittlePreloader/> :
+                <div className={classes.chartWrap}>
+                    <ChartComponent assetHistory={assetHistory} id={id} isDisplayX={false} isDisplayY={false}/>
+                </div>
+            }
         </div>
-
         <div className={classes.descriptionContainer}>
             <div className={classes.descriptionWrap}>
                 <div className={classes.descriptionElement}>
@@ -75,7 +76,6 @@ const Description: React.FC = (props) => {
                     <p className={classes.descriptionPrice}>{formatPrice(+asset.marketCapUsd)}</p>
                 </div>
             </div>
-
             <div className={classes.descriptionWrap}>
                 <div className={classes.descriptionElement}>
                     <div className={classes.descriptionTitleWrap}>
@@ -84,7 +84,6 @@ const Description: React.FC = (props) => {
                     <p className={classes.descriptionPrice}>{formatPrice(+asset.volumeUsd24Hr)}</p>
                 </div>
             </div>
-
             <div className={classes.descriptionWrap}>
                 <div className={classes.descriptionElement}>
                     <div className={classes.descriptionTitleWrap}>

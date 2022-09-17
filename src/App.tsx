@@ -10,6 +10,7 @@ import store from "./redux/redux-store";
 import Header from "./components/Header/Header";
 import {setAssetsTop3} from "./redux/assets-reducer";
 import classes from './App.module.css'
+import NotFoundPage from "./pages/NotFound/NotFound";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const SuspendedDescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
@@ -40,10 +41,9 @@ const App: React.FC = (props) => {
             <Header/>
             <Routes>
                 <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
-                <Route path='/coins' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
                 <Route path='/:id' element={<SuspendedDescription/>}/>
-                <Route path='' element={<Navigate to='/coins/:page=1'/>}/>
+                <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
         </div>
     );

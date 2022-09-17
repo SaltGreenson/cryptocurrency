@@ -1,0 +1,22 @@
+.container {
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+    }
+}
+
+.title {
+    font-size: 32px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.link {
+    font-style: italic;
+    text-decoration: underline;
+}

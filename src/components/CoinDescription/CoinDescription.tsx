@@ -110,7 +110,7 @@ const CoinDescription: React.FC<PropsTypes> = ({
                     <p className={classes.totalPrice}>{formatPrice(+totalPrice, 2)}</p>
                 </div>
             </div>
-            <Button type={"submit"} text="ADD TO BACKPACK"/>
+            <Button type={"submit"} redColor={false} text="ADD TO MY PORTFOLIO"/>
         </form>
 
     </div>

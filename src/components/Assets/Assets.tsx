@@ -13,6 +13,7 @@ import {AssetsType} from "../../api/types-api";
 import PopUp from "../common/PopUp/PopUp";
 import CoinDescription from "../CoinDescription/CoinDescription";
 import {keys} from "../../keys";
+import PopUpYesNo from "../common/PopUp/PopUpYesNo";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]
@@ -100,12 +101,17 @@ export const Assets: React.FC = () => {
                 </tbody>
             </table>
         </div>
-        <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
-            <CoinDescription coin={selectedCoin}
-                             setFavourites={setFavourites}
-                             favourites={favourites}
-                             setIsPopUpActive={setIsPopUpActive}
-            />
-        </PopUp>
+        <PopUpYesNo text="Do you want to create your portfolio?"
+                    active={isPopUpActive}
+                    setActive={setIsPopUpActive}
+                    setAnswer={(b: boolean) => {}}/>
+
+        {/*<PopUp active={isPopUpActive} setActive={setIsPopUpActive}>*/}
+        {/*    <CoinDescription coin={selectedCoin}*/}
+        {/*                     setFavourites={setFavourites}*/}
+        {/*                     favourites={favourites}*/}
+        {/*                     setIsPopUpActive={setIsPopUpActive}*/}
+        {/*    />*/}
+        {/*</PopUp>*/}
     </div>
 }

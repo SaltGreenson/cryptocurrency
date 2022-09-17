@@ -75,3 +75,26 @@
 .close:after {
     transform: rotate(-45deg);
 }
+
+.textWrap {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: .5px;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 780px) {
+    .textWrap {
+        font-size: 16px;
+    }
+}
+
+.flexSpace {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonWrap {
+    width: 40%;
+}

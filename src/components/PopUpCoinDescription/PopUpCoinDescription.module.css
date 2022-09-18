@@ -1,6 +1,12 @@
 .container {
     margin: 10px;
 }
+@media (max-width: 780px) {
+    .container {
+        min-width: 260px;
+    }
+}
+
 
 .cardWrap {
     position: relative;
@@ -16,7 +22,7 @@
 }
 @media (max-width: 1200px) {
     .cardWrap {
-        min-width: 350px;
+        /*min-width: 350px;*/
     }
 }
 
@@ -32,19 +38,18 @@ span {
 
 .rank {
     color: #555c62;
-    margin: 0 1rem 1rem 0;
+    margin: 0 0 1rem 1rem;
 
 }
 
 .symbol, .price {
     font-weight: 700;
     letter-spacing: 2px;
-    margin: 0 1rem 1rem 0;
+    margin: 0 0rem 1rem 0;
 }
 
 .price {
-    position: fixed;
-    right: 15px;
+    margin-left: auto;
 }
 
 .titleWrap {
@@ -75,6 +80,12 @@ span {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
+}
+
+@media (max-width: 780px) {
+    .formInternalContainer {
+        display: block;
+    }
 }
 
 @media (max-width: 780px) {
@@ -137,6 +148,7 @@ span {
 .btnWrap, .twoBtnsWrap {
     display: flex;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .btnWrap {
@@ -151,7 +163,12 @@ span {
     width: 60%;
 }
 
+@media (max-width: 780px) {
+    .btn {
+        width: 80%;
+    }
+}
+
 .smallBtn {
     width: 40%;
 }
-

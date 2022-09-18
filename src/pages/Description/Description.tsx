@@ -13,6 +13,10 @@ import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElem
 import classNames from "classnames";
 import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
 import classesPercents from '../../components/Header/Header.module.css'
+import PopUp from "../../components/common/PopUp/PopUp";
+import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoinDescription";
+import {getProfile} from "../../selectors/profile-selectors";
+import classesForFavourite from '../../components/CoinElement/CoinElement.module.css'
 
 const Description: React.FC = (props) => {
 
@@ -21,9 +25,13 @@ const Description: React.FC = (props) => {
     const isFetching = useSelector(getIsFetchingAssetsPage)
     const asset: AssetsType = useSelector(getAsset)
     const assetHistory = useSelector(getAssetsHistory)
+    const [popIsUpActive, setIsPopUpActive] = useState(false)
 
     const id: string = getValueFromParams(params.id as string)
     const [idFromParams, setIdFromParams] = useState<string>(id ? id : 'bitcoin')
+    const profileCoins = useSelector(getProfile).portfolio
+
+    const alreadyInFavourite = profileCoins.some(c => c.coin.id === asset.id)
 
     useEffect(() => {
         dispatch(setAssetByID(idFromParams))
@@ -41,9 +49,16 @@ const Description: React.FC = (props) => {
                     <p className={classes.rank}>RANK #{asset.rank}</p>
                 </div>
                 <p className={classes.name}>{asset.name}</p>
+
                 <span className={classes.symbolWrap}>
-                <p className={classes.symbol}>{asset.symbol}</p>
-            </span>
+                    <p className={classes.symbol}>{asset.symbol}</p>
+                </span>
+
+                <p className={alreadyInFavourite ? classesForFavourite.alreadyFavourite : classesForFavourite.favourite}
+                   onClick={() => {
+                       setIsPopUpActive(true)
+                   }}
+                >&#9733;</p>
             </div>
 
             <div className={classes.priceDescriptionContainer}>
@@ -98,7 +113,9 @@ const Description: React.FC = (props) => {
                 </div>
             </div>
         </div>
-
+        <PopUp active={popIsUpActive} setActive={setIsPopUpActive}
+               children={<PopUpCoinDescription coin={asset} setIsPopUpActive={setIsPopUpActive}
+                                               isAlreadyExistCoin={alreadyInFavourite}/>}/>
     </div>
 }
 

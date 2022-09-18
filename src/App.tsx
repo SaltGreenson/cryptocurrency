@@ -15,11 +15,12 @@ import {getProfile} from "./selectors/profile-selectors";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
-const HeaderLazy = React.lazy(() => import('./components/Header/Header'))
+const ProfileLazy = React.lazy(() => import('./pages/Profile/Profile'))
+
 
 const SuspendedMainPage = withSuspense(MainLazy)
 const SuspendedDescription = withSuspense(DescriptionLazy)
-const SuspendedHeader = withSuspense(HeaderLazy)
+const SuspendedProfile = withSuspense(ProfileLazy)
 
 const App: React.FC = (props) => {
 
@@ -42,11 +43,12 @@ const App: React.FC = (props) => {
 
     return (
         <div className={classes.appContainer}>
-            <SuspendedHeader profile={profile}/>
+            <Header profile={profile}/>
             <Routes>
                 <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
                 <Route path='/:id' element={<SuspendedDescription/>}/>
+                <Route path='/profile' element={<SuspendedProfile/>}/>
                 <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
         </div>

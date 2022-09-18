@@ -8,31 +8,26 @@ import {FavouriteType} from "../Assets/Assets";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
 import {addCoinToPortfolio, CoinInPortfolioType, removeCoinFromPortfolio} from "../../redux/profile-reducer";
+import {Link} from "react-router-dom";
 
 type PropsTypes = {
     coin: AssetsType,
     setIsPopUpActive: (b: boolean) => void
-    isAlreadyExistCoin: boolean
+    isAlreadyExistCoin: boolean,
+    needRedirect?: boolean
 }
 
 const PopUpCoinDescription: React.FC<PropsTypes> = ({
                                                         coin,
                                                         setIsPopUpActive,
-                                                        isAlreadyExistCoin
+                                                        isAlreadyExistCoin,
+                                                        needRedirect
                                                     }) => {
 
     const [quantityCoin, setQuantityCoin] = useState<number>(0)
     const [totalPrice, setTotalPrice] = useState<string>('0')
     const portfolio = useSelector(getProfile).portfolio
-    const [existCoin, setExistCoin] = useState<CoinInPortfolioType>(portfolio[0])
-
-    useEffect(() => {
-        if (isAlreadyExistCoin) {
-            const idx = portfolio.findIndex(existing => existing.coin.id === coin.id)
-            setExistCoin(portfolio[idx])
-        }
-
-    })
+    const idx = portfolio.findIndex(existing => existing.coin.id === coin.id)
 
     const dispatch = useDispatch()
 
@@ -47,13 +42,17 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
     }
 
     const deleteCoinFromPortfolio = () => {
+
         if (quantityCoin <= 0) {
             return
         }
+
+        setIsPopUpActive(false)
+
         dispatch(removeCoinFromPortfolio(coin, quantityCoin))
+
         setQuantityCoin(0)
         setTotalPrice('0')
-        setIsPopUpActive(false)
     }
 
     const appendPortfolio = () => {
@@ -86,12 +85,16 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
     }
 
     const showQuantity = () => {
-        return existCoin ? `${formatPercents(convertQuantity(existCoin.quantity), 8)} ${existCoin.coin.symbol}` : ''
+        return portfolio[idx] ? `${formatPercents(convertQuantity(portfolio[idx].quantity), 8)} ${portfolio[idx].coin.symbol}` : ''
     }
 
-    const showLittlePrice = (price: number) => {
-        const max = Math.pow(10, 5)
-        return max <= price ? max - 1 : price
+    const showLittlePrice = () => {
+        if (portfolio[idx]) {
+            let price = portfolio[idx].coin.priceUsd
+            const max = Math.pow(10, 12)
+            return max <= price ? max - 1 : price
+        }
+        return 0
     }
 
     const handleChange = (event: any) => {
@@ -103,7 +106,15 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
     return <div className={classes.container}>
         <div className={classes.cardWrap}>
             <div className={classes.titleWrap}>
-                <span className={classes.symbol}>{coin.symbol}</span>
+                <span className={classes.symbol}>
+                    {needRedirect
+                        ?
+                        <Link to={`/${coin.id}`}>{coin.symbol}</Link>
+                        :
+                        coin.symbol
+                    }
+
+                </span>
                 <span className={classes.rank}>RANK #{coin.rank}</span>
                 <span className={classes.price}>{formatPrice(coin.priceUsd)}</span>
             </div>
@@ -129,23 +140,31 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         </div>
 
         <div className={classes.formInternalContainer}>
+
             <InputNumber name="quantitySigns"
                          value={quantityCoin}
                          increment={incrementQuantityCoin}
                          decrement={decrementQuantityCoin}
                          setValue={handleChange}
                          placeholder={coin.symbol}/>
+
             <div className={classes.totalPriceWrap}>
                 <p className={classes.totalPriceTitle}>Total:</p>
-
-                <p className={classes.totalPrice}>{isAlreadyExistCoin ?
-                    `${formatPrice(showLittlePrice(existCoin.quantity * existCoin.coin.priceUsd), 2)} (${showQuantity()})`  :
-                    formatPrice(+totalPrice, 2)}
+                <p className={classes.totalPrice}>{formatPrice(+totalPrice, 2)}
                 </p>
-
             </div>
-        </div>
 
+
+        </div>
+        {isAlreadyExistCoin ?
+            <div className={classes.totalPriceWrap}>
+                <p className={classes.totalPriceTitle}>Own:</p>
+                <p className={classes.totalPrice}>
+                    {formatPrice(showLittlePrice(), 2)} ({showQuantity()})
+                </p>
+            </div>
+            : null
+        }
         <div className={classNames(classes.btnWrap, isAlreadyExistCoin ? classes.twoBtnsWrap : null)}>
             <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
                 <Button type={"button"} redColor={false} onClick={appendPortfolio}

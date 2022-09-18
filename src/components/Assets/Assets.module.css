@@ -49,10 +49,13 @@ tr {
     }
 }
 
-
-tbody tr:hover{
-    background: rgba(249, 252, 255, 0.06);
+@media (min-width: 1400px) {
+    tbody tr:hover{
+        background: rgba(249, 252, 255, 0.06);
+    }
 }
+
+
 
 
 .theadStyle {

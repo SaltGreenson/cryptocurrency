@@ -76,6 +76,7 @@ export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dis
     }
 
     if (!profile.portfolio.length) {
+        dispatch(actions.setProfile(profile))
         dispatch(actions.initializedSuccess())
         return
     }
@@ -84,9 +85,10 @@ export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dis
 
     for (let i = 0; i < profile.portfolio.length; i++) {
         const response = await assetsApi.assetsById(profile.portfolio[i].coin.id)
-        profile.balanceUsd += +(response.data.priceUsd * profile.portfolio[i].quantity).toFixed(2)
+        profile.balanceUsd += +(response.data.priceUsd * profile.portfolio[i].quantity)
         profile.portfolio[i].coin = response.data
     }
+
 
     localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
     dispatch(actions.setProfile(profile))
@@ -95,13 +97,16 @@ export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dis
 }
 
 export const addCoinToPortfolio = (coin: AssetsType, quantity: number) => (dispatch: Dispatch<ActionsTypes>) => {
+
+
     const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
 
-    const totalBalance = +(coin.priceUsd * quantity).toFixed(2)
+    const totalBalance = +(coin.priceUsd * +quantity)
     const idx = profile.portfolio.findIndex(po => po.coin.id === coin.id)
+    const changeable = profile.portfolio[idx]
 
     if (idx !== -1) {
-        profile.portfolio[idx].quantity += quantity
+        changeable.quantity = +changeable.quantity +quantity
     } else {
         profile.portfolio.push({coin, quantity})
     }
@@ -114,27 +119,39 @@ export const addCoinToPortfolio = (coin: AssetsType, quantity: number) => (dispa
 }
 
 export const removeCoinFromPortfolio = (coin: AssetsType, quantity: number) => (dispatch: Dispatch<ActionsTypes>) => {
+
+
     const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
     const idx = profile.portfolio.findIndex(po => po.coin.id === coin.id)
     const changeableCoin = profile.portfolio[idx]
 
-    if (idx !== -1) {
 
-        if (changeableCoin.quantity > quantity) {
-            const finalBalance = +(changeableCoin.coin.priceUsd * (changeableCoin.quantity - quantity)).toFixed(2)
-            profile.balanceUsd -= finalBalance
-            profile.initialBalance -= finalBalance
-            changeableCoin.quantity -= quantity
+    let finalBalance
 
-        } else {
+    if (changeableCoin.quantity > quantity) {
 
-            const finalBalance = +(changeableCoin.coin.priceUsd * changeableCoin.quantity).toFixed(2)
-            profile.balanceUsd -= finalBalance
-            profile.initialBalance -= finalBalance
-            profile.portfolio = profile.portfolio.filter(c => c.coin.id !== coin.id)
+        finalBalance = +(changeableCoin.coin.priceUsd * quantity)
+        changeableCoin.quantity -= quantity
 
-        }
+    } else {
+
+        finalBalance = +(changeableCoin.coin.priceUsd * changeableCoin.quantity)
+        profile.portfolio = profile.portfolio.filter(c => c.coin.id !== coin.id)
+
     }
+
+    if (profile.balanceUsd >= profile.initialBalance) {
+
+        profile.initialBalance = Math.abs(profile.initialBalance - finalBalance)
+
+    } else {
+
+        profile.initialBalance -= profile.balanceUsd
+
+    }
+
+    profile.balanceUsd -= finalBalance
+
     dispatch(actions.setProfile(profile))
     localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
 }

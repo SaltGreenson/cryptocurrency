@@ -44,12 +44,17 @@
 .balance, .balanceText {
     margin-right: 1rem;
 }
+
 @media (max-width: 780px) {
-    .balance {
-        display: none;
+    .balanceText {
+        margin-right: 5px;
     }
     .balanceWrap {
         font-size: 20px;
+        margin-right: 5px;
+    }
+    .dontShowBalance {
+        display: none;
     }
 }
 
@@ -71,7 +76,6 @@
     display: flex;
     justify-content: center;
     height: 32px;
-    width: 76px;
     align-items: center;
     padding: 1px 5px;
     border-radius: 10px;
@@ -83,4 +87,17 @@
 
 .increasedPercentsWrap {
     background-color: #4fc180;
+}
+
+.portfolioWrap {
+    border-radius: 10px;
+    background-color: #3f4a56;
+    padding: 1rem .5rem;
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.portfolio {
+    font-size: 20px;
+    letter-spacing: .5px;
 }

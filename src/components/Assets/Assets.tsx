@@ -64,13 +64,6 @@ export const Assets: React.FC = () => {
         }
     }, [pageFromParams])
 
-    const setPopUpActive = (coin: AssetsType) => {
-        const isExist = alreadyInFavourite(coin.id)
-        setSelectedCoin(coin)
-        setIsAlreadyExistCoin(isExist)
-        setIsPopUpActive(true)
-    }
-
     return <div className={classes.container}>
         <div className={classes.tableWrap}>
             <table>

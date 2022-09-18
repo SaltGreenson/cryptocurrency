@@ -97,20 +97,6 @@
     margin-right: 1.5rem;
 }
 
-.percentsPer24hWrap {
-    display: flex;
-    justify-content: center;
-    height: 32px;
-    width: 76px;
-    align-items: center;
-    padding: 1px 5px;
-    border-radius: 10px;
-    background-color: red;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 1px;
-}
-
 .flexCenter {
     display: flex;
     justify-content: center;

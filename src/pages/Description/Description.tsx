@@ -12,6 +12,7 @@ import ChartComponent from "../../components/ChartComponent/ChartComponent";
 import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElement";
 import classNames from "classnames";
 import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
+import classesPercents from '../../components/Header/Header.module.css'
 
 const Description: React.FC = (props) => {
 
@@ -55,8 +56,12 @@ const Description: React.FC = (props) => {
                 <div className={classes.titlePriceWrap}>
                     <p className={classes.price}>{formatPrice(+asset.priceUsd, 2)}</p>
                     <div className={classes.flexCenter}>
-                        <div className={classes.percentsPer24hWrap}>
-                            <p className={classes.percentsPer24hWrap}>{formatPercents(+asset.changePercent24Hr)}%</p>
+                        <div className={+asset.changePercent24Hr > 0 ?
+                            classesPercents.increasedPercentsWrap :
+                            classesPercents.reducedPercentsWrap}>
+                            <p className={+asset.changePercent24Hr > 0 ?
+                                classesPercents.increasedPercents :
+                                classesPercents.reducedPercents}>{formatPercents(+asset.changePercent24Hr)}%</p>
                         </div>
                     </div>
                 </div>

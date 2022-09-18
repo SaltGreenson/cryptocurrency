@@ -3,11 +3,13 @@ import thunkMiddleWare, {ThunkAction} from 'redux-thunk'
 import appReducer from './app-reducer'
 import marketsReducer from "./markets-reducer";
 import assetsReducer from "./assets-reducer";
+import profileReducer from "./profile-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
     markets: marketsReducer,
-    assets: assetsReducer
+    assets: assetsReducer,
+    profile: profileReducer
 })
 
 type RootReducerType = typeof rootReducer

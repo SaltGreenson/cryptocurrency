@@ -6,6 +6,8 @@
     transition: .2s;
     transition-timing-function: linear;
     box-shadow: 0 0px 20px 1px #000000;
+    display: flex;
+    align-items: center;
 }
 
 .titleWrap {
@@ -16,10 +18,69 @@
     align-items: center;
 }
 
+
+
 .title {
     cursor: pointer;
     font-family: 'Reem Kufi Fun', sans-serif;
     font-size: 36px;
     text-align: center;
     color: white;
+}
+@media (max-width: 780px) {
+    .title{
+        font-size: 20px;
+    }
+}
+.balanceWrap {
+    font-size: 24px;
+    display: flex;
+    margin-left: auto;
+    margin-right: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.balance, .balanceText {
+    margin-right: 1rem;
+}
+@media (max-width: 780px) {
+    .balance {
+        display: none;
+    }
+    .balanceWrap {
+        font-size: 20px;
+    }
+}
+
+
+.reducedPercents, .increasedPercents {
+    color: #e0fff8;
+    letter-spacing: 1px;
+}
+
+.increasedPercents::before {
+    content: '\25B2';
+}
+
+.reducedPercents::before {
+    content: ' \25BC';
+}
+
+.reducedPercentsWrap, .increasedPercentsWrap {
+    display: flex;
+    justify-content: center;
+    height: 32px;
+    width: 76px;
+    align-items: center;
+    padding: 1px 5px;
+    border-radius: 10px;
+    background-color: red;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.increasedPercentsWrap {
+    background-color: #4fc180;
 }

@@ -110,4 +110,24 @@ span {
     font-weight: 400;
 }
 
+.btnWrap, .twoBtnsWrap {
+    display: flex;
+    align-items: center;
+}
+
+.btnWrap {
+    justify-content: center;
+}
+
+.twoBtnsWrap {
+    justify-content: space-between;
+}
+
+.btn {
+    width: 60%;
+}
+
+.smallBtn {
+    width: 40%;
+}
 

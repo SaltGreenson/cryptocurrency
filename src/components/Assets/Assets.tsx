@@ -11,9 +11,10 @@ import {setAppCurrentPage} from "../../redux/app-reducer";
 import Card from "../Card/Card";
 import {AssetsType} from "../../api/types-api";
 import PopUp from "../common/PopUp/PopUp";
-import CoinDescription from "../CoinDescription/CoinDescription";
+import PopUpCoinDescription from "../PopUpCoinDescription/PopUpCoinDescription";
 import {keys} from "../../keys";
 import PopUpYesNo from "../common/PopUp/PopUpYesNo";
+import {getProfile} from "../../selectors/profile-selectors";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]
@@ -28,6 +29,7 @@ export type FavouriteType = {
 export const Assets: React.FC = () => {
 
 
+    const portfolio = useSelector(getProfile).portfolio
     const assets = useSelector(getAssets)
     const limit = useSelector(getLimit)
     const currentPage = useSelector(getCurrentPage)
@@ -41,23 +43,12 @@ export const Assets: React.FC = () => {
 
     const [isPopUpActive, setIsPopUpActive] = useState(false)
     const [selectedCoin, setSelectedCoin] = useState<AssetsType>({} as AssetsType)
-
+    const [isAlreadyExistCoin, setIsAlreadyExistCoin] = useState<boolean>(false)
     const [pageFromParams, setPageFromParams] = useState<number>(page ? page : 1)
 
 
     const alreadyInFavourite = (coinId: string) => {
-        return favourites ? favourites.some(f => f.coin.id === coinId) : false
-    }
-
-    const addToFavourite = (coin: AssetsType): boolean => {
-        let was = false
-        if (alreadyInFavourite(coin.id)) {
-            setFavourites(favourites.filter(j => j.coin.id !== coin.id))
-            was = true
-        } else {
-            setPopUpActive(coin)
-        }
-        return was
+        return portfolio.some(f => f.coin.id === coinId)
     }
 
     useEffect(() => {
@@ -74,8 +65,10 @@ export const Assets: React.FC = () => {
     }, [pageFromParams])
 
     const setPopUpActive = (coin: AssetsType) => {
-        setIsPopUpActive(true)
+        const isExist = alreadyInFavourite(coin.id)
         setSelectedCoin(coin)
+        setIsAlreadyExistCoin(isExist)
+        setIsPopUpActive(true)
     }
 
     return <div className={classes.container}>
@@ -95,23 +88,24 @@ export const Assets: React.FC = () => {
                 </thead>
                 <tbody>
                 {assets.map((coin) => <CoinElement key={coin.id}
-                                                   addToFavourite={addToFavourite}
+                                                   setIsPopUpActive={setIsPopUpActive}
+                                                   setIsAlreadyExistCoin={setIsAlreadyExistCoin}
+                                                   setSelectedCoin={setSelectedCoin}
                                                    coin={coin}
                                                    alreadyInFavourite={alreadyInFavourite}/>)}
                 </tbody>
             </table>
         </div>
-        <PopUpYesNo text="Do you want to create your portfolio?"
-                    active={isPopUpActive}
-                    setActive={setIsPopUpActive}
-                    setAnswer={(b: boolean) => {}}/>
+        {/*<PopUpYesNo text="Do you want to create your portfolio?"*/}
+        {/*            active={isPopUpActive}*/}
+        {/*            setActive={setIsPopUpActive}*/}
+        {/*            setAnswer={(b: boolean) => {}}/>*/}
 
-        {/*<PopUp active={isPopUpActive} setActive={setIsPopUpActive}>*/}
-        {/*    <CoinDescription coin={selectedCoin}*/}
-        {/*                     setFavourites={setFavourites}*/}
-        {/*                     favourites={favourites}*/}
-        {/*                     setIsPopUpActive={setIsPopUpActive}*/}
-        {/*    />*/}
-        {/*</PopUp>*/}
+        <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
+            <PopUpCoinDescription coin={selectedCoin}
+                                  isAlreadyExistCoin={isAlreadyExistCoin}
+                                  setIsPopUpActive={setIsPopUpActive}
+            />
+        </PopUp>
     </div>
 }

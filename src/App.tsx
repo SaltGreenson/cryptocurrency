@@ -11,26 +11,30 @@ import Header from "./components/Header/Header";
 import {setAssetsTop3} from "./redux/assets-reducer";
 import classes from './App.module.css'
 import NotFoundPage from "./pages/NotFound/NotFound";
+import {getProfile} from "./selectors/profile-selectors";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
-const SuspendedDescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
+const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
+const HeaderLazy = React.lazy(() => import('./components/Header/Header'))
 
 const SuspendedMainPage = withSuspense(MainLazy)
-const SuspendedDescription = withSuspense(SuspendedDescriptionLazy)
+const SuspendedDescription = withSuspense(DescriptionLazy)
+const SuspendedHeader = withSuspense(HeaderLazy)
 
 const App: React.FC = (props) => {
 
     const dispatch = useDispatch()
     const initialized = useSelector(getInitialized)
+    const profile = useSelector(getProfile)
 
     useEffect(() => {
         let offset = 0
         let limit = 50
+        dispatch(setAssetsTop3())
         dispatch(setAssetsOffsets(offset))
         dispatch(setAssetsLimit(limit))
         dispatch(initializeApp(offset, limit))
-        dispatch(setAssetsTop3())
-    }, [])
+    }, [initialized])
 
     if (!initialized) {
         return <Preloader/>
@@ -38,7 +42,7 @@ const App: React.FC = (props) => {
 
     return (
         <div className={classes.appContainer}>
-            <Header/>
+            <SuspendedHeader profile={profile}/>
             <Routes>
                 <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>

@@ -3,6 +3,7 @@ import {setAssets, setAssetsTop3} from "./assets-reducer";
 import {Dispatch} from "react";
 import {assetsApi} from "../api/assets-api";
 import {AssetsType, ResponseType} from "../api/types-api";
+import {initializeProfile} from "./profile-reducer";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
 const SET_FETCHING = 'SET_FETCHING'
@@ -101,6 +102,7 @@ export const initializeApp = (offset: number, limit: number): GenericThunkType<A
     dispatch(actionsApp.setFetching(true))
     await dispatch(setAssets(offset, limit))
     await dispatch(setAssetsLastRank())
+    await dispatch(initializeProfile())
     dispatch(actionsApp.isInitialized(true))
     dispatch(actionsApp.setFetching(false))
 }

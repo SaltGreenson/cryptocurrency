@@ -18,9 +18,9 @@ export const formatPrice = (value: number, fraction: number = 2) => {
     }).format(+value)
 }
 
-export const formatPercents = (value: number) => {
+export const formatPercents = (value: number, fraction:number = 2) => {
     return new Intl.NumberFormat('USD', {
-        maximumFractionDigits: 2,
+        maximumFractionDigits: fraction,
         style: 'decimal'
     }).format(value)
 }
@@ -28,14 +28,24 @@ export const formatPercents = (value: number) => {
 type PropsTypes = {
     coin: AssetsType,
     alreadyInFavourite: (id: string) => boolean
-    addToFavourite: (coin: AssetsType) => boolean
+    setIsPopUpActive: (active: boolean) => void,
+    setSelectedCoin: (coin: AssetsType) => void,
+    setIsAlreadyExistCoin: (isExist: boolean) => void
 }
 
 export const CoinElement: React.FC<PropsTypes> = ({
                                                       coin,
                                                       alreadyInFavourite,
-                                                      addToFavourite
+                                                      setIsPopUpActive,
+                                                      setSelectedCoin,
+                                                      setIsAlreadyExistCoin
                                                   }) => {
+
+    const onClick = (coin: AssetsType) => {
+        setSelectedCoin(coin)
+        setIsAlreadyExistCoin(alreadyInFavourite(coin.id))
+        setIsPopUpActive(true)
+    }
 
     return <tr>
         <td>
@@ -43,7 +53,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
         </td>
         <td>
             <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
-               onClick={() => addToFavourite(coin)}>&#10017;</p>
+               onClick={() => onClick(coin)}>&#9733;</p>
         </td>
         <td>
             <div className={classes.titleWrap}>

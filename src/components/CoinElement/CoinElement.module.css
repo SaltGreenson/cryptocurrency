@@ -60,9 +60,10 @@
 
 .favourite, .alreadyFavourite {
     cursor: pointer;
-    font-size: 26px;
+    font-size: 20px;
     transition: .3s;
     transition-timing-function: linear;
+    user-select: none;
 }
 
 .favourite {

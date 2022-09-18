@@ -27,6 +27,8 @@
     }
 }
 
+
+
 .titleWrap {
     display: flex;
     align-items: center;
@@ -64,6 +66,7 @@
     transition: .3s;
     transition-timing-function: linear;
     user-select: none;
+    padding-right: 2rem;
 }
 
 .favourite {

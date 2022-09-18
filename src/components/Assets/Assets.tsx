@@ -78,10 +78,10 @@ export const Assets: React.FC = () => {
                 <tr className={classes.headerTable}>
 
                     <th>#</th>
-                    <th></th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>24h%</th>
+                    <th>Circulating Supply</th>
                     <th>Market cap</th>
                     <th>Volume(24h)</th>
                 </tr>

@@ -26,7 +26,7 @@ table {
 }
 
 @media (max-width: 780px) {
-    tbody td:nth-child(3) {
+    tbody td:nth-child(2) {
         background-color: #212529;
         position: sticky;
         left: -1px;
@@ -76,16 +76,16 @@ thead th:nth-child(1) {
     }
 }
 
-tbody  td:nth-child(3) {
-    max-width: 150px;
-}
-
-thead th:nth-child(1), th:nth-child(3) {
+thead th:nth-child(1), th:nth-child(2) {
     text-align: left;
 }
+thead th:nth-child(2) {
+    padding-left: 4.2rem;
+}
 
 
-thead th:nth-child(4), th:nth-child(5), th:nth-child(6), th:nth-child(7),
-tbody td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {
+thead th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6),th:nth-child(7),
+tbody td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {
     text-align: right;
 }
+

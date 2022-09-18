@@ -52,11 +52,9 @@ export const CoinElement: React.FC<PropsTypes> = ({
             <p className={classes.number}>{coin.rank}</p>
         </td>
         <td>
-            <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
-               onClick={() => onClick(coin)}>&#9733;</p>
-        </td>
-        <td>
             <div className={classes.titleWrap}>
+                <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
+                   onClick={() => onClick(coin)}>&#9733; </p>
                 <Link to={`/:id=${coin.id}`} className={classes.title}>{coin.name}</Link>
                 <Link to={`/:id=${coin.id}`} className={classes.symbol}>{coin.symbol}</Link>
             </div>
@@ -66,6 +64,9 @@ export const CoinElement: React.FC<PropsTypes> = ({
         </td>
         <td>
             <p className={classes.number}>{formatPercents(+coin.changePercent24Hr)}</p>
+        </td>
+        <td>
+            <p className={classNames(classes.number, classes.marketCap)}>{formatPercents(+coin.supply)} {coin.symbol}</p>
         </td>
         <td>
             <p className={classNames(classes.number, classes.marketCap)}>{formatPrice(+coin.marketCapUsd)}</p>

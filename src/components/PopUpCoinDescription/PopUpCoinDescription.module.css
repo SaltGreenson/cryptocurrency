@@ -22,7 +22,7 @@
 
 @media (max-width: 780px) {
     .cardWrap {
-        min-width: 300px;
+        min-width: 250px;
     }
 }
 
@@ -54,6 +54,12 @@ span {
     margin-bottom: 1rem;
 }
 
+@media (max-width: 780px) {
+    .titleWrap {
+        font-size: 16px;
+    }
+}
+
 .flexWrap {
     display: flex;
     flex-wrap: wrap;
@@ -64,13 +70,24 @@ span {
 
 .formInternalContainer {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1rem;
 }
 
+@media (max-width: 780px) {
+    .totalPriceWrap {
+        margin-top: 1rem;
+    }
+}
+
 .totalPriceWrap {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    line-height: 1.5;
 }
 
 .totalPriceTitle {
@@ -83,12 +100,19 @@ span {
     font-size: 16px;
 }
 
+
 .changePercent, .internalTitle, .supply {
     font-size: 16px;
     display: flex;
     align-items: center;
     color: #ecfbff;
     margin-bottom: 5px;
+}
+
+@media (max-width: 780px) {
+    .supply {
+        font-size: 14px;
+    }
 }
 
 .internalTitle {

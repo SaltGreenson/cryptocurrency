@@ -89,6 +89,11 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         return existCoin ? `${formatPercents(convertQuantity(existCoin.quantity), 8)} ${existCoin.coin.symbol}` : ''
     }
 
+    const showLittlePrice = (price: number) => {
+        const max = Math.pow(10, 5)
+        return max <= price ? max - 1 : price
+    }
+
     const handleChange = (event: any) => {
         const quantity = event.target.value
         changeTotalPrice(quantity)
@@ -134,7 +139,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                 <p className={classes.totalPriceTitle}>Total:</p>
 
                 <p className={classes.totalPrice}>{isAlreadyExistCoin ?
-                    showQuantity():
+                    `${formatPrice(showLittlePrice(existCoin.quantity * existCoin.coin.priceUsd), 2)} (${showQuantity()})`  :
                     formatPrice(+totalPrice, 2)}
                 </p>
 

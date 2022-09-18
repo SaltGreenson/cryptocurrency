@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/SaltGreenson/cryptocurrency/static/css/main.27a52050.css",
+    "main.js": "/SaltGreenson/cryptocurrency/static/js/main.d5eb4649.js",
+    "static/css/436.41c7f117.chunk.css": "/SaltGreenson/cryptocurrency/static/css/436.41c7f117.chunk.css",
+    "static/js/436.fc8d2525.chunk.js": "/SaltGreenson/cryptocurrency/static/js/436.fc8d2525.chunk.js",
+    "static/css/770.75164706.chunk.css": "/SaltGreenson/cryptocurrency/static/css/770.75164706.chunk.css",
+    "static/js/770.7411f92f.chunk.js": "/SaltGreenson/cryptocurrency/static/js/770.7411f92f.chunk.js",
+    "static/css/360.8627f280.chunk.css": "/SaltGreenson/cryptocurrency/static/css/360.8627f280.chunk.css",
+    "static/js/360.6fb1a2be.chunk.js": "/SaltGreenson/cryptocurrency/static/js/360.6fb1a2be.chunk.js",
+    "static/js/787.e72d5327.chunk.js": "/SaltGreenson/cryptocurrency/static/js/787.e72d5327.chunk.js",
+    "static/js/444.a4bca0fb.chunk.js": "/SaltGreenson/cryptocurrency/static/js/444.a4bca0fb.chunk.js",
+    "static/media/preloader.gif": "/SaltGreenson/cryptocurrency/static/media/preloader.e1b40078fa5b34cac8e6.gif",
+    "static/media/littlePreloader.gif": "/SaltGreenson/cryptocurrency/static/media/littlePreloader.49afd115b56ae1823d94.gif",
+    "index.html": "/SaltGreenson/cryptocurrency/index.html",
+    "main.27a52050.css.map": "/SaltGreenson/cryptocurrency/static/css/main.27a52050.css.map",
+    "main.d5eb4649.js.map": "/SaltGreenson/cryptocurrency/static/js/main.d5eb4649.js.map",
+    "436.41c7f117.chunk.css.map": "/SaltGreenson/cryptocurrency/static/css/436.41c7f117.chunk.css.map",
+    "436.fc8d2525.chunk.js.map": "/SaltGreenson/cryptocurrency/static/js/436.fc8d2525.chunk.js.map",
+    "770.75164706.chunk.css.map": "/SaltGreenson/cryptocurrency/static/css/770.75164706.chunk.css.map",
+    "770.7411f92f.chunk.js.map": "/SaltGreenson/cryptocurrency/static/js/770.7411f92f.chunk.js.map",
+    "360.8627f280.chunk.css.map": "/SaltGreenson/cryptocurrency/static/css/360.8627f280.chunk.css.map",
+    "360.6fb1a2be.chunk.js.map": "/SaltGreenson/cryptocurrency/static/js/360.6fb1a2be.chunk.js.map",
+    "787.e72d5327.chunk.js.map": "/SaltGreenson/cryptocurrency/static/js/787.e72d5327.chunk.js.map",
+    "444.a4bca0fb.chunk.js.map": "/SaltGreenson/cryptocurrency/static/js/444.a4bca0fb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.27a52050.css",
+    "static/js/main.d5eb4649.js"
+  ]
+}

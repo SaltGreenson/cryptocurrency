@@ -42,6 +42,7 @@ const App: React.FC = (props) => {
     }
 
     return (
+
         <div className={classes.appContainer}>
             <Header profile={profile}/>
             <Routes>

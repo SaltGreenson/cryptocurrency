@@ -29,11 +29,52 @@
     margin-bottom: 2rem;
 }
 
-.balanceWrap {
+.balanceWrap, .cryptoBalanceWrap {
     display: flex;
     font-size: 36px;
     justify-content: center;
     margin-bottom: 3rem;
+    align-items: center;
+    font-weight: 700;
+}
+
+.cryptoBalanceWrap {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.cryptoBalanceText {
+    margin-right: 1rem;
+}
+
+@media (max-width: 780px) {
+    .balanceWrap {
+        font-size: 32px;
+    }
+    .cryptoBalanceWrap {
+        font-size: 18px;
+    }
+}
+
+.percents {
+    padding: 1.5rem .5rem;
+    font-size: 22px;
+    margin-left: 1rem;
+    font-weight: 400;
+}
+
+
+@media (max-width: 780px) {
+    .percents {
+        padding: .5rem;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 780px) {
+    .balanceWrap {
+        font-size: 24px;
+    }
 }
 
 .balanceText {
@@ -46,7 +87,11 @@ h1 {
     text-align: center;
     opacity: 0.5;
 }
-
+@media (max-width: 780px) {
+    h1 {
+        font-size: 22px;
+    }
+}
 
 
 h2 {
@@ -54,6 +99,12 @@ h2 {
     text-align: center;
     line-height: 3;
     opacity: 0.5;
+}
+
+@media (max-width: 780px) {
+    h2 {
+        font-size: 14px;
+    }
 }
 
 h2 a {

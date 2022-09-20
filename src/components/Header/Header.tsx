@@ -6,72 +6,83 @@ import {getProfile} from "../../selectors/profile-selectors";
 import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import {ProfileType} from "../../redux/profile-reducer";
 import classNames from "classnames";
+import MenuBurger, {ElementMenuBurgerType} from "../common/MenuBurger/MenuBurger";
 
 type PropsTypes = {
     profile: ProfileType
 }
 
+
+export const calculatePercents = ({initialBalance, balanceUsd}:any) => {
+    const p = 100 - +initialBalance / +balanceUsd * 100
+
+    return !!p ? p : 0
+}
+
 const Header: React.FC<PropsTypes> = ({profile}) => {
 
-    const calculatePercents = () => {
-        const p = 100 - +profile.initialBalance / +profile.balanceUsd * 100
-        return p
-    }
+    const burgerElements: Array<ElementMenuBurgerType> = [
+        {
+            elementTitle: 'Cryptocurrency',
+            elementLink: '/coins/:page=1'
+        },
+        {
+            elementTitle: 'Portfolio',
+            elementLink: '/profile'
+        },
+        {
+            elementTitle: 'Withdraw',
+            elementLink: '/profile'
+        }
+    ]
 
     useEffect(() => {
-        setPercents(calculatePercents)
+        setPercents(calculatePercents(profile))
     }, [profile])
 
-    const [percents, setPercents] = useState<number>(calculatePercents())
+    const [percents, setPercents] = useState<number>(calculatePercents(profile))
 
     return <div className={classes.container}>
+
         <div className={classes.titleWrap}>
             <Link className={classes.title} to="/coins/:page=1">CØOINCAP</Link>
         </div>
-        {profile.initialBalance > 0
 
-            ?
+        <div className={classes.burgerWrap}>
+            <MenuBurger elements={burgerElements}>
+                <div className={classes.balanceWrap}>
 
-            <div className={classes.balanceWrap}>
+                    <p className={classes.balanceText}>Balance:</p>
 
-                <Link to='/profile' className={classes.balanceText}>
-                    Balance:
-                    <span className={classNames(classes.balance,
+                    {/*<div className={classes.portfolioWrap}>*/}
 
-                        profile.balanceUsd > 0
-                            ?
-                            classes.dontShowBalance
-                            : null
+                    {/*    <span className={classNames(classes.balance)}>*/}
+                    {/*    {profile.balanceUsd > 0 ?*/}
+                    {/*        formatPrice(profile.balanceUsd, 5) :*/}
+                    {/*        formatPrice(profile.initialBalance, 5)}*/}
+                    {/*    </span>*/}
 
-                    )}> {profile.balanceUsd > 0 ?
-                        formatPrice(profile.balanceUsd) :
-                        formatPrice(profile.initialBalance)}</span>
-                </Link>
+                    {/*</div>*/}
 
-                {profile.balanceUsd > 0
 
-                    ?
+                    <div className={percents === 0 ?
+                        classes.neutralPercentsWrap :
 
-                    <div className={percents > 0 ? classes.increasedPercentsWrap : classes.reducedPercentsWrap}>
-                        <Link to='/profile' className={percents > 0 ?
-                            classes.increasedPercents :
-                            classes.reducedPercents}>{formatPercents(+percents)}%</Link>
+                        percents > 0 ?
+                            classes.increasedPercentsWrap :
+                            classes.reducedPercentsWrap}>
+                        <p className={percents === 0 ?
+                            classes.neutralPercents :
+
+                            percents > 0 ?
+                                classes.increasedPercents :
+                                classes.reducedPercents}>{formatPercents(+percents)}%</p>
                     </div>
 
-                    : null
-                }
 
-            </div>
-
-            :
-
-            <div className={classes.portfolioWrap}>
-                <Link to='/profile'>
-                    <p className={classes.portfolio}>Portfolio</p>
-                </Link>
-            </div>
-        }
-
+                </div>
+            </MenuBurger>
+        </div>
     </div>
 }
 

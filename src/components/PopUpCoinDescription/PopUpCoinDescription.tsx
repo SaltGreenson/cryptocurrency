@@ -88,15 +88,6 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         return portfolio[idx] ? `${formatPercents(convertQuantity(portfolio[idx].quantity), 8)} ${portfolio[idx].coin.symbol}` : ''
     }
 
-    const showLittlePrice = () => {
-        if (portfolio[idx]) {
-            let price = portfolio[idx].coin.priceUsd
-            const max = Math.pow(10, 12)
-            return max <= price ? max - 1 : price
-        }
-        return 0
-    }
-
     const handleChange = (event: any) => {
         const quantity = event.target.value
         changeTotalPrice(quantity)
@@ -125,17 +116,17 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
             <div className={classes.flexWrap}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Circulating Supply:</p>
-                <span className={classes.supply}>{formatPrice(coin.supply, 0)}</span>
+                <span className={classes.supply}>{formatPrice(coin.supply, 12, 0)}</span>
             </div>
 
             <div className={classes.flexWrap}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Market cap:</p>
-                <span className={classes.supply}>{formatPrice(coin.marketCapUsd, 0)}</span>
+                <span className={classes.supply}>{formatPrice(coin.marketCapUsd, 12, 0)}</span>
             </div>
 
             <div className={classes.flexWrap}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Volume(24h):</p>
-                <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 0)}</span>
+                <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 12, 0)}</span>
             </div>
         </div>
 
@@ -150,7 +141,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
             <div className={classes.totalPriceWrap}>
                 <p className={classes.totalPriceTitle}>Total:</p>
-                <p className={classes.totalPrice}>{formatPrice(+totalPrice, 2)}
+                <p className={classes.totalPrice}>{formatPrice(+totalPrice, 10, 2)}
                 </p>
             </div>
 
@@ -160,7 +151,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
             <div className={classes.totalPriceWrap}>
                 <p className={classes.totalPriceTitle}>Own:</p>
                 <p className={classes.totalPrice}>
-                    {formatPrice(showLittlePrice(), 2)} ({showQuantity()})
+                    {showQuantity()}
                 </p>
             </div>
             : null

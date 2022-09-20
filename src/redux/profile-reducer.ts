@@ -17,7 +17,8 @@ export type CoinInPortfolioType = {
 export type ProfileType = {
     portfolio: Array<CoinInPortfolioType>,
     balanceUsd: number,
-    initialBalance: number
+    initialBalance: number,
+    residualBalance: number
 }
 
 
@@ -26,6 +27,7 @@ const initialState = {
         portfolio: [],
         balanceUsd: 0,
         initialBalance: 0,
+        residualBalance: 0
     } as ProfileType,
     isInitializedProfile: false
 }
@@ -65,10 +67,11 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
     let profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
     if (!profile) {
-        const templateProfile = {
+        const templateProfile: ProfileType = {
             portfolio: [],
             balanceUsd: 0,
             initialBalance: 0,
+            residualBalance: 0
         }
         localStorage.setItem(keys.localStorageName, JSON.stringify(templateProfile))
         dispatch(actions.initializedSuccess())
@@ -142,15 +145,16 @@ export const removeCoinFromPortfolio = (coin: AssetsType, quantity: number) => (
 
     if (profile.balanceUsd >= profile.initialBalance) {
 
-        profile.initialBalance = Math.abs(profile.initialBalance - finalBalance)
+        profile.residualBalance = Math.abs(profile.initialBalance - finalBalance)
 
     } else {
 
-        profile.initialBalance -= profile.balanceUsd
+        profile.residualBalance -= profile.balanceUsd
 
     }
 
     profile.balanceUsd -= finalBalance
+    profile.initialBalance = profile.balanceUsd
 
     dispatch(actions.setProfile(profile))
     localStorage.setItem(keys.localStorageName, JSON.stringify(profile))

@@ -7,22 +7,48 @@ import {setAssetByID} from "../../redux/assets-reducer";
 import classNames from "classnames";
 import Description from "../../pages/Description/Description";
 
-export const formatPrice = (value: number, fraction: number = 2) => {
+
+const setMaxValue = (value: number, decimal: number):{value: number, isBigger: boolean} => {
+    const max = Math.pow(10, decimal)
+    let isBigger = false
+
+    if (Math.abs(value) > max) {
+        value = max - 1
+        isBigger = true
+    }
+
+    return {
+        value,
+        isBigger
+    }
+}
+
+export const formatPrice = (value: number, decimal: number = 13, fraction: number = 2) => {
+    const maxValue = setMaxValue(value, decimal)
+    value = maxValue.value
+
     if (value < 0.1 && value > 0) {
         fraction = 5
     }
-    return new Intl.NumberFormat('USD', {
+    const formattedValue:string = new Intl.NumberFormat('USD', {
         currency: 'usd',
         style: 'currency',
         maximumFractionDigits: fraction,
     }).format(+value)
+
+    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
 }
 
 export const formatPercents = (value: number, fraction:number = 2) => {
-    return new Intl.NumberFormat('USD', {
+    const maxValue = setMaxValue(value, 5)
+    value = maxValue.value
+
+    const formattedValue:string = new Intl.NumberFormat('USD', {
         maximumFractionDigits: fraction,
         style: 'decimal'
     }).format(value)
+
+    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
 }
 
 type PropsTypes = {

@@ -7,7 +7,7 @@
     transition-timing-function: linear;
     box-shadow: 0 0px 20px 1px #000000;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 .titleWrap {
@@ -29,39 +29,46 @@
 }
 @media (max-width: 780px) {
     .title{
-        font-size: 20px;
+        font-size: 30px;
     }
 }
 .balanceWrap {
-    font-size: 24px;
+    font-size: 22px;
     display: flex;
     margin-left: auto;
-    margin-right: 2rem;
     justify-content: center;
     align-items: center;
+    padding-bottom: 1rem;
+    user-select: none;
 }
+
+
 
 .balance, .balanceText {
     margin-right: 1rem;
 }
 
-@media (max-width: 780px) {
-    .balanceText {
-        margin-right: 5px;
-    }
-    .balanceWrap {
-        font-size: 20px;
-        margin-right: 5px;
-    }
-    .dontShowBalance {
-        display: none;
-    }
-}
+/*@media (max-width: 780px) {*/
+/*    .balanceText {*/
+/*        margin-right: 5px;*/
+/*    }*/
+/*    .balanceWrap {*/
+/*        font-size: 20px;*/
+/*        margin-right: 5px;*/
+/*    }*/
+/*    .dontShowBalance {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
 
 
-.reducedPercents, .increasedPercents {
+.reducedPercents, .increasedPercents, .neutralPercents {
     color: #e0fff8;
     letter-spacing: 1px;
+}
+
+.neutralPercents::before {
+    content: '';
 }
 
 .increasedPercents::before {
@@ -72,12 +79,12 @@
     content: ' \25BC';
 }
 
-.reducedPercentsWrap, .increasedPercentsWrap {
+.reducedPercentsWrap, .increasedPercentsWrap, .neutralPercentsWrap{
     display: flex;
     justify-content: center;
     height: 32px;
     align-items: center;
-    padding: 1px 5px;
+    padding: 1px 5px 1px 10px;
     border-radius: 10px;
     background-color: red;
     font-weight: 700;
@@ -89,15 +96,23 @@
     background-color: #4fc180;
 }
 
+.neutralPercentsWrap {
+    background-color: #3f4a56;
+}
+
 .portfolioWrap {
     border-radius: 10px;
-    background-color: #3f4a56;
-    padding: 1rem .5rem;
-    margin-left: auto;
-    margin-right: 2rem;
+    background-color: #4fc180;
+    padding: 5px 0 5px 10px;
+    /*margin-left: auto;*/
 }
 
 .portfolio {
     font-size: 20px;
     letter-spacing: .5px;
+}
+
+.burgerWrap {
+    margin-left: auto;
+    margin-right: 1rem;
 }

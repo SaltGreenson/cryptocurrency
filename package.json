@@ -2,6 +2,7 @@
   "name": "cryptocurrency",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://saltgreenson.github.io/cryptocurrency",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -59,6 +60,5 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.12"
-  },
-  "homepage": "https://github.com/SaltGreenson/cryptocurrency"
+  }
 }

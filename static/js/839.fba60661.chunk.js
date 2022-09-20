@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkcryptocurrency=self.webpackChunkcryptocurrency||[]).push([[839],{9839:function(c,e,r){r.r(e);var u=r(2791),n=r(6030),t=r(20),f=r(81),s=r(6871),a=r(184);e.default=function(){var c=(0,n.I0)(),e=(0,n.v9)(t.A),r=(0,s.s0)();return(0,u.useEffect)((function(){c((0,f.XW)(e.residualBalance)),r("/profile")}),[]),(0,a.jsx)("div",{})}}}]);
+//# sourceMappingURL=839.fba60661.chunk.js.map

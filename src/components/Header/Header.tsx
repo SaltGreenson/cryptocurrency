@@ -32,7 +32,7 @@ const Header: React.FC<PropsTypes> = ({profile}) => {
         },
         {
             elementTitle: 'Withdraw',
-            elementLink: '/profile'
+            elementLink: '/withdraw'
         }
     ]
 

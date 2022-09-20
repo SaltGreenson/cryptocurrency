@@ -69,7 +69,7 @@ const Description: React.FC = (props) => {
                     </p>
                 </div>
                 <div className={classes.titlePriceWrap}>
-                    <p className={classes.price}>{formatPrice(+asset.priceUsd, 2)}</p>
+                    <p className={classes.price}>{formatPrice(+asset.priceUsd, 8, 2)}</p>
                     <div className={classes.flexCenter}>
                         <div className={+asset.changePercent24Hr > 0 ?
                             classesPercents.increasedPercentsWrap :
@@ -109,7 +109,7 @@ const Description: React.FC = (props) => {
                     <div className={classes.descriptionTitleWrap}>
                         Circulating Supply
                     </div>
-                    <p className={classes.descriptionPrice}>{formatPercents(+asset.supply)} {asset.symbol}</p>
+                    <p className={classes.descriptionPrice}>{formatPercents(+asset.supply, 2, 8)} {asset.symbol}</p>
                 </div>
             </div>
         </div>

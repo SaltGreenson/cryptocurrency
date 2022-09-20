@@ -39,8 +39,8 @@ export const formatPrice = (value: number, decimal: number = 13, fraction: numbe
     return maxValue.isBigger ? `+${formattedValue}` : formattedValue
 }
 
-export const formatPercents = (value: number, fraction:number = 2) => {
-    const maxValue = setMaxValue(value, 5)
+export const formatPercents = (value: number, fraction:number = 2, decimal:number = 5):string => {
+    const maxValue = setMaxValue(value, decimal)
     value = maxValue.value
 
     const formattedValue:string = new Intl.NumberFormat('USD', {

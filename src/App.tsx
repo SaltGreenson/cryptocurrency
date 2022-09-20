@@ -16,11 +16,12 @@ import {getProfile} from "./selectors/profile-selectors";
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
 const ProfileLazy = React.lazy(() => import('./pages/Profile/Profile'))
-
+const WithdrawLazy = React.lazy(() => import('./pages/Withdraw/Withdraw'))
 
 const SuspendedMainPage = withSuspense(MainLazy)
 const SuspendedDescription = withSuspense(DescriptionLazy)
 const SuspendedProfile = withSuspense(ProfileLazy)
+const SuspendedWithdraw = withSuspense(WithdrawLazy)
 
 const App: React.FC = (props) => {
 
@@ -50,6 +51,7 @@ const App: React.FC = (props) => {
                 <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
                 <Route path='/:id' element={<SuspendedDescription/>}/>
                 <Route path='/profile' element={<SuspendedProfile/>}/>
+                <Route path='/withdraw' element={<SuspendedWithdraw/>}/>
                 <Route path='*' element={<NotFoundPage/>}/>
             </Routes>
         </div>

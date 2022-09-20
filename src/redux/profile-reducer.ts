@@ -144,12 +144,10 @@ export const removeCoinFromPortfolio = (coin: AssetsType, quantity: number) => (
     }
 
     if (profile.balanceUsd >= profile.initialBalance) {
-
         profile.residualBalance = Math.abs(profile.initialBalance - finalBalance)
 
     } else {
-
-        profile.residualBalance -= profile.balanceUsd
+        profile.residualBalance -= Math.abs(profile.balanceUsd - profile.initialBalance)
 
     }
 
@@ -158,6 +156,23 @@ export const removeCoinFromPortfolio = (coin: AssetsType, quantity: number) => (
 
     dispatch(actions.setProfile(profile))
     localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
+}
+
+export const withdraw = (amount: number) => (dispatch: Dispatch<ActionsTypes>) => {
+
+    if (amount <= 0) {
+        return
+    }
+
+    const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
+
+    const balance = profile.residualBalance - amount
+
+    if (balance >= 0) {
+        profile.residualBalance = balance
+        dispatch(actions.setProfile(profile))
+        localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
+    }
 }
 
 export default profileReducer

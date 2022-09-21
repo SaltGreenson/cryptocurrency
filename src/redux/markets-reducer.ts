@@ -3,6 +3,7 @@ import {marketsApi} from "../api/markets-api";
 import {MarketsType, ResponseType} from "../api/types-api";
 import {Dispatch} from "react";
 import {actionsApp, ActionsAppTypes} from "./app-reducer";
+import {GenericStateType} from "./assets-reducer";
 
 const SET_MARKETS = 'SET_MARKETS'
 
@@ -14,7 +15,7 @@ const initialState = {
 }
 
 const actions = {
-    setMarkets: (markets: any) => ({
+    setMarkets: (markets: GenericStateType<Array<MarketsType>>) => ({
         type: SET_MARKETS,
         payload: {markets}
     } as const)

@@ -1,10 +1,8 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
-import {setAssets, setAssetsTop3} from "./assets-reducer";
 import {Dispatch} from "react";
 import {assetsApi} from "../api/assets-api";
-import {AssetsType, ResponseType} from "../api/types-api";
+import {AssetsType} from "../api/types-api";
 import {keys} from "../keys";
-import {Runtime} from "inspector";
 
 const INITIALIZED_PROFILE_SUCCESS = 'INITIALIZED_PROFILE_SUCCESS'
 const SET_PROFILE = 'SET_PROFILE'
@@ -38,7 +36,7 @@ export const actions = {
         type: INITIALIZED_PROFILE_SUCCESS,
         payload: {isInitializedProfile: true}
     } as const),
-    setProfile: (profile: any) => ({
+    setProfile: (profile: ProfileType) => ({
         type: SET_PROFILE,
         payload: {profile}
     } as const)
@@ -64,7 +62,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 }
 
 
-export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
+export const initializeProfile = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {
     let profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
     if (!profile) {
         const templateProfile: ProfileType = {
@@ -86,7 +84,7 @@ export const initializeProfile = ():GenericThunkType<ActionsTypes> => async (dis
 
     profile.balanceUsd = 0
 
-    for (let i = 0; i < profile.portfolio.length; i++) {
+    for (let i: number = 0; i < profile.portfolio.length; i++) {
         const response = await assetsApi.assetsById(profile.portfolio[i].coin.id)
         profile.balanceUsd += +(response.data.priceUsd * profile.portfolio[i].quantity)
         profile.portfolio[i].coin = response.data
@@ -105,11 +103,11 @@ export const addCoinToPortfolio = (coin: AssetsType, quantity: number) => (dispa
     const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
 
     const totalBalance = +(coin.priceUsd * +quantity)
-    const idx = profile.portfolio.findIndex(po => po.coin.id === coin.id)
-    const changeable = profile.portfolio[idx]
+    const idx: number = profile.portfolio.findIndex(po => po.coin.id === coin.id)
+    const changeable: CoinInPortfolioType = profile.portfolio[idx]
 
     if (idx !== -1) {
-        changeable.quantity = +changeable.quantity +quantity
+        changeable.quantity = +changeable.quantity + quantity
     } else {
         profile.portfolio.push({coin, quantity})
     }
@@ -125,8 +123,8 @@ export const removeCoinFromPortfolio = (coin: AssetsType, quantity: number) => (
 
 
     const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
-    const idx = profile.portfolio.findIndex(po => po.coin.id === coin.id)
-    const changeableCoin = profile.portfolio[idx]
+    const idx: number = profile.portfolio.findIndex(po => po.coin.id === coin.id)
+    const changeableCoin: CoinInPortfolioType = profile.portfolio[idx]
 
 
     let finalBalance
@@ -166,7 +164,7 @@ export const withdraw = (amount: number) => (dispatch: Dispatch<ActionsTypes>) =
 
     const profile: ProfileType = JSON.parse(localStorage.getItem(keys.localStorageName) as string)
 
-    const balance = profile.residualBalance - amount
+    const balance: number = profile.residualBalance - amount
 
     if (balance >= 0) {
         profile.residualBalance = balance

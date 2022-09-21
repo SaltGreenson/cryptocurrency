@@ -1,4 +1,5 @@
 import {AppStateType} from "../redux/redux-store";
+import {ProfileType} from "../redux/profile-reducer";
 
-export const getInitializedProfile = (state: AppStateType) => state.profile.isInitializedProfile
-export const getProfile = (state: AppStateType) => state.profile.profile
+export const getInitializedProfile = (state: AppStateType): boolean => state.profile.isInitializedProfile
+export const getProfile = (state: AppStateType): ProfileType => state.profile.profile

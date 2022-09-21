@@ -18,6 +18,12 @@ export type AssetsTop3Type = {
         data: AssetsType
     }]
 }
+
+export type GenericStateType<T> = {
+    data: T,
+    timestamp: Date
+}
+
 const initialState = {
     assets: {
         data: [] as Array<AssetsType>,
@@ -40,19 +46,19 @@ const initialState = {
 }
 
 const actions = {
-    setAssets: (assets: any) => ({
+    setAssets: (assets: GenericStateType<Array<AssetsType>>) => ({
         type: SET_ASSETS,
         payload: {assets}
     } as const),
-    setAssetsById: (assetsById: any) => ({
+    setAssetsById: (assetsById: GenericStateType<AssetsType>) => ({
         type: SET_ASSETS_BY_ID,
         payload: {assetsById}
     } as const),
-    setAssetsHistoryById: (assetsHistoryById: any) => ({
+    setAssetsHistoryById: (assetsHistoryById: GenericStateType<Array<AssetsHistoryType>>) => ({
         type: SET_ASSETS_HISTORY_BY_ID,
         payload: {assetsHistoryById}
     } as const),
-    setAssetsMarketsById: (assetsMarketsById: any) => ({
+    setAssetsMarketsById: (assetsMarketsById: GenericStateType<Array<AssetsMarket>>) => ({
         type: SET_ASSETS_MARKETS_BY_ID,
         payload: {assetsMarketsById}
     } as const),
@@ -106,7 +112,7 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
             .sort((a, b) => a.rank - b.rank)
             .slice(0, 3)
 
-    const promise = assetsTop3.map((e) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
+    const promise = assetsTop3.map((e: AssetsType) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
     const histories: Array<ResponseType> = await Promise.all([...promise])
 
     const obj: AssetsTop3Type = {
@@ -117,7 +123,7 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
         }]
     }
 
-    for (let i = 1; i < histories.length; i++) {
+    for (let i:number = 1; i < histories.length; i++) {
         obj.data.push({
             id: assetsTop3[i].id,
             history: [...histories[i].data],

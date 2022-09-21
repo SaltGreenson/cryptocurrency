@@ -25,11 +25,11 @@ export type InitialStateType = typeof initialState
 export type ActionsAppTypes = InferActionsTypes<typeof actionsApp>
 
 export const actionsApp = {
-    isInitialized: (initialized: any) => ({
+    isInitialized: (initialized: boolean) => ({
         type: INITIALIZED_SUCCESS,
         payload: {initialized}
     } as const),
-    setFetching: (isFetching: any) => ({
+    setFetching: (isFetching: boolean) => ({
         type: SET_FETCHING,
         payload: {isFetching}
     } as const),
@@ -78,7 +78,7 @@ export const setAppCurrentPage = (currentPage: number) => (dispatch: Dispatch<Ac
 export const setAssetsLastRank = (): GenericThunkType<ActionsAppTypes> => async (dispatch: Dispatch<ActionsAppTypes>) => {
     dispatch(actionsApp.setLastRank(2295))
 
-    // the api does not give the last rank, it works, but for a long time
+    // the api does not give the last rank, it works, but for a long time and paginator doesn't have mean
 
     // let offset = 1
     // let response: ResponseType = await assetsApi.assets(offset, 2000)

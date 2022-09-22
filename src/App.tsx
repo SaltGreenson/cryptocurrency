@@ -51,9 +51,7 @@ const App: React.FC = (props) => {
 
     return (
         <AppWrapper>
-        <Block>
-                <Paragraph>123123</Paragraph>
-        </Block>
+
             <div className={'appContainer'}>
                 {/*<Header profile={profile}/>*/}
                 <Routes>

@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
-import './App.module.css';
 import {withSuspense} from "./components/hoc/withSuspense";
 import {Provider, useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
 import {getInitialized} from "./selectors/app-selectors";
-import Preloader from "./components/common/Preloader/Preloader";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import store from "./redux/redux-store";
-import Header from "./components/Header/Header";
 import {setAssetsTop3} from "./redux/assets-reducer";
-import classes from './App.module.css'
 import NotFoundPage from "./pages/NotFound/NotFound";
 import {getProfile} from "./selectors/profile-selectors";
+import styled from "styled-components";
+import Paragraph from "./components/Paragraph";
+import {theme} from './index'
+import Block from "./components/Block";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
@@ -22,6 +22,13 @@ const SuspendedMainPage = withSuspense(MainLazy)
 const SuspendedDescription = withSuspense(DescriptionLazy)
 const SuspendedProfile = withSuspense(ProfileLazy)
 const SuspendedWithdraw = withSuspense(WithdrawLazy)
+
+
+const AppWrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background-color: ${props => props.theme.colors.bgColor};
+`
 
 const App: React.FC = (props) => {
 
@@ -38,23 +45,27 @@ const App: React.FC = (props) => {
         dispatch(initializeApp(offset, limit))
     }, [initialized])
 
-    if (!initialized) {
-        return <Preloader/>
-    }
+    // if (!initialized) {
+    //     return <Preloader/>
+    // }
 
     return (
-
-        <div className={classes.appContainer}>
-            <Header profile={profile}/>
-            <Routes>
-                <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
-                <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
-                <Route path='/:id' element={<SuspendedDescription/>}/>
-                <Route path='/profile' element={<SuspendedProfile/>}/>
-                <Route path='/withdraw' element={<SuspendedWithdraw/>}/>
-                <Route path='*' element={<NotFoundPage/>}/>
-            </Routes>
-        </div>
+        <AppWrapper>
+        <Block>
+                <Paragraph>123123</Paragraph>
+        </Block>
+            <div className={'appContainer'}>
+                {/*<Header profile={profile}/>*/}
+                <Routes>
+                    <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
+                    <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
+                    <Route path='/:id' element={<SuspendedDescription/>}/>
+                    <Route path='/profile' element={<SuspendedProfile/>}/>
+                    <Route path='/withdraw' element={<SuspendedWithdraw/>}/>
+                    <Route path='*' element={<NotFoundPage/>}/>
+                </Routes>
+            </div>
+        </AppWrapper>
     );
 }
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {keys} from "../keys";
+import {keys} from "../keys/index";
 
 export const instance = axios.create({
     baseURL: 'https://api.coincap.io/v2/',

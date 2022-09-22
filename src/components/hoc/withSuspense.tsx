@@ -1,9 +1,11 @@
 import React, {Suspense} from 'react'
-import Preloader from "../common/Preloader/Preloader";
+
+
+//  NEED ADD THE FALLBACK IN SUSPENSE
 
 export function withSuspense <WCP>(WrappedComponent: React.ComponentType<WCP>){
     return (props: React.PropsWithChildren<WCP>) => {
-        return <Suspense fallback={<Preloader/>}>
+        return <Suspense>
             <WrappedComponent {...props}/>
         </Suspense>
     }

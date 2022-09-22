@@ -2,7 +2,7 @@ import {GenericThunkType, InferActionsTypes} from './redux-store'
 import {Dispatch} from "react";
 import {assetsApi} from "../api/assets-api";
 import {AssetsType} from "../api/types-api";
-import {keys} from "../keys";
+import {keys} from "../keys/index";
 
 const INITIALIZED_PROFILE_SUCCESS = 'INITIALIZED_PROFILE_SUCCESS'
 const SET_PROFILE = 'SET_PROFILE'

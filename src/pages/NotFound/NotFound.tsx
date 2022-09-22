@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import classes from './NotFound.module.css'
 import {Link, useNavigate} from "react-router-dom";
 
 const NotFound: React.FC = (props) => {
@@ -17,9 +16,9 @@ const NotFound: React.FC = (props) => {
         }
     }, [redirectTime])
 
-    return <div className={classes.container}>
-        <p className={classes.title}>404 NOT FOUND</p>
-        <p><Link to='/coins/:page=1' className={classes.link}> Redirecting after...</Link>{redirectTime}</p>
+    return <div className={'container'}>
+        <p className={'title'}>404 NOT FOUND</p>
+        <p><Link to='/coins/:page=1' className={'link'}> Redirecting after...</Link>{redirectTime}</p>
     </div>
 }
 

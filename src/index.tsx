@@ -20,7 +20,13 @@ export const theme = {
         bgColor: '#212529',
         dark: '#1e2c3a',
         lightDark: '#303942',
-        white: '#ffffff'
+        darkGrey: '#3f4a56',
+        white: '#ffffff',
+        darkHover: '#F9FCFF0F',
+        red: '#ff0000',
+        green: '#4fc180',
+        purple: '#8724ff',
+        blue: '#346da6'
     },
     media: {
         phone: '(max-width: 780px)',

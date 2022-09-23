@@ -9,9 +9,8 @@ import {setAssetsTop3} from "./redux/assets-reducer";
 import NotFoundPage from "./pages/NotFound/NotFound";
 import {getProfile} from "./selectors/profile-selectors";
 import styled from "styled-components";
+import {Input} from "./components/Input/Input";
 import Paragraph from "./components/Paragraph";
-import {theme} from './index'
-import Block from "./components/Block";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
@@ -51,8 +50,9 @@ const App: React.FC = (props) => {
 
     return (
         <AppWrapper>
+            <Input.Number value={0} increment={() => {}} decrement={() => {}} setValue={(value: number) => {}}/>
 
-            <div className={'appContainer'}>
+            <div>
                 {/*<Header profile={profile}/>*/}
                 <Routes>
                     <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>

@@ -8,7 +8,7 @@ import classNames from "classnames";
 import Description from "../../pages/Description/Description";
 
 
-const setMaxValue = (value: number, decimal: number):{value: number, isBigger: boolean} => {
+const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
     const max = Math.pow(10, decimal)
     let isBigger = false
 
@@ -30,7 +30,7 @@ export const formatPrice = (value: number, decimal: number = 13, fraction: numbe
     if (value < 0.1 && value > 0) {
         fraction = 5
     }
-    const formattedValue:string = new Intl.NumberFormat('USD', {
+    const formattedValue: string = new Intl.NumberFormat('USD', {
         currency: 'usd',
         style: 'currency',
         maximumFractionDigits: fraction,
@@ -39,11 +39,11 @@ export const formatPrice = (value: number, decimal: number = 13, fraction: numbe
     return maxValue.isBigger ? `+${formattedValue}` : formattedValue
 }
 
-export const formatPercents = (value: number, fraction:number = 2, decimal:number = 5):string => {
+export const formatPercents = (value: number, fraction: number = 2, decimal: number = 5): string => {
     const maxValue = setMaxValue(value, decimal)
     value = maxValue.value
 
-    const formattedValue:string = new Intl.NumberFormat('USD', {
+    const formattedValue: string = new Intl.NumberFormat('USD', {
         maximumFractionDigits: fraction,
         style: 'decimal'
     }).format(value)
@@ -79,8 +79,12 @@ export const CoinElement: React.FC<PropsTypes> = ({
         </td>
         <td>
             <div className={classes.titleWrap}>
-                <p className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
-                   onClick={() => onClick(coin)}>&#9733; </p>
+                <button
+                    type="button"
+                    className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
+                    onClick={() => onClick(coin)}>
+                        &#9733;
+                </button>
                 <Link to={`/:id=${coin.id}`} className={classes.title}>{coin.name}</Link>
                 <Link to={`/:id=${coin.id}`} className={classes.symbol}>{coin.symbol}</Link>
             </div>
@@ -92,7 +96,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
             <p className={classes.number}>{formatPercents(+coin.changePercent24Hr)}</p>
         </td>
         <td>
-            <p className={classNames(classes.number, classes.marketCap)}>{formatPercents(+coin.supply)} {coin.symbol}</p>
+            <p className={classNames(classes.number, classes.marketCap)}>{formatPercents(+coin.supply, 2, 15)} {coin.symbol}</p>
         </td>
         <td>
             <p className={classNames(classes.number, classes.marketCap)}>{formatPrice(+coin.marketCapUsd)}</p>

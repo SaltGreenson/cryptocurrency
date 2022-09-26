@@ -66,18 +66,29 @@
     transition: .3s;
     transition-timing-function: linear;
     user-select: none;
-    padding-right: 2rem;
+    margin-right: 2rem;
+    background-color: transparent;
+}
+
+.favourite, .alreadyFavourite :focus {
+    outline: none;
+}
+
+.btnFavourite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .favourite {
     color: #375f86;
-
 }
 
-.favourite:hover {
+.favourite:hover, .favourite:focus {
     color: #79b4ee;
 }
 
-.alreadyFavourite:hover {
+.alreadyFavourite:hover,.alreadyFavourite:focus {
     color: #ff8000;
 }

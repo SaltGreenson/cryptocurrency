@@ -27,6 +27,9 @@
     text-align: center;
     color: white;
 }
+.title:focus {
+    color: white;
+}
 @media (max-width: 780px) {
     .title{
         font-size: 30px;

@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
 import {addCoinToPortfolio, CoinInPortfolioType, removeCoinFromPortfolio} from "../../redux/profile-reducer";
 import {Link} from "react-router-dom";
+import PopUpYesNo from "../common/PopUp/PopUpYesNo";
 
 type PropsTypes = {
     coin: AssetsType,
@@ -26,8 +27,10 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
     const [quantityCoin, setQuantityCoin] = useState<string>('0')
     const [totalPrice, setTotalPrice] = useState<string>('0')
+    const [isAppend, setIsAppend] = useState<boolean>(true)
     const portfolio = useSelector(getProfile).portfolio
     const idx = portfolio.findIndex(existing => existing.coin.id === coin.id)
+    const [popUpYesNoActive, setPopUpYesNoAction] = useState<boolean>(false)
 
     const dispatch = useDispatch()
 
@@ -41,40 +44,38 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         }
     }
 
-    const deleteCoinFromPortfolio = () => {
 
-        if (+quantityCoin <= 0) {
+
+    const popUpAnswer = (answer: boolean) => {
+
+        if (!answer) {
+            setIsPopUpActive(true)
             return
         }
 
-        setIsPopUpActive(false)
-
-        dispatch(removeCoinFromPortfolio(coin, +quantityCoin))
-
+        if (isAppend) {
+            dispatch(addCoinToPortfolio(coin, +quantityCoin))
+        } else {
+            dispatch(removeCoinFromPortfolio(coin, +quantityCoin))
+        }
         setQuantityCoin('0')
         setTotalPrice('0')
     }
 
-    const appendPortfolio = () => {
-        if (+quantityCoin <= 0) {
-            return
-        }
-        dispatch(addCoinToPortfolio(coin, +quantityCoin))
-        setQuantityCoin('0')
-        setTotalPrice('0')
-        setIsPopUpActive(false)
-    }
+
 
     const convertQuantity = (quantity: number) => {
         const max = Math.pow(10, 9)
         return quantity > max ? max - 1 : quantity
     }
 
+
     const incrementQuantityCoin = () => {
         const incr = +quantityCoin + 1
         changeTotalPrice(incr)
         setQuantityCoin(String(incr))
     }
+
 
     const decrementQuantityCoin = () => {
         if (+quantityCoin > 0) {
@@ -84,8 +85,13 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         }
     }
 
-    const showQuantity = () => {
+
+    const showExistQuantity = () => {
         return portfolio[idx] ? `${formatPercents(convertQuantity(portfolio[idx].quantity), 8)} ${portfolio[idx].coin.symbol}` : ''
+    }
+
+    const showQuantity = () => {
+        return `${formatPercents(convertQuantity(+quantityCoin), 8)} ${coin.symbol}`
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,10 +100,20 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         changeTotalPrice(+quantity)
     }
 
+    const onClick = (isAdd: boolean) => {
+        if (+quantityCoin <= 0) {
+            return
+        }
+        setIsPopUpActive(false)
+        setIsAppend(isAdd)
+        setPopUpYesNoAction(true)
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        appendPortfolio()
+        setPopUpYesNoAction(true)
     }
+
 
     return <div className={classes.container}>
         <div className={classes.cardWrap}>
@@ -157,23 +173,36 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                 <div className={classes.totalPriceWrap}>
                     <p className={classes.totalPriceTitle}>Own:</p>
                     <p className={classes.totalPrice}>
-                        {showQuantity()}
+                        {showExistQuantity()}
                     </p>
                 </div>
                 : null
             }
             <div className={classNames(classes.btnWrap, isAlreadyExistCoin ? classes.twoBtnsWrap : null)}>
                 <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
-                    <Button type={"submit"} redColor={false} onClick={appendPortfolio}
+
+                    <Button type={"submit"} redColor={false} onClick={() => onClick(true)}
                             text={isAlreadyExistCoin ? "BUY" : "ADD TO PORTFOLIO"}/>
+
                 </div>
                 {isAlreadyExistCoin ?
                     <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
-                        <Button type={"submit"} text={"SELL"} onClick={deleteCoinFromPortfolio} redColor={true}/>
+
+                        <Button type={"button"} text={"SELL"} onClick={() => onClick(false)} redColor={true}/>
+
                     </div> :
                     null}
             </div>
         </form>
+
+        <PopUpYesNo active={popUpYesNoActive}
+                    setActive={setPopUpYesNoAction}
+                    text={
+            `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatPrice(+totalPrice, 10, 2)}) ${coin.name}?`
+                    }
+                    setAnswer={popUpAnswer}
+        />
+
     </div>
 }
 

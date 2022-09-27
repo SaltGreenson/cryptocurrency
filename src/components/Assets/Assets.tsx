@@ -89,10 +89,6 @@ export const Assets: React.FC = () => {
                 </tbody>
             </table>
         </div>
-        {/*<PopUpYesNo text="Do you want to create your portfolio?"*/}
-        {/*            active={isPopUpActive}*/}
-        {/*            setActive={setIsPopUpActive}*/}
-        {/*            setAnswer={(b: boolean) => {}}/>*/}
 
         <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
             <PopUpCoinDescription coin={selectedCoin}

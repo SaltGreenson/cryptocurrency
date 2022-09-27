@@ -111,7 +111,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setPopUpYesNoAction(true)
+        onClick(true)
     }
 
 

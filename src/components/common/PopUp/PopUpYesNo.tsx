@@ -19,7 +19,6 @@ const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) 
         setActive(false)
     }
 
-
     return createPortal(<div className={active ?
             classNames(classes.popUp, classes.active) :
             classes.popUp}>
@@ -30,14 +29,14 @@ const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) 
                 <div className={classes.textWrap}>
                     {text}
                 </div>
-                <div className={classes.flexSpace}>
-                    <div className={classes.buttonWrap}>
-                        <Button type={"button"} text="YES" redColor={false} onClick={onClick} onClickValue={true}/>
+                    <div className={classes.flexSpace}>
+                        <div className={classes.buttonWrap}>
+                            <Button type={"button"} text="YES" redColor={false} onClick={onClick} onClickValue={true}/>
+                        </div>
+                        <div className={classes.buttonWrap}>
+                            <Button type={"button"} text="NO" redColor={true} onClick={onClick} onClickValue={false}/>
+                        </div>
                     </div>
-                    <div className={classes.buttonWrap}>
-                        <Button type={"button"} text="NO" redColor={true} onClick={onClick} onClickValue={false}/>
-                    </div>
-                </div>
             </div>
         </div>,
         document.body

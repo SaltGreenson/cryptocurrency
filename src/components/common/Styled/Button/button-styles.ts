@@ -9,6 +9,7 @@ export const StyledDefaultButton = styled.button<StyledDefaultButtonTypes>`
   padding: 0.5rem 1rem;
   width: 100%;
   height: 100%;
+  max-width: 500px;
   border: none;
   color: ${({theme}) => theme.colors.white};
   font-weight: 700;
@@ -44,7 +45,7 @@ export const StyledSmallButton = styled.button<StyledSmallButtonTypes>`
   user-select: none;
   transition: .3s;
   border-radius: ${({borderRadius}) => borderRadius};
-
+  color: ${({theme}) => theme.colors.white};
   &:hover {
     background-color: ${({bgColorHover, theme}) => bgColorHover === 'green' ?
             theme.colors.green :

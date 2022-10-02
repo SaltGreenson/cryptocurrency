@@ -23,9 +23,7 @@ const Input: React.FC<InputPropsTypes> & InputTypes = ({...rest}) => {
 Input.Number = ({setValue, value, increment, decrement, placeholder, name, ...rest}) => {
     return <Block.Flex>
         <Button.Little type='button' bgColorHover={'red'} borderRadius={'10px 0 0 10px'} onClick={decrement}>
-            <p>
                 -
-            </p>
         </Button.Little>
 
         <InputStyled name={name}
@@ -39,9 +37,7 @@ Input.Number = ({setValue, value, increment, decrement, placeholder, name, ...re
         />
 
         <Button.Little type='button' bgColorHover={'green'} borderRadius={'0 10px 10px 0'} onClick={increment}>
-            <p>
                 +
-            </p>
         </Button.Little>
     </Block.Flex>
 }

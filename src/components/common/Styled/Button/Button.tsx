@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {
     StyledSmallButtonTypes,
     StyledSmallButton,
@@ -7,21 +7,22 @@ import {
     StyledTransparentButton,
     StyledTransparentButtonPropsTypes
 } from "./button-styles";
+import {theme} from '../../../../global-styles'
 
-type ButtonPropsTypes = {
+export type ButtonPropsTypes = {
     children: React.FC | React.DetailedHTMLProps<any, any>,
-    type: "button" | "reset" | "submit",
+    type?: "button" | "reset" | "submit",
     onClick?: (args: any) => void
     onClickValue?: any
 }
 
-type ButtonsTypes = {
+export type ButtonsTypes = {
     Little: React.FC<ButtonPropsTypes & StyledSmallButtonTypes>,
     Transparent: React.FC<ButtonPropsTypes & StyledTransparentButtonPropsTypes>
 }
 
-const Button: React.FC<ButtonPropsTypes & StyledDefaultButtonTypes> & ButtonsTypes   = ({children, onClick, onClickValue, ...rest}) => {
-    return <StyledDefaultButton onClick={ () => onClick ? onClick(onClickValue) : null} {...rest}>
+const Button: React.FC<ButtonPropsTypes & StyledDefaultButtonTypes> & ButtonsTypes   = ({children, onClick= () => {}, onClickValue=true, type='button', ...rest}) => {
+    return <StyledDefaultButton onClick={ () => onClick(onClickValue)} {...rest}>
         {children}
     </StyledDefaultButton>
 };
@@ -30,7 +31,9 @@ const Button: React.FC<ButtonPropsTypes & StyledDefaultButtonTypes> & ButtonsTyp
 
 Button.Little = ({children, onClick, onClickValue, ...rest}) => {
     return <StyledSmallButton onClick={ () => onClick ? onClick(onClickValue) : null} {...rest}>
-        {children}
+        <p>
+            {children[0]}
+        </p>
     </StyledSmallButton>
 }
 

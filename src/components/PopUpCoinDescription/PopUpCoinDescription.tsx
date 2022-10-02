@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import PopUpYesNo from "../common/PopUp/PopUpYesNo";
 import Button from "../common/Styled/Button/Button";
 import Input from "../common/Styled/Input/Input";
+import Block from "../common/Styled/Block/Block";
 
 type PropsTypes = {
     coin: AssetsType,
@@ -45,7 +46,6 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
     }
 
 
-
     const popUpAnswer = (answer: boolean) => {
 
         if (!answer) {
@@ -61,7 +61,6 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         setQuantityCoin('0')
         setTotalPrice('0')
     }
-
 
 
     const convertQuantity = (quantity: number) => {
@@ -119,6 +118,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         <div className={classes.cardWrap}>
             <div className={classes.titleWrap}>
                 <span className={classes.symbol}>
+
                     {needRedirect
                         ?
                         <Link to={`/${coin.id}`}>{coin.symbol}</Link>
@@ -130,25 +130,27 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                 <span className={classes.rank}>RANK #{coin.rank}</span>
                 <span className={classes.price}>{formatPrice(coin.priceUsd)}</span>
             </div>
-            <div className={classes.flexWrap}>
+
+            <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>24h%:</p>
                 <span className={classes.supply}>{formatPercents(coin.changePercent24Hr)}%</span>
-            </div>
+            </Block.Flex>
 
-            <div className={classes.flexWrap}>
+            <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Circulating Supply:</p>
                 <span className={classes.supply}>{formatPrice(coin.supply, 12, 0)}</span>
-            </div>
+            </Block.Flex>
 
-            <div className={classes.flexWrap}>
+            <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Market cap:</p>
                 <span className={classes.supply}>{formatPrice(coin.marketCapUsd, 12, 0)}</span>
-            </div>
+            </Block.Flex>
 
-            <div className={classes.flexWrap}>
+            <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Volume(24h):</p>
                 <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 12, 0)}</span>
-            </div>
+            </Block.Flex>
+
         </div>
         <form onSubmit={handleSubmit}>
 
@@ -203,7 +205,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         <PopUpYesNo active={popUpYesNoActive}
                     setActive={setPopUpYesNoAction}
                     text={
-            `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatPrice(+totalPrice, 10, 2)}) ${coin.name}?`
+                        `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatPrice(+totalPrice, 10, 2)}) ${coin.name}?`
                     }
                     setAnswer={popUpAnswer}
         />

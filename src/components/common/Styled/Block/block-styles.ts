@@ -11,6 +11,7 @@ export type FlexPropsTypes = {
 
 export const BlockFlexStyles = styled.div<FlexPropsTypes>`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: ${props => props.direction || 'row'};
   align-items: ${({align}) => align || 'stretch'};
   justify-content: ${({justify}) => justify || 'stretch'};

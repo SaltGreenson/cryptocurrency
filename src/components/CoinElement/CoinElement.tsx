@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {setAssetByID} from "../../redux/assets-reducer";
 import classNames from "classnames";
 import Description from "../../pages/Description/Description";
+import Button from "../common/Styled/Button/Button";
 
 
 const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
@@ -67,7 +68,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
                                                       setIsAlreadyExistCoin
                                                   }) => {
 
-    const onClick = (coin: AssetsType) => {
+    const onClickHandler = (coin: AssetsType) => {
         setSelectedCoin(coin)
         setIsAlreadyExistCoin(alreadyInFavourite(coin.id))
         setIsPopUpActive(true)
@@ -79,12 +80,20 @@ export const CoinElement: React.FC<PropsTypes> = ({
         </td>
         <td>
             <div className={classes.titleWrap}>
-                <button
-                    type="button"
-                    className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}
-                    onClick={() => onClick(coin)}>
-                        &#9733;
-                </button>
+
+                <Button.Transparent type={'button'}
+                                    color={ alreadyInFavourite(coin.id) ? 'yellow' : 'blue'}
+                                    onClick={onClickHandler}
+                                    onClickValue={coin}
+                >
+                    &#9733;
+                </Button.Transparent>
+
+                {/*<button*/}
+                {/*    type="button"*/}
+                {/*    className={alreadyInFavourite(coin.id) ? classes.alreadyFavourite : classes.favourite}*/}
+                {/*    onClick={() => onClickHandler(coin)}>*/}
+                {/*</button>*/}
                 <Link to={`/:id=${coin.id}`} className={classes.title}>{coin.name}</Link>
                 <Link to={`/:id=${coin.id}`} className={classes.symbol}>{coin.symbol}</Link>
             </div>

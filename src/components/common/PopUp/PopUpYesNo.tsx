@@ -1,8 +1,8 @@
 import React from "react";
 import classes from './PopUp.module.css'
 import classNames from "classnames";
-import {Button} from "../FormsControls/FormsControls";
 import {createPortal} from "react-dom";
+import Button from "../Styled/Button/Button";
 
 type PropsTypes = {
     active: boolean,
@@ -14,7 +14,7 @@ type PropsTypes = {
 const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) => {
 
 
-    const onClick = (answer: boolean) => {
+    const onClickHandler = (answer: boolean) => {
         setAnswer(answer)
         setActive(false)
     }
@@ -31,10 +31,18 @@ const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) 
                 </div>
                     <div className={classes.flexSpace}>
                         <div className={classes.buttonWrap}>
-                            <Button type={"button"} text="YES" redColor={false} onClick={onClick} onClickValue={true}/>
+                            <Button type={'button'} bgColor={'green'} onClick={onClickHandler} onClickValue={true}>
+                                YES
+                            </Button>
+
                         </div>
+
                         <div className={classes.buttonWrap}>
-                            <Button type={"button"} text="NO" redColor={true} onClick={onClick} onClickValue={false}/>
+
+                            <Button type={'button'} bgColor={'red'} onClick={onClickHandler} onClickValue={false}>
+                                NO
+                            </Button>
+
                         </div>
                     </div>
             </div>

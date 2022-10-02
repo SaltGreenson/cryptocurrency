@@ -1,15 +1,15 @@
-import React, {FormEvent, useEffect, useRef, useState} from "react"
+import React, {useState} from "react"
 import classes from './PopUpCoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
 import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
-import {Button, InputNumber} from "../common/FormsControls/FormsControls";
-import {FavouriteType} from "../Assets/Assets";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
-import {addCoinToPortfolio, CoinInPortfolioType, removeCoinFromPortfolio} from "../../redux/profile-reducer";
+import {addCoinToPortfolio, removeCoinFromPortfolio} from "../../redux/profile-reducer";
 import {Link} from "react-router-dom";
 import PopUpYesNo from "../common/PopUp/PopUpYesNo";
+import Button from "../common/Styled/Button/Button";
+import Input from "../common/Styled/Input/Input";
 
 type PropsTypes = {
     coin: AssetsType,
@@ -100,7 +100,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
         changeTotalPrice(+quantity)
     }
 
-    const onClick = (isAdd: boolean) => {
+    const onClickHandler = (isAdd: boolean) => {
         if (+quantityCoin <= 0) {
             return
         }
@@ -111,7 +111,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        onClick(true)
+        onClickHandler(true)
     }
 
 
@@ -154,12 +154,13 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
             <div className={classes.formInternalContainer}>
 
-                <InputNumber name="quantitySigns"
-                             value={quantityCoin}
-                             increment={incrementQuantityCoin}
-                             decrement={decrementQuantityCoin}
-                             setValue={handleChange}
-                             placeholder={coin.symbol}/>
+                <Input.Number name="quantitySigns"
+                              value={quantityCoin}
+                              increment={incrementQuantityCoin}
+                              decrement={decrementQuantityCoin}
+                              setValue={handleChange}
+                              placeholder={coin.symbol}
+                />
 
                 <div className={classes.totalPriceWrap}>
                     <p className={classes.totalPriceTitle}>Total:</p>
@@ -181,14 +182,18 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
             <div className={classNames(classes.btnWrap, isAlreadyExistCoin ? classes.twoBtnsWrap : null)}>
                 <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                    <Button type={"submit"} redColor={false} onClick={() => onClick(true)}
-                            text={isAlreadyExistCoin ? "BUY" : "ADD TO PORTFOLIO"}/>
+                    <Button type={'submit'} bgColor={'green'} onClick={() => onClickHandler(true)}>
+                        {isAlreadyExistCoin ? "BUY" : "ADD TO PORTFOLIO"}
+                    </Button>
 
                 </div>
                 {isAlreadyExistCoin ?
                     <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                        <Button type={"button"} text={"SELL"} onClick={() => onClick(false)} redColor={true}/>
+                        <Button type={'button'} bgColor={'red'} onClick={() => onClickHandler(false)}>
+                            SELL
+                        </Button>
+
 
                     </div> :
                     null}

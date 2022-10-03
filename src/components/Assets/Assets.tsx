@@ -15,6 +15,7 @@ import PopUpCoinDescription from "../PopUpCoinDescription/PopUpCoinDescription";
 import {keys} from "../../keys";
 import PopUpYesNo from "../common/PopUp/PopUpYesNo";
 import {getProfile} from "../../selectors/profile-selectors";
+import ContainerPopUpCoinDescription from "../PopUpCoinDescription/ContainerPopUpCoinDescription";
 
 export const getValueFromParams = (params: string) => {
     return params.split('=')[1]
@@ -91,7 +92,7 @@ export const Assets: React.FC = () => {
         </div>
 
         <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
-            <PopUpCoinDescription coin={selectedCoin}
+            <ContainerPopUpCoinDescription coin={selectedCoin}
                                   isAlreadyExistCoin={isAlreadyExistCoin}
                                   setIsPopUpActive={setIsPopUpActive}
             />

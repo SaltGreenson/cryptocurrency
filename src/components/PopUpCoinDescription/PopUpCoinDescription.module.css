@@ -1,5 +1,5 @@
 .container {
-    margin: 10px;
+    margin: 1rem;
 }
 @media (max-width: 780px) {
     .container {
@@ -153,6 +153,8 @@ span {
 
 .btn {
     width: 60%;
+    display: flex;
+    justify-content: center;
 }
 
 @media (max-width: 780px) {
@@ -163,4 +165,6 @@ span {
 
 .smallBtn {
     width: 40%;
+    display: flex;
+    justify-content: center;
 }

@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 
 type PropsTypeInputNumber = {
     name: string,
-    setValue: (value: any) => void,
+    onChange: (value: any) => void,
     value: any,
     increment: () => void,
     decrement: () => void,
@@ -20,7 +20,7 @@ const Input: React.FC<InputPropsTypes> & InputTypes = ({...rest}) => {
     return <InputStyled {...rest}/>
 };
 
-Input.Number = ({setValue, value, increment, decrement, placeholder, name, ...rest}) => {
+Input.Number = ({onChange, value, increment, decrement, placeholder, name, ...rest}) => {
     return <Block.Flex>
         <Button.Little type='button' bgColorHover={'red'} borderRadius={'10px 0 0 10px'} onClick={decrement}>
                 -
@@ -28,7 +28,7 @@ Input.Number = ({setValue, value, increment, decrement, placeholder, name, ...re
 
         <InputStyled name={name}
                            value={value}
-                           onChange={setValue}
+                           onChange={onChange}
                            type="text"
                            pattern="^[0-9]+(.[0-9]+)?$"
                            placeholder={placeholder}

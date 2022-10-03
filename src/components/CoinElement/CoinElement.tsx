@@ -84,7 +84,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
                 <Button.Transparent type={'button'}
                                     color={ alreadyInFavourite(coin.id) ? 'yellow' : 'blue'}
                                     onClick={onClickHandler}
-                                    onClickValue={coin}
+                                    onClickTransmittedValues={coin}
                 >
                     &#9733;
                 </Button.Transparent>

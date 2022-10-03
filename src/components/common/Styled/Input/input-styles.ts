@@ -16,4 +16,7 @@ export const InputStyled = styled.input<InputPropsTypes>`
   &:invalid {
     color: ${({theme}) => theme.colors.red};
   }
+  &:focus {
+    outline: none;
+  }
 `

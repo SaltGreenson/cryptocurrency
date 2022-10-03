@@ -8,13 +8,18 @@ export default {
     argTypes: {
         color: {
             type: 'string',
-            description: 'Sets the fonts color',
+            description: 'Sets the font color',
             defaultValue: 'yellow',
             options: ['yellow', 'blue'],
             control: {
                 type: 'radio'
             }
-        }
+        },
+        children: {
+            type:'string',
+            defaultValue: 'Click',
+            description: 'Sets the text inside the button'
+        },
     }
 } as ComponentMeta<typeof Button.Transparent>
 

@@ -17,6 +17,7 @@ import PopUp from "../../components/common/PopUp/PopUp";
 import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoinDescription";
 import {getProfile} from "../../selectors/profile-selectors";
 import classesForFavourite from '../../components/CoinElement/CoinElement.module.css'
+import ContainerPopUpCoinDescription from "../../components/PopUpCoinDescription/ContainerPopUpCoinDescription";
 
 const Description: React.FC = (props) => {
 
@@ -114,7 +115,7 @@ const Description: React.FC = (props) => {
             </div>
         </div>
         <PopUp active={popIsUpActive} setActive={setIsPopUpActive}
-               children={<PopUpCoinDescription coin={asset} setIsPopUpActive={setIsPopUpActive}
+               children={<ContainerPopUpCoinDescription coin={asset} setIsPopUpActive={setIsPopUpActive}
                                                isAlreadyExistCoin={alreadyInFavourite}/>}/>
     </div>
 }

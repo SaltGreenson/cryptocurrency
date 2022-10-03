@@ -1,6 +1,7 @@
 import Button from './Button'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import '/src/App.module.css'
+import {func} from "prop-types";
 
 export default {
     title: 'Button/Little',
@@ -15,6 +16,11 @@ export default {
                 type: 'radio'
             }
         },
+        children: {
+            type:'string',
+            defaultValue: '+',
+            description: 'Sets the text inside the button'
+        },
         borderRadius: {
             type: 'string',
             description: 'Sets boundaries on the left or right sections',
@@ -23,6 +29,10 @@ export default {
             control: {
                 type: 'radio'
             }
+        },
+        onClick: {
+            type: func,
+            description: 'onClick handler inside the button'
         }
     }
 } as ComponentMeta<typeof Button.Little>

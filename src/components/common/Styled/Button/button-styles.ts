@@ -18,9 +18,9 @@ export const StyledDefaultButton = styled.button<StyledDefaultButtonTypes>`
   outline: none;
   background-color: ${({bgColor, theme}) => bgColor === 'red' ?
           theme.colors.red :
-          bgColor === 'default' ?
-                  theme.colors.lightDark :
-                  theme.colors.green};
+          bgColor === 'green' ?
+                  theme.colors.green :
+                  theme.colors.lightDark};
 
   &:hover {
     background-color: ${({theme}) => theme.colors.purple};

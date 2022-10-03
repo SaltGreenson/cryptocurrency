@@ -10,6 +10,7 @@ import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElem
 import {calculatePercents} from "../../components/Header/Header";
 import percentsClasses from '../../components/Header/Header.module.css'
 import classNames from "classnames";
+import ContainerPopUpCoinDescription from "../../components/PopUpCoinDescription/ContainerPopUpCoinDescription";
 
 type PropsTypes = {}
 
@@ -78,11 +79,10 @@ const Profile: React.FC<PropsTypes> = ({}) => {
             profile.portfolio.map(coin => <div key={coin.coin.id} className={classes.wrapDescription}>
 
                     <div  className={classes.descriptionWrap}>
-                        <PopUpCoinDescription coin={coin.coin}
+                        <ContainerPopUpCoinDescription coin={coin.coin}
                                               setIsPopUpActive={() => {
                                               }}
                                               isAlreadyExistCoin={true}
-                                              needRedirect={true}
                         />
                     </div>
 

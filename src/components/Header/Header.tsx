@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import classes from './Header.module.css'
 import {useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
-import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import {ProfileType} from "../../redux/profile-reducer";
 import classNames from "classnames";
 import MenuBurger, {ElementMenuBurgerType} from "../common/MenuBurger/MenuBurger";
@@ -76,7 +76,7 @@ const Header: React.FC<PropsTypes> = ({profile}) => {
 
                             percents > 0 ?
                                 classes.increasedPercents :
-                                classes.reducedPercents}>{formatPercents(+percents)}%</p>
+                                classes.reducedPercents}>{formatNumbersToPrettyStyle(+percents)}%</p>
                     </div>
 
 

@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {AssetsHistoryType, AssetsType} from "../../api/types-api";
 import classes from './Card.module.css'
-import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
-import LittlePreloader from "../common/LittlePreloader/LittlePreloader";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import ChartComponent from "../ChartComponent/ChartComponent";
-import {useDispatch, useSelector} from "react-redux";
-import {getAssetsHistory, getIsFetchingAssetsPage} from "../../selectors/assets-selectors";
-import {getIsFetching} from "../../selectors/app-selectors";
-import {AssetsTop3Type, setAssetByID, setAssetsHistoryById, setAssetsTop3} from "../../redux/assets-reducer";
-import {IntervalEnum} from "../../api/assets-api";
+import {useDispatch} from "react-redux";
+import {setAssetByID} from "../../redux/assets-reducer";
 import {useNavigate} from "react-router-dom";
 
 const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryType>}> = React.memo (({coinData, coinHistory}) => {
@@ -31,11 +27,11 @@ const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryTyp
             <div className={classes.flexWrap}>
                 <div className={classes.flexWrap}>
                     <p className={classes.internalTitle}>PRICE:</p>
-                    <span className={classes.price}>{formatPrice(coinData.priceUsd)}</span>
+                    <span className={classes.price}>{formatNumberToPrice(coinData.priceUsd)}</span>
                 </div>
                 <div className={classes.flexWrap}>
                     <p className={classes.internalTitle}>24h%:</p>
-                    <span className={classes.changePercent}>{formatPercents(coinData.changePercent24Hr)}%</span>
+                    <span className={classes.changePercent}>{formatNumbersToPrettyStyle(coinData.changePercent24Hr)}%</span>
                 </div>
             </div>
             <div className={classes.chartWrap}>

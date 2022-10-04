@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import classes from './PopUpCoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
-import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
@@ -55,7 +55,7 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({setIsPopUpActive, 
     }
 
     const showQuantity = () => {
-        return `${formatPercents(convertQuantity(+quantityCoin), 8)} ${coin.symbol}`
+        return `${formatNumbersToPrettyStyle(convertQuantity(+quantityCoin), 8)} ${coin.symbol}`
     }
 
     const onClickHandler = (isAdd: boolean) => {
@@ -127,7 +127,7 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({setIsPopUpActive, 
         <PopUpYesNo active={popUpYesNoActive}
                     setActive={setPopUpYesNoAction}
                     text={
-                        `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatPrice(+totalPrice, 10, 2)}) ${coin.name}?`
+                        `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatNumberToPrice(+totalPrice, 10, 2)}) ${coin.name}?`
                     }
                     setAnswer={popUpAnswer}
         />

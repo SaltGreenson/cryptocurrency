@@ -1,7 +1,7 @@
 import React from "react"
 import classes from './PopUpCoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
-import {formatPercents, formatPrice} from "../CoinElement/CoinElement";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
 import {CoinInPortfolioType} from "../../redux/profile-reducer";
 import Button from "../common/Styled/Button/Button";
@@ -40,7 +40,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
 
     const showExistQuantity = () => {
-        return existingCoinFromProfile ? `${formatPercents(convertQuantity(existingCoinFromProfile.quantity), 8)} ${existingCoinFromProfile.coin.symbol}` : ''
+        return existingCoinFromProfile ? `${formatNumbersToPrettyStyle(convertQuantity(existingCoinFromProfile.quantity), 8)} ${existingCoinFromProfile.coin.symbol}` : ''
     }
 
     return <div className={classes.container}>
@@ -50,27 +50,27 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                         {coin.symbol}
                 </span>
                 <span className={classes.rank}>RANK #{coin.rank}</span>
-                <span className={classes.price}>{formatPrice(coin.priceUsd)}</span>
+                <span className={classes.price}>{formatNumberToPrice(coin.priceUsd)}</span>
             </div>
 
             <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>24h%:</p>
-                <span className={classes.supply}>{formatPercents(coin.changePercent24Hr)}%</span>
+                <span className={classes.supply}>{formatNumbersToPrettyStyle(coin.changePercent24Hr)}%</span>
             </Block.Flex>
 
             <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Circulating Supply:</p>
-                <span className={classes.supply}>{formatPrice(coin.supply, 12, 0)}</span>
+                <span className={classes.supply}>{formatNumberToPrice(coin.supply, 12, 0)}</span>
             </Block.Flex>
 
             <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Market cap:</p>
-                <span className={classes.supply}>{formatPrice(coin.marketCapUsd, 12, 0)}</span>
+                <span className={classes.supply}>{formatNumberToPrice(coin.marketCapUsd, 12, 0)}</span>
             </Block.Flex>
 
             <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
                 <p className={classNames(classes.internalTitle, classes.supply)}>Volume(24h):</p>
-                <span className={classes.supply}>{formatPrice(coin.volumeUsd24Hr, 12, 0)}</span>
+                <span className={classes.supply}>{formatNumberToPrice(coin.volumeUsd24Hr, 12, 0)}</span>
             </Block.Flex>
 
         </div>
@@ -88,7 +88,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
                 <div className={classes.totalPriceWrap}>
                     <p className={classes.totalPriceTitle}>Total:</p>
-                    <p className={classes.totalPrice}>{formatPrice(+totalPrice, 10, 2)}
+                    <p className={classes.totalPrice}>{formatNumberToPrice(+totalPrice, 10, 2)}
                     </p>
                 </div>
 

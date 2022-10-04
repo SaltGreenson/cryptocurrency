@@ -9,7 +9,7 @@ import Description from "../../pages/Description/Description";
 import Button from "../common/Styled/Button/Button";
 
 
-const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
+export const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
     const max = Math.pow(10, decimal)
     let isBigger = false
 
@@ -24,7 +24,7 @@ const setMaxValue = (value: number, decimal: number): { value: number, isBigger:
     }
 }
 
-export const formatPrice = (value: number, decimal: number = 13, fraction: number = 2) => {
+export const formatNumberToPrice = (value: number, decimal: number = 13, fraction: number = 2) => {
     const maxValue = setMaxValue(value, decimal)
     value = maxValue.value
 
@@ -40,7 +40,7 @@ export const formatPrice = (value: number, decimal: number = 13, fraction: numbe
     return maxValue.isBigger ? `+${formattedValue}` : formattedValue
 }
 
-export const formatPercents = (value: number, fraction: number = 2, decimal: number = 5): string => {
+export const formatNumbersToPrettyStyle = (value: number, fraction: number = 2, decimal: number = 5): string => {
     const maxValue = setMaxValue(value, decimal)
     value = maxValue.value
 
@@ -93,19 +93,19 @@ export const CoinElement: React.FC<PropsTypes> = ({
             </div>
         </td>
         <td>
-            <p className={classes.number}>{formatPrice(+coin.priceUsd)}</p>
+            <p className={classes.number}>{formatNumberToPrice(+coin.priceUsd)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatPercents(+coin.changePercent24Hr)}</p>
+            <p className={classes.number}>{formatNumbersToPrettyStyle(+coin.changePercent24Hr)}</p>
         </td>
         <td>
-            <p className={classNames(classes.number, classes.marketCap)}>{formatPercents(+coin.supply, 2, 15)} {coin.symbol}</p>
+            <p className={classNames(classes.number, classes.marketCap)}>{formatNumbersToPrettyStyle(+coin.supply, 2, 15)} {coin.symbol}</p>
         </td>
         <td>
-            <p className={classNames(classes.number, classes.marketCap)}>{formatPrice(+coin.marketCapUsd)}</p>
+            <p className={classNames(classes.number, classes.marketCap)}>{formatNumberToPrice(+coin.marketCapUsd)}</p>
         </td>
         <td>
-            <p className={classes.number}>{formatPrice(+coin.volumeUsd24Hr)}</p>
+            <p className={classes.number}>{formatNumberToPrice(+coin.volumeUsd24Hr)}</p>
         </td>
     </tr>
 }

@@ -6,7 +6,7 @@ import {getInitializedProfile, getProfile} from "../../selectors/profile-selecto
 import Preloader from "../../components/common/Preloader/Preloader";
 import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoinDescription";
 import {Link} from "react-router-dom";
-import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElement";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/CoinElement/CoinElement";
 import {calculatePercents} from "../../components/Header/Header";
 import percentsClasses from '../../components/Header/Header.module.css'
 import classNames from "classnames";
@@ -44,7 +44,7 @@ const Profile: React.FC<PropsTypes> = ({}) => {
             <p className={classes.balanceText}>
                 Balance:
             </p>
-            <span className={classes.balance}>{formatPrice(profile.residualBalance, 14)}</span>
+            <span className={classes.balance}>{formatNumberToPrice(profile.residualBalance, 14)}</span>
         </div>
 
         {profile.portfolio.length ?
@@ -52,7 +52,7 @@ const Profile: React.FC<PropsTypes> = ({}) => {
                 <p className={classes.cryptoBalanceText}>
                     Cryptocurrencies:
                 </p>
-                <span className={classes.cryptoBalance}>{formatPrice(profile.balanceUsd, 15)}</span>
+                <span className={classes.cryptoBalance}>{formatNumberToPrice(profile.balanceUsd, 15)}</span>
 
 
                 <div className={classNames(percents === 0 ?
@@ -66,7 +66,7 @@ const Profile: React.FC<PropsTypes> = ({}) => {
 
                         percents > 0 ?
                             percentsClasses.increasedPercents :
-                            percentsClasses.reducedPercents}>{formatPercents(+percents)}%</p>
+                            percentsClasses.reducedPercents}>{formatNumbersToPrettyStyle(+percents)}%</p>
                 </div>
 
             </div> : null

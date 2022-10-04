@@ -20,6 +20,10 @@ export default {
             defaultValue: 'Click',
             description: 'Sets the text inside the button'
         },
+        onClickTransmittedValues: {
+            type: Object,
+            description: 'Values that transmitted to onClick'
+        }
     }
 } as ComponentMeta<typeof Button.Transparent>
 

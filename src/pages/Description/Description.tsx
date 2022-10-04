@@ -9,7 +9,7 @@ import Preloader from "../../components/common/Preloader/Preloader";
 import {IntervalEnum} from "../../api/assets-api";
 import classes from './Discription.module.css'
 import ChartComponent from "../../components/ChartComponent/ChartComponent";
-import {formatPercents, formatPrice} from "../../components/CoinElement/CoinElement";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/CoinElement/CoinElement";
 import classNames from "classnames";
 import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
 import classesPercents from '../../components/Header/Header.module.css'
@@ -70,14 +70,14 @@ const Description: React.FC = (props) => {
                     </p>
                 </div>
                 <div className={classes.titlePriceWrap}>
-                    <p className={classes.price}>{formatPrice(+asset.priceUsd, 8, 2)}</p>
+                    <p className={classes.price}>{formatNumberToPrice(+asset.priceUsd, 8, 2)}</p>
                     <div className={classes.flexCenter}>
                         <div className={+asset.changePercent24Hr > 0 ?
                             classesPercents.increasedPercentsWrap :
                             classesPercents.reducedPercentsWrap}>
                             <p className={+asset.changePercent24Hr > 0 ?
                                 classesPercents.increasedPercents :
-                                classesPercents.reducedPercents}>{formatPercents(+asset.changePercent24Hr)}%</p>
+                                classesPercents.reducedPercents}>{formatNumbersToPrettyStyle(+asset.changePercent24Hr)}%</p>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@ const Description: React.FC = (props) => {
                     <div className={classes.descriptionTitleWrap}>
                         Market Cap
                     </div>
-                    <p className={classes.descriptionPrice}>{formatPrice(+asset.marketCapUsd)}</p>
+                    <p className={classes.descriptionPrice}>{formatNumberToPrice(+asset.marketCapUsd)}</p>
                 </div>
             </div>
             <div className={classes.descriptionWrap}>
@@ -102,7 +102,7 @@ const Description: React.FC = (props) => {
                     <div className={classes.descriptionTitleWrap}>
                         Volume <span className={classes.symbolWrap}>24h</span>
                     </div>
-                    <p className={classes.descriptionPrice}>{formatPrice(+asset.volumeUsd24Hr)}</p>
+                    <p className={classes.descriptionPrice}>{formatNumberToPrice(+asset.volumeUsd24Hr)}</p>
                 </div>
             </div>
             <div className={classes.descriptionWrap}>
@@ -110,7 +110,7 @@ const Description: React.FC = (props) => {
                     <div className={classes.descriptionTitleWrap}>
                         Circulating Supply
                     </div>
-                    <p className={classes.descriptionPrice}>{formatPercents(+asset.supply, 2, 8)} {asset.symbol}</p>
+                    <p className={classes.descriptionPrice}>{formatNumbersToPrettyStyle(+asset.supply, 2, 8)} {asset.symbol}</p>
                 </div>
             </div>
         </div>

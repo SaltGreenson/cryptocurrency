@@ -33,6 +33,10 @@ export default {
         onClick: {
             type: func,
             description: 'onClick handler inside the button'
+        },
+        onClickTransmittedValues: {
+            type: Object,
+            description: 'Values that transmitted to onClick'
         }
     }
 } as ComponentMeta<typeof Button.Little>

@@ -41,8 +41,13 @@ const marketsReducer = (state = initialState, actions: ActionsTypes): InitialSta
 export const collectMarkets = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
     dispatch(actionsApp.setFetching(true))
     const response: ResponseType = await marketsApi.markets()
-    dispatch(actions.setMarkets(response))
-    dispatch(actionsApp.setFetching(false))
+
+    if (response) {
+
+        dispatch(actions.setMarkets(response))
+        dispatch(actionsApp.setFetching(false))
+
+    }
 }
 
 export default marketsReducer

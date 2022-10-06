@@ -1,13 +1,13 @@
 import React from "react"
 import classes from './PopUpCoinDescription.module.css'
 import {AssetsType} from "../../api/types-api";
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import classNames from "classnames";
 import {CoinInPortfolioType} from "../../redux/profile-reducer";
 import Button from "../common/Styled/Button/Button";
 import Input from "../common/Styled/Input/Input";
 import Block from "../common/Styled/Block/Block";
 import {convertQuantity} from "./ContainerPopUpCoinDescription";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
 
 type PropsTypes = {
     coin: AssetsType,

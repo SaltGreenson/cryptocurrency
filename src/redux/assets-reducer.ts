@@ -101,59 +101,89 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
         offset = 0
     }
     const response: ResponseType = await assetsApi.assets(offset, limit)
-    dispatch(actions.setAssets(response))
+
+    if (response) {
+        dispatch(actions.setAssets(response))
+    }
 }
 
 export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
 
     dispatch(actions.setIsFetchingAssetPage(true))
     const response: ResponseType = await assetsApi.assets(0, 10)
-    const assetsTop3 =  response.data
-            .sort((a, b) => a.rank - b.rank)
-            .slice(0, 3)
+
+    if (!response) {
+        return
+    }
+
+    const assetsTop3 = response.data
+        .sort((a, b) => a.rank - b.rank)
+        .slice(0, 3)
 
     const promise = assetsTop3.map((e: AssetsType) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
     const histories: Array<ResponseType> = await Promise.all([...promise])
 
-    const obj: AssetsTop3Type = {
-        data: [{
-            id: assetsTop3[0].id,
-            history: [...histories[0].data],
-            data: assetsTop3[0]
-        }]
-    }
+    if (histories) {
 
-    for (let i:number = 1; i < histories.length; i++) {
-        obj.data.push({
-            id: assetsTop3[i].id,
-            history: [...histories[i].data],
-            data: assetsTop3[i]
-        })
-    }
+        // @ts-ignore
+        let h = [...histories[0].data]
 
-    dispatch(actions.setAssetsTop3Action(obj))
-    dispatch(actions.setIsFetchingAssetPage(false))
+        const obj: AssetsTop3Type = {
+            data: [{
+                id: assetsTop3[0].id,
+                history: h,
+                data: assetsTop3[0]
+            }]
+        }
+
+        for (let i: number = 1; i < histories.length; i++) {
+
+                // @ts-ignore
+                h = [...histories[i].data]
+
+                obj.data.push({
+                    id: assetsTop3[i].id,
+                    history: h,
+                    data: assetsTop3[i]
+                })
+
+
+        }
+
+        dispatch(actions.setAssetsTop3Action(obj))
+        dispatch(actions.setIsFetchingAssetPage(false))
+
+    }
 }
 
 export const setAssetByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
     dispatch(actions.setIsFetchingAssetPage(true))
     const response: ResponseType = await assetsApi.assetsById(id)
-    dispatch(actions.setAssetsById(response))
-    dispatch(actions.setIsFetchingAssetPage(false))
+
+    if (response) {
+        dispatch(actions.setAssetsById(response))
+        dispatch(actions.setIsFetchingAssetPage(false))
+    }
 }
 
 export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
     dispatch(actionsApp.setFetching(true))
     let response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
-    dispatch(actions.setAssetsHistoryById(response))
-    dispatch(actionsApp.setFetching(false))
+
+    if (response) {
+        dispatch(actions.setAssetsHistoryById(response))
+        dispatch(actionsApp.setFetching(false))
+    }
 }
 
 export const setAssetsMarketsById = (id: string, limit: number = 10): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
     dispatch(actionsApp.setFetching(true))
     const response: ResponseType = await assetsApi.assetsMarketsById(id, limit)
-    dispatch(actions.setAssetsMarketsById(response))
-    dispatch(actionsApp.setFetching(false))
+
+    if (response) {
+        dispatch(actions.setAssetsMarketsById(response))
+        dispatch(actionsApp.setFetching(false))
+    }
 }
 
 export default assetsReducer

@@ -2,6 +2,7 @@ import Button from './Button'
 import {ComponentMeta, ComponentStory} from "@storybook/react";
 import '/src/App.module.css'
 import {func} from "prop-types";
+import React from "react";
 
 export default {
     title: 'Button/Default',

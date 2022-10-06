@@ -14,16 +14,24 @@ export enum IntervalEnum {
 }
 
 export const assetsApi = {
-    async assets(offset: number, limit: number) {
-        return instance.get<ResponseType>(`assets?offset=${offset}&limit=${limit}`).then(res => res.data)
+    async assets(offset: number, limit: number): Promise<ResponseType> {
+        return instance.get<ResponseType>(`assets?offset=${offset}&limit=${limit}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    async assetsById(id: string) {
-        return instance.get<ResponseType>(`assets/${id}`).then(res => res.data)
+    async assetsById(id: string): Promise<ResponseType> {
+        return instance.get<ResponseType>(`assets/${id}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    async assetsHistoryById(id: string, interval: IntervalEnum) {
-        return instance.get<ResponseType>(`assets/${id}/history?interval=${interval}`).then(res => res.data)
+    async assetsHistoryById(id: string, interval: IntervalEnum): Promise<ResponseType> {
+        return instance.get<ResponseType>(`assets/${id}/history?interval=${interval}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     },
-    async assetsMarketsById(id:string, limit:number = 10) {
-        return instance.get<ResponseType>(`assets/${id}/markets?limit=${limit}`).then(res => res.data)
+    async assetsMarketsById(id:string, limit:number = 10): Promise<ResponseType> {
+        return instance.get<ResponseType>(`assets/${id}/markets?limit=${limit}`)
+            .then(res => res.data)
+            .catch(err => console.log(err))
     }
 }

@@ -1,6 +1,6 @@
 import PopUpCoinDescription from "./PopUpCoinDescription";
 import {ComponentMeta, ComponentStory} from "@storybook/react";
-import {CoinInPortfolioType, ProfileType} from "../../redux/profile-reducer";
+import {CoinInPortfolioType} from "../../redux/profile-reducer";
 import {AssetsType} from "../../api/types-api";
 import React from "react";
 import {func} from "prop-types";

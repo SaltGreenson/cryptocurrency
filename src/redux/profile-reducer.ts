@@ -86,8 +86,13 @@ export const initializeProfile = (): GenericThunkType<ActionsTypes> => async (di
 
     for (let i: number = 0; i < profile.portfolio.length; i++) {
         const response = await assetsApi.assetsById(profile.portfolio[i].coin.id)
-        profile.balanceUsd += +(response.data.priceUsd * profile.portfolio[i].quantity)
-        profile.portfolio[i].coin = response.data
+
+        if (response) {
+
+            profile.balanceUsd += +(response.data.priceUsd * profile.portfolio[i].quantity)
+            profile.portfolio[i].coin = response.data
+
+        }
     }
 
 

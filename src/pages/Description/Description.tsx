@@ -9,7 +9,6 @@ import Preloader from "../../components/common/Preloader/Preloader";
 import {IntervalEnum} from "../../api/assets-api";
 import classes from './Discription.module.css'
 import ChartComponent from "../../components/ChartComponent/ChartComponent";
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/CoinElement/CoinElement";
 import classNames from "classnames";
 import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
 import classesPercents from '../../components/Header/Header.module.css'
@@ -18,6 +17,7 @@ import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoi
 import {getProfile} from "../../selectors/profile-selectors";
 import classesForFavourite from '../../components/CoinElement/CoinElement.module.css'
 import ContainerPopUpCoinDescription from "../../components/PopUpCoinDescription/ContainerPopUpCoinDescription";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/utils/helpers/helpers";
 
 const Description: React.FC = (props) => {
 

@@ -6,11 +6,11 @@ import {getInitializedProfile, getProfile} from "../../selectors/profile-selecto
 import Preloader from "../../components/common/Preloader/Preloader";
 import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoinDescription";
 import {Link} from "react-router-dom";
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/CoinElement/CoinElement";
 import {calculatePercents} from "../../components/Header/Header";
 import percentsClasses from '../../components/Header/Header.module.css'
 import classNames from "classnames";
 import ContainerPopUpCoinDescription from "../../components/PopUpCoinDescription/ContainerPopUpCoinDescription";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../../components/utils/helpers/helpers";
 
 type PropsTypes = {}
 

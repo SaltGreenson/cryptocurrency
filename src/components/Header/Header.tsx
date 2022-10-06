@@ -3,10 +3,10 @@ import {Link, useNavigate} from "react-router-dom";
 import classes from './Header.module.css'
 import {useSelector} from "react-redux";
 import {getProfile} from "../../selectors/profile-selectors";
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import {ProfileType} from "../../redux/profile-reducer";
 import classNames from "classnames";
 import MenuBurger, {ElementMenuBurgerType} from "../common/MenuBurger/MenuBurger";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
 
 type PropsTypes = {
     profile: ProfileType
@@ -54,17 +54,6 @@ const Header: React.FC<PropsTypes> = ({profile}) => {
 
                     <p className={classes.balanceText}>Balance:</p>
 
-                    {/*<div className={classes.portfolioWrap}>*/}
-
-                    {/*    <span className={classNames(classes.balance)}>*/}
-                    {/*    {profile.balanceUsd > 0 ?*/}
-                    {/*        formatPrice(profile.balanceUsd, 5) :*/}
-                    {/*        formatPrice(profile.initialBalance, 5)}*/}
-                    {/*    </span>*/}
-
-                    {/*</div>*/}
-
-
                     <div className={percents === 0 ?
                         classes.neutralPercentsWrap :
 
@@ -78,7 +67,6 @@ const Header: React.FC<PropsTypes> = ({profile}) => {
                                 classes.increasedPercents :
                                 classes.reducedPercents}>{formatNumbersToPrettyStyle(+percents)}%</p>
                     </div>
-
 
                 </div>
             </MenuBurger>

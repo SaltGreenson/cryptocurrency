@@ -1,17 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import './App.module.css';
 import {withSuspense} from "./components/hoc/withSuspense";
-import {Provider, useDispatch, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
 import {getInitialized} from "./selectors/app-selectors";
 import Preloader from "./components/common/Preloader/Preloader";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
-import store from "./redux/redux-store";
 import Header from "./components/Header/Header";
 import {setAssetsTop3} from "./redux/assets-reducer";
 import classes from './App.module.css'
 import NotFoundPage from "./pages/NotFound/NotFound";
 import {getProfile} from "./selectors/profile-selectors";
+import {ProfileType} from "./redux/profile-reducer";
 
 const MainLazy = React.lazy(() => import('./pages/Main/Main'))
 const DescriptionLazy = React.lazy(() => import('./pages/Description/Description'))
@@ -23,7 +23,28 @@ const SuspendedDescription = withSuspense(DescriptionLazy)
 const SuspendedProfile = withSuspense(ProfileLazy)
 const SuspendedWithdraw = withSuspense(WithdrawLazy)
 
-const App: React.FC = (props) => {
+type PropsType = {
+    profile: ProfileType
+}
+
+export const App: FC<PropsType> = ({profile}) => {
+
+    return (
+        <div className={classes.appContainer}>
+            <Header profile={profile}/>
+            <Routes>
+                <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
+                <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
+                <Route path='/:id' element={<SuspendedDescription/>}/>
+                <Route path='/profile' element={<SuspendedProfile/>}/>
+                <Route path='/withdraw' element={<SuspendedWithdraw/>}/>
+                <Route path='*' element={<NotFoundPage/>}/>
+            </Routes>
+        </div>
+    );
+}
+
+const StartApp: React.FC = () => {
 
     const dispatch = useDispatch()
     const initialized = useSelector(getInitialized)
@@ -42,27 +63,8 @@ const App: React.FC = (props) => {
         return <Preloader/>
     }
 
-    return (
-
-        <div className={classes.appContainer}>
-            <Header profile={profile}/>
-            <Routes>
-                <Route path='/' element={<Navigate to='/coins/:page=1'/>}/>
-                <Route path='/coins/:page' element={<SuspendedMainPage/>}/>
-                <Route path='/:id' element={<SuspendedDescription/>}/>
-                <Route path='/profile' element={<SuspendedProfile/>}/>
-                <Route path='/withdraw' element={<SuspendedWithdraw/>}/>
-                <Route path='*' element={<NotFoundPage/>}/>
-            </Routes>
-        </div>
-    );
-}
-
-const StartApp: React.FC = () => {
     return <HashRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
+            <App profile={profile}/>
     </HashRouter>
 }
 

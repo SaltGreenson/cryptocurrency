@@ -47,6 +47,11 @@ export const Assets: React.FC = () => {
     const [isAlreadyExistCoin, setIsAlreadyExistCoin] = useState<boolean>(false)
     const [pageFromParams, setPageFromParams] = useState<number>(page ? page : 1)
 
+    const onClickHandler = (coin: AssetsType) => {
+        setSelectedCoin(coin)
+        setIsAlreadyExistCoin(alreadyInFavourite(coin.id))
+        setIsPopUpActive(true)
+    }
 
     const alreadyInFavourite = (coinId: string) => {
         return portfolio.some(f => f.coin.id === coinId)
@@ -82,19 +87,18 @@ export const Assets: React.FC = () => {
                 </thead>
                 <tbody>
                 {assets.map((coin) => <CoinElement key={coin.id}
-                                                   setIsPopUpActive={setIsPopUpActive}
-                                                   setIsAlreadyExistCoin={setIsAlreadyExistCoin}
-                                                   setSelectedCoin={setSelectedCoin}
                                                    coin={coin}
-                                                   alreadyInFavourite={alreadyInFavourite}/>)}
+                                                   alreadyInFavourite={alreadyInFavourite(coin.id)}
+                                                   onClickHandler={onClickHandler}
+                />)}
                 </tbody>
             </table>
         </div>
 
         <PopUp active={isPopUpActive} setActive={setIsPopUpActive}>
             <ContainerPopUpCoinDescription coin={selectedCoin}
-                                  isAlreadyExistCoin={isAlreadyExistCoin}
-                                  setIsPopUpActive={setIsPopUpActive}
+                                           isAlreadyExistCoin={isAlreadyExistCoin}
+                                           setIsPopUpActive={setIsPopUpActive}
             />
         </PopUp>
     </div>

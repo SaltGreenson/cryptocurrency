@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {createGlobalStyle, ThemeProvider} from "styled-components";
+import {ThemeProvider} from "styled-components";
 import {theme} from "./global-styles";
+import store from "./redux/redux-store";
+import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -13,7 +15,11 @@ const root = ReactDOM.createRoot(
 root.render(
     <ThemeProvider theme={theme}>
         <React.StrictMode>
-            <App/>
+            <Provider store={store}>
+
+                <App/>
+            </Provider>
+
         </React.StrictMode>
     </ThemeProvider>
 );

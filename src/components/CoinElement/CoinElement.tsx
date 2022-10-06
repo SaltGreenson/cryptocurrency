@@ -1,78 +1,24 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {AssetsType} from "../../api/types-api";
 import classes from './CoinElement.module.css'
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {setAssetByID} from "../../redux/assets-reducer";
 import classNames from "classnames";
-import Description from "../../pages/Description/Description";
 import Button from "../common/Styled/Button/Button";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
 
-
-export const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
-    const max = Math.pow(10, decimal)
-    let isBigger = false
-
-    if (Math.abs(value) > max) {
-        value = max - 1
-        isBigger = true
-    }
-
-    return {
-        value,
-        isBigger
-    }
-}
-
-export const formatNumberToPrice = (value: number, decimal: number = 13, fraction: number = 2) => {
-    const maxValue = setMaxValue(value, decimal)
-    value = maxValue.value
-
-    if (value < 0.1 && value > 0) {
-        fraction = 5
-    }
-    const formattedValue: string = new Intl.NumberFormat('USD', {
-        currency: 'usd',
-        style: 'currency',
-        maximumFractionDigits: fraction,
-    }).format(+value)
-
-    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
-}
-
-export const formatNumbersToPrettyStyle = (value: number, fraction: number = 2, decimal: number = 5): string => {
-    const maxValue = setMaxValue(value, decimal)
-    value = maxValue.value
-
-    const formattedValue: string = new Intl.NumberFormat('USD', {
-        maximumFractionDigits: fraction,
-        style: 'decimal'
-    }).format(value)
-
-    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
-}
 
 type PropsTypes = {
     coin: AssetsType,
-    alreadyInFavourite: (id: string) => boolean
-    setIsPopUpActive: (active: boolean) => void,
-    setSelectedCoin: (coin: AssetsType) => void,
-    setIsAlreadyExistCoin: (isExist: boolean) => void
+    alreadyInFavourite: boolean
+    onClickHandler: (coin: AssetsType) => void
 }
 
 export const CoinElement: React.FC<PropsTypes> = ({
                                                       coin,
                                                       alreadyInFavourite,
-                                                      setIsPopUpActive,
-                                                      setSelectedCoin,
-                                                      setIsAlreadyExistCoin
+                                                      onClickHandler
                                                   }) => {
 
-    const onClickHandler = (coin: AssetsType) => {
-        setSelectedCoin(coin)
-        setIsAlreadyExistCoin(alreadyInFavourite(coin.id))
-        setIsPopUpActive(true)
-    }
 
     return <tr>
         <td>
@@ -82,7 +28,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
             <div className={classes.titleWrap}>
 
                 <Button.Transparent type={'button'}
-                                    color={ alreadyInFavourite(coin.id) ? 'yellow' : 'blue'}
+                                    color={ alreadyInFavourite ? 'yellow' : 'blue'}
                                     onClick={onClickHandler}
                                     onClickTransmittedValues={coin}
                 >

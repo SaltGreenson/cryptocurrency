@@ -11,7 +11,7 @@ const config: Config = {
   coverageProvider: "v8",
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts'],
   moduleNameMapper: {
-    '\\.(css|less)$': '<rootDir>/test/jest/__mocks__/styleMock.ts',
+    '\\.(css|less|gif)$': '<rootDir>/test/jest/__mocks__/styleMock.ts',
   }
 };
 

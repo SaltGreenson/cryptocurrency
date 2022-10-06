@@ -1,11 +1,11 @@
 import React from "react";
 import {AssetsHistoryType, AssetsType} from "../../api/types-api";
 import classes from './Card.module.css'
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../CoinElement/CoinElement";
 import ChartComponent from "../ChartComponent/ChartComponent";
 import {useDispatch} from "react-redux";
 import {setAssetByID} from "../../redux/assets-reducer";
 import {useNavigate} from "react-router-dom";
+import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
 
 const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryType>}> = React.memo (({coinData, coinHistory}) => {
 

@@ -13,7 +13,7 @@ type PropsTypes = {
 }
 
 
-export const calculatePercents = ({initialBalance, balanceUsd}:any) => {
+export const calculatePercents = ({initialBalance, balanceUsd}: any) => {
     const p = 100 - +initialBalance / +balanceUsd * 100
 
     return !!p ? p : 0
@@ -45,7 +45,11 @@ const Header: React.FC<PropsTypes> = ({profile}) => {
     return <div className={classes.container}>
 
         <div className={classes.titleWrap}>
-            <Link className={classes.title} to="/coins/:page=1">CØOINCAP</Link>
+            <h1>
+                <Link className={classes.title} to="/coins/:page=1">
+                    CØOINCAP
+                </Link>
+            </h1>
         </div>
 
         <div className={classes.burgerWrap}>

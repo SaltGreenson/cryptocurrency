@@ -43,9 +43,7 @@ export type AssetsMarket = {
     volumePercent: number
 }
 
-type AxiosResponse = {
+export type ResponseType = {
     data: Array<AssetsMarket & AssetsType & AssetsHistoryType & MarketsType> & AssetsType,
     timestamp: Date
 }
-
-export type ResponseType = AxiosResponse | void

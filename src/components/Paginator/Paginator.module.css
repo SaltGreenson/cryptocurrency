@@ -36,17 +36,3 @@
     border: 1px solid #ff0000;
     background-color: rgba(255, 0, 0, 0.1);
 }
-
-
-.navigationElement {
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
-}
-
-.navigationElement:hover {
-    color: #ff0000;
-}

@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import classes from "./Paginator.module.css"
 import classNames from "classnames"
 import {Link} from "react-router-dom";
+import Button from "../common/Styled/Button/Button";
+import {theme} from "../../global-styles";
 
 
 const Paginator: React.FC<PropsType> = ({
@@ -34,9 +36,9 @@ const Paginator: React.FC<PropsType> = ({
     return <div className={classes.container}>
         <ul className={classes.paginatorWrap}>
             {portionNumber > 1 &&
-                <div className={classes.navigationElement}>
+                <Button.Transparent color={theme.colors.white} hoverColor={theme.colors.red} marginRight={'0'}>
                     <p onClick={() => onClickBtn(portionNumber - 1)}>&#11013;</p>
-                </div>
+                </Button.Transparent>
             }
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
@@ -50,9 +52,9 @@ const Paginator: React.FC<PropsType> = ({
                     </div>
                 })}
             {portionCount > portionNumber &&
-                <div className={classes.navigationElement}>
+                <Button.Transparent color={theme.colors.white} hoverColor={theme.colors.red} marginRight={'0'}>
                     <p onClick={() => onClickBtn(portionNumber + 1)}>&#10145;</p>
-                </div>
+                </Button.Transparent>
             }
 
         </ul>

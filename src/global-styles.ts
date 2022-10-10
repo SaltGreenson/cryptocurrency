@@ -15,6 +15,7 @@ export const theme = {
         yellow: '#FFFF00FF',
         purple: '#8724ff',
         red: '#ff0000',
+        transparentRed: '#FF000019',
         green: '#4fc180',
         white: '#ffffff'
     },

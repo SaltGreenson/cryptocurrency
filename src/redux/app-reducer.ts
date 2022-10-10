@@ -77,17 +77,6 @@ export const setAppCurrentPage = (currentPage: number) => (dispatch: Dispatch<Ac
 
 export const setAssetsLastRank = (): GenericThunkType<ActionsAppTypes> => async (dispatch: Dispatch<ActionsAppTypes>) => {
     dispatch(actionsApp.setLastRank(2295))
-
-    // the api does not give the last rank, it works, but for a long time and paginator doesn't have mean
-
-    // let offset = 1
-    // let response: ResponseType = await assetsApi.assets(offset, 2000)
-    // while (response.data.length) {
-    //     let rank = response.data[response.data.length - 1]?.rank
-    //     offset = rank
-    //     dispatch(actionsApp.setLastRank(rank))
-    //     response = await assetsApi.assets(offset, 300)
-    // }
 }
 
 export const setAssetsOffsets = (offset: number): GenericThunkType<ActionsAppTypes> => async (dispatch: Dispatch<ActionsAppTypes >) => {
@@ -100,9 +89,11 @@ export const setAssetsLimit = (limit: number): GenericThunkType<ActionsAppTypes>
 
 export const initializeApp = (offset: number, limit: number): GenericThunkType<ActionsAppTypes> => async (dispatch) => {
     dispatch(actionsApp.setFetching(true))
+
     await dispatch(setAssets(offset, limit))
     await dispatch(setAssetsLastRank())
     await dispatch(initializeProfile())
+
     dispatch(actionsApp.isInitialized(true))
     dispatch(actionsApp.setFetching(false))
 }

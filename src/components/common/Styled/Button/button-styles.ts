@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 export type StyledDefaultButtonTypes = {
     bgColor: 'red' | 'green' | 'default'
@@ -46,6 +46,7 @@ export const StyledSmallButton = styled.button<StyledSmallButtonTypes>`
   transition: .3s;
   border-radius: ${({borderRadius}) => borderRadius};
   color: ${({theme}) => theme.colors.white};
+
   &:hover {
     background-color: ${({bgColorHover, theme}) => bgColorHover === 'green' ?
             theme.colors.green :
@@ -55,7 +56,9 @@ export const StyledSmallButton = styled.button<StyledSmallButtonTypes>`
 `
 
 export type StyledTransparentButtonPropsTypes = {
-    color: 'blue' | 'yellow'
+    color: 'blue' | 'yellow' | string,
+    hoverColor?: string,
+    marginRight?: string
 }
 
 export const StyledTransparentButton = styled.button<StyledTransparentButtonPropsTypes>`
@@ -64,13 +67,23 @@ export const StyledTransparentButton = styled.button<StyledTransparentButtonProp
   transition: .3s;
   transition-timing-function: linear;
   user-select: none;
-  margin-right: 2rem;
+  margin-right: ${({marginRight}) => marginRight ? marginRight : '2rem'};
   background-color: transparent;
-  
-  color: ${({color, theme}) => color === 'blue' ? theme.colors.darkBlue : theme.colors.yellow};
-  
+
+  color: ${({color, theme}) => color === 'blue' ?
+          theme.colors.darkBlue :
+          color === 'yellow' ?
+                  theme.colors.yellow :
+                  color
+  };
+
   &:focus, &:hover {
     outline: none;
-    color: ${({color, theme}) => color === 'blue' ? theme.colors.lightBlue : theme.colors.orange};
+    color: ${({color, theme}) => color === 'blue' ?
+            theme.colors.lightBlue : theme.colors.orange};
+    ${({hoverColor}) => hoverColor && css`
+      color: ${hoverColor};
+    `}
+    
   }
 `

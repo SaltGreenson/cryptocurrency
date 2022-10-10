@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import React from "react";
 import StartApp from "./App";
 import {unmountComponentAtNode} from "react-dom";
@@ -14,15 +14,5 @@ describe('APP TESTS', () => {
         )
         const div = document.createElement('div')
         unmountComponentAtNode(div)
-    })
-
-    test('The document must have the title', async () => {
-        render(<Provider store={store}>
-                <StartApp/>
-            </Provider>
-        )
-        const headerTitle = await screen.findByText(/CØOINCAP/i)
-        expect(headerTitle).toBeInTheDocument()
-        expect(headerTitle).toMatchSnapshot()
     })
 })

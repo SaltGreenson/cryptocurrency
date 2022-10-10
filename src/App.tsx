@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
 import {getInitialized} from "./selectors/app-selectors";
 import Preloader from "./components/common/Preloader/Preloader";
-import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Header from "./components/Header/Header";
 import {setAssetsTop3} from "./redux/assets-reducer";
 import classes from './App.module.css'
@@ -63,9 +63,7 @@ const StartApp: React.FC = () => {
         return <Preloader/>
     }
 
-    return <HashRouter>
-            <App profile={profile}/>
-    </HashRouter>
+    return <App profile={profile}/>
 }
 
 export default StartApp;

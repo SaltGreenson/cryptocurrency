@@ -45,7 +45,7 @@ const initialState = {
     isFetchingAssetPage: false
 }
 
-const actions = {
+export const actions = {
     setAssets: (assets: GenericStateType<Array<AssetsType>>) => ({
         type: SET_ASSETS,
         payload: {assets}
@@ -100,6 +100,7 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
     if (!offset) {
         offset = 0
     }
+
     const response: ResponseType = await assetsApi.assets(offset, limit)
 
     if (response) {
@@ -109,23 +110,19 @@ export const setAssets = (offset: number, limit: number): GenericThunkType<Actio
 
 export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
 
-    dispatch(actions.setIsFetchingAssetPage(true))
-    const response: ResponseType = await assetsApi.assets(0, 10)
+    try {
+        dispatch(actions.setIsFetchingAssetPage(true))
+        const response: ResponseType = await assetsApi.assets(0, 10)
 
-    if (!response) {
-        return
-    }
 
-    const assetsTop3 = response.data
-        .sort((a, b) => a.rank - b.rank)
-        .slice(0, 3)
+        const assetsTop3 = response.data
+            .sort((a, b) => a.rank - b.rank)
+            .slice(0, 3)
 
-    const promise = assetsTop3.map((e: AssetsType) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
-    const histories: Array<ResponseType> = await Promise.all([...promise])
+        const promise = assetsTop3.map((e: AssetsType) => assetsApi.assetsHistoryById(e.id, IntervalEnum.m5))
+        const histories: Array<ResponseType> = await Promise.all([...promise])
 
-    if (histories) {
 
-        // @ts-ignore
         let h = [...histories[0].data]
 
         const obj: AssetsTop3Type = {
@@ -138,51 +135,61 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
 
         for (let i: number = 1; i < histories.length; i++) {
 
-                // @ts-ignore
-                h = [...histories[i].data]
+            h = [...histories[i].data]
 
-                obj.data.push({
-                    id: assetsTop3[i].id,
-                    history: h,
-                    data: assetsTop3[i]
-                })
+            obj.data.push({
+                id: assetsTop3[i].id,
+                history: h,
+                data: assetsTop3[i]
+            })
 
 
         }
 
         dispatch(actions.setAssetsTop3Action(obj))
         dispatch(actions.setIsFetchingAssetPage(false))
-
+    } catch (err) {
+        console.log(err)
     }
+
 }
 
 export const setAssetByID = (id: string): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-    dispatch(actions.setIsFetchingAssetPage(true))
-    const response: ResponseType = await assetsApi.assetsById(id)
 
-    if (response) {
+    try {
+        dispatch(actions.setIsFetchingAssetPage(true))
+        const response: ResponseType = await assetsApi.assetsById(id)
+
         dispatch(actions.setAssetsById(response))
         dispatch(actions.setIsFetchingAssetPage(false))
+    } catch (err) {
+        console.log(err)
     }
 }
 
 export const setAssetsHistoryById = (id: string, interval: IntervalEnum): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-    dispatch(actionsApp.setFetching(true))
-    let response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
 
-    if (response) {
+    try {
+        dispatch(actionsApp.setFetching(true))
+        let response: ResponseType = await assetsApi.assetsHistoryById(id, interval)
+
         dispatch(actions.setAssetsHistoryById(response))
         dispatch(actionsApp.setFetching(false))
+    } catch (err) {
+        console.log(err)
     }
 }
 
 export const setAssetsMarketsById = (id: string, limit: number = 10): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
-    dispatch(actionsApp.setFetching(true))
-    const response: ResponseType = await assetsApi.assetsMarketsById(id, limit)
 
-    if (response) {
+    try {
+        dispatch(actionsApp.setFetching(true))
+        const response: ResponseType = await assetsApi.assetsMarketsById(id, limit)
+
         dispatch(actions.setAssetsMarketsById(response))
         dispatch(actionsApp.setFetching(false))
+    } catch (err) {
+        console.log(err)
     }
 }
 

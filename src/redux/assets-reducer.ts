@@ -97,15 +97,13 @@ const assetsReducer = (state = initialState, actions: ActionsTypes): InitialStat
 
 export const setAssets = (offset: number, limit: number): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
 
-    if (!offset) {
+    if (!offset || offset < 0 || limit < 0) {
         offset = 0
+        limit = 50
     }
 
     const response: ResponseType = await assetsApi.assets(offset, limit)
-
-    if (response) {
-        dispatch(actions.setAssets(response))
-    }
+    dispatch(actions.setAssets(response))
 }
 
 export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes | ActionsAppTypes>) => {
@@ -113,7 +111,6 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
     try {
         dispatch(actions.setIsFetchingAssetPage(true))
         const response: ResponseType = await assetsApi.assets(0, 10)
-
 
         const assetsTop3 = response.data
             .sort((a, b) => a.rank - b.rank)
@@ -148,6 +145,7 @@ export const setAssetsTop3 = (): GenericThunkType<ActionsTypes> => async (dispat
 
         dispatch(actions.setAssetsTop3Action(obj))
         dispatch(actions.setIsFetchingAssetPage(false))
+
     } catch (err) {
         console.log(err)
     }

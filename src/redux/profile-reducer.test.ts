@@ -1,12 +1,13 @@
 import profileReducer, {
     actions,
     ActionsTypes,
-    initializeProfile,
+    addCoinToPortfolio, clearProfile,
     InitialStateType,
-    ProfileType
+    ProfileType, removeCoinFromPortfolio
 } from "./profile-reducer";
 import {AssetsType} from "../api/types-api";
-
+import {applyMiddleware, legacy_createStore as createStore} from 'redux'
+import thunkMiddleWare from "redux-thunk";
 
 const coin: AssetsType = {
     id: "bitcoin",
@@ -40,17 +41,16 @@ const state: InitialStateType = {
 describe('Tests actions Profile-reducer', () => {
     let action: ActionsTypes
     let newState: InitialStateType
-    let dispatchMock: any
-    let getStateMock: any
+    let store: any
+    let localProfile: ProfileType
     beforeAll(() => {
         action = actions.setProfile(profile)
         newState = profileReducer(state, action)
-        dispatchMock = jest.fn()
-        getStateMock =  jest.fn()
+        store = createStore(profileReducer, applyMiddleware(thunkMiddleWare))
     })
 
-    beforeEach(() => {
-        jest.clearAllMocks()
+    afterEach(() => {
+        store.dispatch(clearProfile())
     })
 
     test('SetProfile must work correctly', () => {
@@ -61,11 +61,28 @@ describe('Tests actions Profile-reducer', () => {
         expect(newState.profile.portfolio[0].coin).toEqual(coin)
     })
 
-    test('Must be created new profile', async () => {
-        const thunk = initializeProfile()
-        await thunk(dispatchMock, getStateMock, {})
-        expect(dispatchMock).toBeCalledTimes(1)
-        expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.initializedSuccess())
+    test('The coin must be added to portfolio', () => {
+        store.dispatch(addCoinToPortfolio(coin, 10) as unknown as ActionsTypes)
+        localProfile = store.getState().profile
+        expect(localProfile.portfolio.length).toBe(1)
+    })
+
+    test('The coin must be removed from portfolio', () => {
+        store.dispatch(addCoinToPortfolio(coin, 3) as unknown as ActionsTypes)
+        store.dispatch(removeCoinFromPortfolio(coin, 4) as unknown as ActionsTypes)
+        localProfile = store.getState().profile
+        expect(localProfile.portfolio.length).toBe(0)
+    })
+
+    test('There must be one coin in the profile', () => {
+        store.dispatch(addCoinToPortfolio(coin, 3) as unknown as ActionsTypes)
+        store.dispatch(removeCoinFromPortfolio(coin, 2) as unknown as ActionsTypes)
+        localProfile = store.getState().profile
+        expect(localProfile.portfolio.length).toBe(1)
+    })
+
+    afterEach(() => {
+
     })
 })
 

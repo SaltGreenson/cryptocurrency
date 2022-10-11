@@ -84,7 +84,7 @@ describe('Tests for assets-reducer thunks', () => {
         const thunk = setAssetByID('1')
         await thunk(dispatchMock, getStateMock, {})
         expect(dispatchMock).toBeCalledTimes(3)
-        expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setAssetsById([{}] as unknown as GenericStateType<AssetsType>))
+        expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setAssetsById({ data: [{}] } as unknown as GenericStateType<AssetsType>))
     })
 
     test('History by id must be collected', async () => {

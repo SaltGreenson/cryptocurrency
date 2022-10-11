@@ -103,10 +103,12 @@ export const initializeProfile = (): GenericThunkType<ActionsTypes> => async (di
     } catch (e) {
         console.log(e)
     }
+    finally {
+        localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
+        dispatch(actions.setProfile(profile))
+        dispatch(actions.initializedSuccess())
+    }
 
-    localStorage.setItem(keys.localStorageName, JSON.stringify(profile))
-    dispatch(actions.setProfile(profile))
-    dispatch(actions.initializedSuccess())
 }
 
 export const addCoinToPortfolio = (coin: AssetsType, quantity: number): GenericThunkType<ActionsTypes> => async (dispatch: Dispatch<ActionsTypes>) => {

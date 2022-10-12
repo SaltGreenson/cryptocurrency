@@ -11,7 +11,7 @@ type PropsTypes = {
 
 const PopUp: React.FC<PropsTypes> = ({active, setActive, children}) => {
 
-    return createPortal(<div className={active ?
+    return createPortal(<div data-testid='popUpTestId' className={active ?
             classNames(classes.popUp, classes.active) :
             classes.popUp} onClick={() => setActive(false)}>
 

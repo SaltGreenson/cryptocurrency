@@ -27,6 +27,13 @@
     }
 }
 
+
+
+.titleWrap {
+    display: flex;
+    align-items: center;
+}
+
 .title, .symbol {
     cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import React, {FC, useEffect} from 'react';
 import './App.module.css';
-import {withSuspense} from "./components/hoc/withSuspense";
+import {withSuspense} from "./components/utils/helpers/hocs-helper";
 import {useDispatch, useSelector} from 'react-redux'
 import {initializeApp, setAssetsLimit, setAssetsOffsets} from "./redux/app-reducer";
 import {getInitialized} from "./selectors/app-selectors";

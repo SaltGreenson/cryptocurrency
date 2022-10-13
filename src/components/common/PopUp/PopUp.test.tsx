@@ -1,19 +1,18 @@
 import React from 'react'
 import PopUp from "./PopUp";
 import {fireEvent, render, screen} from "@testing-library/react";
-import {ThemeProvider} from "styled-components";
-import {theme} from "../../../global-styles";
+import {withWrapForTesting} from "../../utils/helpers/hocs-helper";
 
 
 describe('PopUp TESTS', () => {
     test('Active must be false state', () => {
         let active = true
 
-        render(<ThemeProvider theme={theme}>
-            <PopUp active={active} setActive={(e: boolean) => active = e}>
-                <p>Children</p>
-            </PopUp>
-        </ThemeProvider>)
+        const WrappedPopUp = withWrapForTesting(PopUp)
+
+        render(<WrappedPopUp active={active}
+                             setActive={(e: boolean) => active = e}
+                             children={<p>Children</p>}/>)
 
         fireEvent.click(screen.getByTestId('popUpTestId'))
         expect(active).toBe(false)

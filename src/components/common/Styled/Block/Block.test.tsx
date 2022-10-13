@@ -18,13 +18,12 @@ describe('BLOCK TESTS', () => {
     })
 
     test('The block correctly displays the children', () => {
-        const view = render(<Block.Flex children={children}/>)
+        render(<Block.Flex children={children}/>)
 
         const block = screen.getByTestId('divBlock')
         const cleanHtmlString = DOMPurify.sanitize(block,
             {USE_PROFILES: {html: true}});
 
         expect(String(parse(cleanHtmlString))).toEqual(String(children))
-        expect(view.baseElement).toMatchSnapshot()
     })
 })

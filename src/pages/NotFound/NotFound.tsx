@@ -19,7 +19,12 @@ const NotFound: React.FC = (props) => {
 
     return <div className={classes.container}>
         <p className={classes.title}>404 NOT FOUND</p>
-        <p><Link to='/coins/:page=1' className={classes.link}> Redirecting after...</Link>{redirectTime}</p>
+        <p>
+            <Link data-testid='mainPageLink' to='/coins/:page=1' className={classes.link}>
+                Redirecting after...
+            </Link>
+            {redirectTime}
+        </p>
     </div>
 }
 

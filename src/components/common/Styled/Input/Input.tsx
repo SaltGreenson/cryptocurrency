@@ -32,7 +32,6 @@ Input.Number = ({onChange, value, increment, decrement, placeholder, name, ...re
                      type="text"
                      pattern="^[0-9]+(.[0-9]+)?$"
                      placeholder={placeholder}
-                     data-testid='inputTestId'
                      required
                      {...rest}
         />

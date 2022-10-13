@@ -1,19 +1,17 @@
 import React from 'react'
 import Header from "./Header";
-import {create} from 'react-test-renderer'
 import {ProfileType} from "../../redux/profile-reducer";
-import {BrowserRouter} from "react-router-dom";
+import {withWrapForTesting} from "../utils/helpers/hocs-helper";
+import {render,screen} from "@testing-library/react";
 
 describe('Header tests', () => {
-    test('The title must be present', async () => {
-        const component = create(
-            <BrowserRouter>
-                <Header profile={{} as ProfileType}/>
-            </BrowserRouter>)
+    test('The title must be present', () => {
 
-        const root = component.root
-        const h1 = await root.findByType('h1')
+        const WrappedHeader = withWrapForTesting(Header)
 
+        render(<WrappedHeader profile={{} as ProfileType}/>)
+
+        const h1 = screen.queryByRole('h1')
         expect(h1).toBeDefined()
     })
 })

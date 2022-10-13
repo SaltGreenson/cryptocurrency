@@ -1,8 +1,7 @@
 import React from "react";
 import PopUpYesNo from "./PopUpYesNo";
 import {fireEvent, render, screen} from "@testing-library/react";
-import {ThemeProvider} from "styled-components";
-import {theme} from "../../../global-styles";
+import {withWrapForTesting} from "../../utils/helpers/hocs-helper";
 
 describe('PopUpYesNo TESTS', () => {
     test('Answers must works correctly', () => {
@@ -10,13 +9,12 @@ describe('PopUpYesNo TESTS', () => {
         let answer = false
         let active = true
 
-        render(
-            <ThemeProvider theme={theme}>
-                <PopUpYesNo active={active}
-                            setActive={(e: boolean) => active = e}
-                            text={''}
-                            setAnswer={(e: boolean) => answer = e}/>
-            </ThemeProvider>
+        const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo)
+
+        render(<WrappedPopUpYesNo active={active}
+                                  setActive={(e: boolean) => active = e}
+                                  text={''}
+                                  setAnswer={(e: boolean) => answer = e}/>
         )
 
         const btnNO = screen.getByText('NO')
@@ -37,13 +35,14 @@ describe('PopUpYesNo TESTS', () => {
 
         let text = 'It is sunny today?'
 
-        render(
-            <ThemeProvider theme={theme}>
-                <PopUpYesNo active={true}
-                            setActive={(() => {})}
-                            text={text}
-                            setAnswer={() => {}}/>
-            </ThemeProvider>
+        const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo)
+
+        render(<WrappedPopUpYesNo active={true}
+                                  setActive={(() => {
+                                  })}
+                                  text={text}
+                                  setAnswer={() => {
+                                  }}/>
         )
 
         const innerTextHTML = screen.queryByText(text)

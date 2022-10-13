@@ -46,11 +46,14 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
     return <div className={classes.container}>
         <div className={classes.cardWrap}>
             <div className={classes.titleWrap}>
+
                 <span className={classes.symbol}>
                         {coin.symbol}
                 </span>
+
                 <span className={classes.rank}>RANK #{coin.rank}</span>
                 <span className={classes.price}>{formatNumberToPrice(coin.priceUsd)}</span>
+
             </div>
 
             <Block.Flex justify={'space-between'} margin={'0 0 5px 0'}>
@@ -94,33 +97,33 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
 
             </div>
-            {isAlreadyExistCoin ?
+            {isAlreadyExistCoin &&
                 <div className={classes.totalPriceWrap}>
                     <p className={classes.totalPriceTitle}>Own:</p>
                     <p className={classes.totalPrice}>
                         {showExistQuantity()}
                     </p>
                 </div>
-                : null
             }
             <div className={classNames(classes.btnWrap, isAlreadyExistCoin ? classes.twoBtnsWrap : null)}>
                 <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                    <Button type={'submit'} bgColor={'green'} onClick={hiddenInputSetValue} onClickTransmittedValues={'true'}>
+                    <Button type={'submit'} bgColor={'green'} onClick={hiddenInputSetValue}
+                            onClickTransmittedValues={'true'}>
                         {isAlreadyExistCoin ? "BUY" : "ADD TO PORTFOLIO"}
                     </Button>
 
                 </div>
-                {isAlreadyExistCoin ?
+                {isAlreadyExistCoin &&
                     <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                        <Button type={'submit'} bgColor={'red'} onClick={hiddenInputSetValue} onClickTransmittedValues={'false'}>
+                        <Button type={'submit'} bgColor={'red'} onClick={hiddenInputSetValue}
+                                onClickTransmittedValues={'false'}>
                             SELL
                         </Button>
 
 
-                    </div> :
-                    null}
+                    </div>}
             </div>
         </form>
     </div>

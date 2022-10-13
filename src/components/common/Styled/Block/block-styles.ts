@@ -6,7 +6,8 @@ export type FlexPropsTypes = {
     justify?: string
     margin?: string,
     padding?: string,
-    direction?: string
+    direction?: string,
+    fontSize?: string
 }
 
 export const BlockFlexStyles = styled.div<FlexPropsTypes>`
@@ -17,4 +18,5 @@ export const BlockFlexStyles = styled.div<FlexPropsTypes>`
   justify-content: ${({justify}) => justify || 'stretch'};
   margin: ${({margin}) => margin || '0'};
   max-height: 100%;
+  font-size: ${({fontSize}) => fontSize || 'inherit'};
 `

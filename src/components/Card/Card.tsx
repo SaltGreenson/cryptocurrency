@@ -6,8 +6,12 @@ import {useDispatch} from "react-redux";
 import {setAssetByID} from "../../redux/assets-reducer";
 import {useNavigate} from "react-router-dom";
 import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
+import Block from "../common/Styled/Block/Block";
 
-const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryType>}> = React.memo (({coinData, coinHistory}) => {
+const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryType> }> = React.memo(({
+                                                                                                        coinData,
+                                                                                                        coinHistory
+                                                                                                    }) => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -19,23 +23,32 @@ const Card: React.FC<{ coinData: AssetsType, coinHistory: Array<AssetsHistoryTyp
     }
 
     return <div className={classes.container}>
+
         <div className={classes.cardWrap}>
-            <div className={classes.titleWrap}>
+
+            <Block.Flex align={'center'} fontSize={'20px'}>
                 <span className={classes.symbol} onClick={() => onClick(coinData.id)}>{coinData.symbol}</span>
                 <span className={classes.rank}>RANK #{coinData.rank}</span>
-            </div>
-            <div className={classes.flexWrap}>
-                <div className={classes.flexWrap}>
+            </Block.Flex>
+
+            <Block.Flex justify={'space-between'}>
+
+                <Block.Flex justify={'space-between'}>
                     <p className={classes.internalTitle}>PRICE:</p>
                     <span className={classes.price}>{formatNumberToPrice(coinData.priceUsd)}</span>
-                </div>
-                <div className={classes.flexWrap}>
+                </Block.Flex>
+
+                <Block.Flex justify={'space-between'}>
                     <p className={classes.internalTitle}>24h%:</p>
-                    <span className={classes.changePercent}>{formatNumbersToPrettyStyle(coinData.changePercent24Hr)}%</span>
-                </div>
-            </div>
+                    <span
+                        className={classes.changePercent}>{formatNumbersToPrettyStyle(coinData.changePercent24Hr)}%</span>
+                </Block.Flex>
+
+            </Block.Flex>
+
             <div className={classes.chartWrap}>
-                <ChartComponent key={coinData.id} assetHistory={coinHistory} id={coinData.id} isDisplayX={false} isDisplayY={false}/>
+                <ChartComponent key={coinData.id} assetHistory={coinHistory} id={coinData.id} isDisplayX={false}
+                                isDisplayY={false}/>
             </div>
         </div>
     </div>

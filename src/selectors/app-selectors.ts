@@ -1,8 +1,8 @@
 import {AppStateType} from "../redux/redux-store";
 
-export const getInitialized = (state: AppStateType): boolean => state.app.initialized
-export const getIsFetching = (state: AppStateType): boolean => state.app.isFetching
-export const getLastRank = (state: AppStateType): number => state.app.lastRank
-export const getOffset = (state: AppStateType): number => state.app.offset
-export const getLimit = (state: AppStateType): number => state.app.limit
-export const getCurrentPage = (state: AppStateType): number => state.app.currentPage
+export const getInitialized = (state: AppStateType): boolean => state.app?.initialized || false
+export const getIsFetching = (state: AppStateType): boolean => state.app?.isFetching || false
+export const getLastRank = (state: AppStateType): number => state.app?.lastRank || 1
+export const getOffset = (state: AppStateType): number => state.app?.offset || 0
+export const getLimit = (state: AppStateType): number => state.app?.limit || 50
+export const getCurrentPage = (state: AppStateType): number => state.app?.currentPage || 1

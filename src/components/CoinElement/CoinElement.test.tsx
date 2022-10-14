@@ -1,8 +1,6 @@
 import React from 'react'
 import {CoinElement} from "./CoinElement";
-import {MemoryRouter} from "react-router-dom";
 import {AssetsType} from "../../api/types-api";
-import {ThemeProvider} from "styled-components";
 import {theme} from "../../global-styles";
 import {render, screen} from "@testing-library/react";
 import {withWrapForTesting} from "../utils/helpers/hocs-helper";

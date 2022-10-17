@@ -24,7 +24,7 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({setIsPopUpActive, 
     const [totalPrice, setTotalPrice] = useState<string>('0')
     const [isAppend, setIsAppend] = useState<boolean>(true)
     const profile = useSelector(getProfile)
-    const [hiddenInputValue, setHiddenInputValue] = useState<string>('false')
+    const [hiddenInputValue, setHiddenInputValue] = useState<string>('true')
     const [popUpYesNoActive, setPopUpYesNoAction] = useState<boolean>(false)
 
     const portfolio = profile.portfolio

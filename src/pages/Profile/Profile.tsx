@@ -4,7 +4,6 @@ import {initializeProfile} from "../../redux/profile-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {getInitializedProfile, getProfile} from "../../selectors/profile-selectors";
 import Preloader from "../../components/common/Preloader/Preloader";
-import PopUpCoinDescription from "../../components/PopUpCoinDescription/PopUpCoinDescription";
 import {Link} from "react-router-dom";
 import {calculatePercents} from "../../components/Header/Header";
 import percentsClasses from '../../components/Header/Header.module.css'

@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import classes from './Header.module.css'
-import {useSelector} from "react-redux";
-import {getProfile} from "../../selectors/profile-selectors";
 import {ProfileType} from "../../redux/profile-reducer";
-import classNames from "classnames";
 import MenuBurger, {ElementMenuBurgerType} from "../common/MenuBurger/MenuBurger";
-import {formatNumbersToPrettyStyle, formatNumberToPrice} from "../utils/helpers/helpers";
+import {formatNumbersToPrettyStyle} from "../utils/helpers/helpers";
 
 type PropsTypes = {
     profile: ProfileType

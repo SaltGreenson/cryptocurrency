@@ -9,7 +9,6 @@ import Paginator from "../../components/Paginator/Paginator";
 import {setAppCurrentPage} from "../../redux/app-reducer";
 import {setAssets} from "../../redux/assets-reducer";
 import LittlePreloader from "../../components/common/LittlePreloader/LittlePreloader";
-import Preloader from "../../components/common/Preloader/Preloader";
 
 const MainPage: React.FC = (props) => {
 

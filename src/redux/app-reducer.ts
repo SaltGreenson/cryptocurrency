@@ -1,8 +1,6 @@
 import {GenericThunkType, InferActionsTypes} from './redux-store'
-import {setAssets, setAssetsTop3} from "./assets-reducer";
+import {setAssets} from "./assets-reducer";
 import {Dispatch} from "react";
-import {assetsApi} from "../api/assets-api";
-import {AssetsType, ResponseType} from "../api/types-api";
 import {initializeProfile} from "./profile-reducer";
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'

@@ -1,13 +1,12 @@
-import React, {FC} from 'react';
+import React from 'react';
 import {
-    StyledSmallButtonTypes,
-    StyledSmallButton,
-    StyledDefaultButtonTypes,
     StyledDefaultButton,
+    StyledDefaultButtonTypes,
+    StyledSmallButton,
+    StyledSmallButtonTypes,
     StyledTransparentButton,
     StyledTransparentButtonPropsTypes
 } from "./button-styles";
-import {theme} from '../../../../global-styles'
 
 export type ButtonPropsTypes = {
     children: React.FC | React.DetailedHTMLProps<any, any>,

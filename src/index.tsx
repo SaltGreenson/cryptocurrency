@@ -7,7 +7,7 @@ import {ThemeProvider} from "styled-components";
 import {theme} from "./global-styles";
 import store from "./redux/redux-store";
 import {Provider} from "react-redux";
-import {HashRouter, Router} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

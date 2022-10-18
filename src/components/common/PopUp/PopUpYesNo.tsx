@@ -31,7 +31,7 @@ const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) 
                 </div>
                     <div className={classes.flexSpace}>
                         <div className={classes.buttonWrap}>
-                            <Button type={'button'} bgColor={'green'} onClick={() => onClickHandler(true)}>
+                            <Button type={'button'} bgColor={'green'} onClick={() => onClickHandler(true)} data-cy='btnAnswerYes'>
                                 YES
                             </Button>
 
@@ -39,7 +39,7 @@ const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) 
 
                         <div className={classes.buttonWrap}>
 
-                            <Button type={'button'} bgColor={'red'} onClick={ () => onClickHandler(false)}>
+                            <Button type={'button'} bgColor={'red'} onClick={ () => onClickHandler(false)} data-cy='btnAnswerNo'>
                                 NO
                             </Button>
 

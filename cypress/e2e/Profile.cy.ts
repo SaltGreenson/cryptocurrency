@@ -1,42 +1,51 @@
-/// <reference types="Cypress"/>
+/// <reference types="cypress"/>
 
 describe('Profile E2E', () => {
 
-    let firstCoinStarBtnCssSelector = '#root > div > div.Assets_container__MkM0t > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > button'
-
     beforeEach(() => {
         cy.visit('/')
-        cy.get(firstCoinStarBtnCssSelector).should('have.text', '★').click()
+        cy.get('[data-cy="coinElement_rank1"]').should('have.text', '★').click()
 
-        cy.get('input[type="text"]').type('1').should('have.value', '01')
+        cy.get('[data-cy="inputNumberTextArea"]').type('1').should('have.value', '01')
 
-        cy.contains('+').click()
+        cy.get('[data-cy="inputNumberIncrement"]').click()
 
-        cy.get('input[type="text"]').should('have.value', '2')
+        cy.get('[data-cy="inputNumberTextArea"]').should('have.value', '2')
 
-        cy.contains(/ADD TO PORTFOLIO/i).click()
+        cy.get('[data-cy="btnBuy"]').click()
 
-        cy.contains(/^yes$/i).click()
+        cy.get('[data-cy="btnAnswerYes"]').click()
+
     })
 
     it('Coin must be added to portfolio', () => {
 
-        cy.get('#root > div > div.Header_container__K8aFa > div.Header_burgerWrap__OEuNY > div > label').click()
+        cy.get('[data-cy="burgerMenu"]').click()
 
         cy.contains(/^portfolio$/i).click()
 
-        cy.get('#root > div > div.Profile_container__4N22R > div.Profile_wrapDescription__Zhc4Z > div > div > form > div.PopUpCoinDescription_totalPriceWrap__IXuEg > p.PopUpCoinDescription_totalPrice__AmfqU').should('have.text','2 BTC')
+        cy.get('[data-cy="amountOwnCoin"]')
+            .should('have.text','2 BTC')
+            .snapshot()
 
     })
 
     it ('Coin from portfolio must be removed', () => {
-        cy.get(firstCoinStarBtnCssSelector).should('have.text', '★').click()
 
-        cy.get('input[type="text"]').type('2')
+        cy.get('[data-cy="burgerMenu"]').click()
 
-        cy.contains(/^sell$/i).click()
+        cy.contains(/^portfolio$/i).click()
 
-        cy.contains(/^yes$/i).click()
+        cy.get('[data-cy="inputNumberTextArea"]').type('2')
+
+        cy.get('[data-cy="btnSell"]').click()
+
+        cy.get('[data-cy="hiddenInput"]').snapshot()
+
+        cy.get('[data-cy="btnAnswerYes"]').click()
+
+        cy.get('[data-cy="amountOwnCoin"]')
+            .should('not.be')
 
     })
 })

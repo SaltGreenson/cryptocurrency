@@ -31,6 +31,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
                                     color={ alreadyInFavourite ? 'yellow' : 'blue'}
                                     onClick={onClickHandler}
                                     onClickTransmittedValues={coin}
+                                    data-cy={`coinElement_rank${coin.rank}`}
                 >
                     &#9733;
                 </Button.Transparent>

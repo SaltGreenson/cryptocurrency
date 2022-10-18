@@ -1,19 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getAssets, getTop3Assets} from "../../selectors/assets-selectors";
+import {getAssets} from "../../selectors/assets-selectors";
 import {CoinElement} from "../CoinElement/CoinElement";
 import classes from './Assets.module.css'
-import Paginator from "../Paginator/Paginator";
-import {getCurrentPage, getLastRank, getLimit} from "../../selectors/app-selectors";
+import {getCurrentPage, getLimit} from "../../selectors/app-selectors";
 import {setAssets} from "../../redux/assets-reducer";
-import {Params, useNavigate, useParams} from "react-router-dom";
+import {Params, useParams} from "react-router-dom";
 import {setAppCurrentPage} from "../../redux/app-reducer";
-import Card from "../Card/Card";
 import {AssetsType} from "../../api/types-api";
 import PopUp from "../common/PopUp/PopUp";
-import PopUpCoinDescription from "../PopUpCoinDescription/PopUpCoinDescription";
 import {keys} from "../../keys";
-import PopUpYesNo from "../common/PopUp/PopUpYesNo";
 import {getProfile} from "../../selectors/profile-selectors";
 import ContainerPopUpCoinDescription from "../PopUpCoinDescription/ContainerPopUpCoinDescription";
 

@@ -78,7 +78,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
 
         </div>
         <form onSubmit={handleSubmit}>
-            <input type={'hidden'} name="isAppend" value={hiddenInputValue}/>
+            <input type={'hidden'} name="isAppend" value={hiddenInputValue} data-cy={'hiddenInput'}/>
             <div className={classes.formInternalContainer}>
 
                 <Input.Number name="quantitySigns"
@@ -87,6 +87,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                               decrement={decrementQuantityCoin}
                               onChange={handleChange}
                               placeholder={coin.symbol}
+                              data-cy='inputNumberTextArea'
                 />
 
                 <div className={classes.totalPriceWrap}>
@@ -99,16 +100,18 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
             </div>
             {isAlreadyExistCoin &&
                 <div className={classes.totalPriceWrap}>
-                    <p className={classes.totalPriceTitle}>Own:</p>
-                    <p className={classes.totalPrice}>
+                    <p className={classes.totalPriceTitle}>
+                        Own:
+                    </p>
+                    <p className={classes.totalPrice} data-cy='amountOwnCoin'>
                         {showExistQuantity()}
                     </p>
                 </div>
             }
-            <div className={classNames(classes.btnWrap, isAlreadyExistCoin ? classes.twoBtnsWrap : null)}>
+            <div className={classNames(classes.btnWrap, isAlreadyExistCoin && classes.twoBtnsWrap)}>
                 <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                    <Button type={'submit'} bgColor={'green'} onClick={hiddenInputSetValue}
+                    <Button type={'submit'} bgColor={'green'} onClick={hiddenInputSetValue} data-cy='btnBuy'
                             onClickTransmittedValues={'true'}>
                         {isAlreadyExistCoin ? "BUY" : "ADD TO PORTFOLIO"}
                     </Button>
@@ -117,7 +120,7 @@ const PopUpCoinDescription: React.FC<PropsTypes> = ({
                 {isAlreadyExistCoin &&
                     <div className={classNames(isAlreadyExistCoin ? classes.smallBtn : classes.btn)}>
 
-                        <Button type={'submit'} bgColor={'red'} onClick={hiddenInputSetValue}
+                        <Button type={'submit'} bgColor={'red'} onClick={hiddenInputSetValue} data-cy='btnSell'
                                 onClickTransmittedValues={'false'}>
                             SELL
                         </Button>

@@ -27,7 +27,7 @@ const MenuBurger: React.FC<PropsType> = ({elements, children}) => {
     return <div className={classes.burgerMenu}>
         <input id="menuToggle" className={classes.menuToggle} type="checkbox" onChange={() => handleChangeCheckBox()}
                checked={isChecked}/>
-        <label className={classes.menuBtn} htmlFor='menuToggle'>
+        <label className={classes.menuBtn} htmlFor='menuToggle' data-cy='burgerMenu'>
             <span></span>
         </label>
 

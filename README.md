@@ -3,7 +3,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Before the start
-You need to add a `keys` folder containing the `index.ts` to your project
+You need to add a `/src/keys` folder containing the `index.ts` to your project
 
 ### `index.ts`:
 ````

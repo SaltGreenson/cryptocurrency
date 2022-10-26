@@ -1,8 +1,8 @@
-import React from "react";
-import classes from './PopUp.module.css'
-import classNames from "classnames";
-import {createPortal} from "react-dom";
-import Button from "../Styled/Button/Button";
+import React from 'react';
+import classNames from 'classnames';
+import { createPortal } from 'react-dom';
+import classes from './PopUp.module.css';
+import Button from '../Styled/Button/Button';
 
 type PropsTypes = {
     active: boolean,
@@ -11,45 +11,48 @@ type PropsTypes = {
     setAnswer: (b: boolean) => void,
 }
 
-const PopUpYesNo: React.FC<PropsTypes> = ({active, setActive, text, setAnswer}) => {
+const PopUpYesNo: React.FC<PropsTypes> = ({
+  active, setActive, text, setAnswer,
+}) => {
+  const onClickHandler = (answer: boolean) => {
+    setAnswer(answer);
+    setActive(false);
+  };
 
+  return createPortal(
+    <div className={active
+      ? classNames(classes.popUp, classes.active)
+      : classes.popUp}
+    >
+      <div
+        className={active
+          ? classNames(classes.popUpContent, classes.active)
+          : classes.popUpContent}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className={classes.textWrap}>
+          {text}
+        </div>
+        <div className={classes.flexSpace}>
+          <div className={classes.buttonWrap}>
+            <Button type="button" bgColor="green" onClick={() => onClickHandler(true)} data-cy="btnAnswerYes">
+              YES
+            </Button>
 
-    const onClickHandler = (answer: boolean) => {
-        setAnswer(answer)
-        setActive(false)
-    }
+          </div>
 
-    return createPortal(<div className={active ?
-            classNames(classes.popUp, classes.active) :
-            classes.popUp}>
-            <div className={active ?
-                classNames(classes.popUpContent, classes.active) :
-                classes.popUpContent}
-                 onClick={e => e.stopPropagation()}>
-                <div className={classes.textWrap}>
-                    {text}
-                </div>
-                    <div className={classes.flexSpace}>
-                        <div className={classes.buttonWrap}>
-                            <Button type={'button'} bgColor={'green'} onClick={() => onClickHandler(true)} data-cy='btnAnswerYes'>
-                                YES
-                            </Button>
+          <div className={classes.buttonWrap}>
 
-                        </div>
+            <Button type="button" bgColor="red" onClick={() => onClickHandler(false)} data-cy="btnAnswerNo">
+              NO
+            </Button>
 
-                        <div className={classes.buttonWrap}>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+};
 
-                            <Button type={'button'} bgColor={'red'} onClick={ () => onClickHandler(false)} data-cy='btnAnswerNo'>
-                                NO
-                            </Button>
-
-                        </div>
-                    </div>
-            </div>
-        </div>,
-        document.body
-    )
-}
-
-
-export default PopUpYesNo
+export default PopUpYesNo;

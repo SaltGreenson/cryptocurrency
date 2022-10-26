@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import classes from './MenuBurger.module.css'
-import {Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import classes from './MenuBurger.module.css';
 
 export type ElementMenuBurgerType = {
     elementTitle: string,
@@ -12,38 +12,44 @@ type PropsType = {
     children: React.FC | React.DetailedHTMLProps<any, any>
 }
 
-const MenuBurger: React.FC<PropsType> = ({elements, children}) => {
+const MenuBurger: React.FC<PropsType> = ({ elements, children }) => {
+  const [isChecked, setIsChecked] = useState(false);
 
-    const [isChecked, setIsChecked] = useState(false)
-
-    const handleChangeCheckBox = () => {
-        if (isChecked) {
-            setIsChecked(false)
-        } else {
-            setIsChecked(true)
-        }
+  const handleChangeCheckBox = () => {
+    if (isChecked) {
+      setIsChecked(false);
+    } else {
+      setIsChecked(true);
     }
+  };
 
-    return <div className={classes.burgerMenu}>
-        <input id="menuToggle" className={classes.menuToggle} type="checkbox" onChange={() => handleChangeCheckBox()}
-               checked={isChecked}/>
-        <label className={classes.menuBtn} htmlFor='menuToggle' data-cy='burgerMenu'>
-            <span></span>
-        </label>
+  return (
+    <div className={classes.burgerMenu}>
+      <input
+        id="menuToggle"
+        className={classes.menuToggle}
+        type="checkbox"
+        onChange={() => handleChangeCheckBox()}
+        checked={isChecked}
+      />
+      <label className={classes.menuBtn} htmlFor="menuToggle" data-cy="burgerMenu">
+        <span />
+      </label>
 
+      <ul className={classes.menubox}>
+        {children}
 
-        <ul className={classes.menubox}>
-            {children}
+        {elements.map((element) => (
+          <li key={element.elementTitle}>
+            <Link onClick={() => handleChangeCheckBox()} className={classes.menuItem} to={element.elementLink}>
+              {element.elementTitle}
+            </Link>
+          </li>
+        ))}
 
-            {elements.map(element => <li key={element.elementTitle}>
-                <Link onClick={() => handleChangeCheckBox()} className={classes.menuItem} to={element.elementLink}>
-                    {element.elementTitle}
-                </Link>
-            </li>
-            )}
-
-        </ul>
+      </ul>
     </div>
-}
+  );
+};
 
-export default MenuBurger
+export default MenuBurger;

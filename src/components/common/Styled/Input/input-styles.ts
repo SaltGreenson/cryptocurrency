@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export type InputPropsTypes = {
     width?: string
@@ -7,16 +6,16 @@ export type InputPropsTypes = {
 }
 
 export const InputStyled = styled.input<InputPropsTypes>`
-  font-size: ${({fontSize}) => fontSize ? fontSize : '16px'};
-  background-color: ${({theme}) => theme.colors.darkGrey};
-  color: ${({theme}) => theme.colors.white};
+  font-size: ${({ fontSize }) => (fontSize || '16px')};
+  background-color: ${({ theme }) => theme.colors.darkGrey};
+  color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
   height: 25px;
-  width: ${({width}) => width ? width : '100px'};
+  width: ${({ width }) => (width || '100px')};
   &:invalid {
-    color: ${({theme}) => theme.colors.red};
+    color: ${({ theme }) => theme.colors.red};
   }
   &:focus {
     outline: none;
   }
-`
+`;

@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export type FlexPropsTypes = {
     align?: string,
@@ -13,10 +12,10 @@ export type FlexPropsTypes = {
 export const BlockFlexStyles = styled.div<FlexPropsTypes>`
   display: flex;
   flex-wrap: wrap;
-  flex-direction: ${props => props.direction || 'row'};
-  align-items: ${({align}) => align || 'stretch'};
-  justify-content: ${({justify}) => justify || 'stretch'};
-  margin: ${({margin}) => margin || '0'};
+  flex-direction: ${(props) => props.direction || 'row'};
+  align-items: ${({ align }) => align || 'stretch'};
+  justify-content: ${({ justify }) => justify || 'stretch'};
+  margin: ${({ margin }) => margin || '0'};
   max-height: 100%;
-  font-size: ${({fontSize}) => fontSize || 'inherit'};
-`
+  font-size: ${({ fontSize }) => fontSize || 'inherit'};
+`;

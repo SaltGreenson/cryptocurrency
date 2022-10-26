@@ -1,53 +1,53 @@
-import React from "react";
-import PopUpYesNo from "./PopUpYesNo";
-import {fireEvent, render, screen} from "@testing-library/react";
-import {withWrapForTesting} from "../../utils/helpers/hocs-helper";
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import PopUpYesNo from './PopUpYesNo';
+import { withWrapForTesting } from '../../utils/helpers/hocs-helper';
 
 describe('PopUpYesNo TESTS', () => {
-    test('Answers must works correctly', () => {
+  test('Answers must works correctly', () => {
+    let answer = false;
+    let active = true;
 
-        let answer = false
-        let active = true
+    const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo);
 
-        const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo)
+    render(<WrappedPopUpYesNo
+      active={active}
+      setActive={(e: boolean) => active = e}
+      text=""
+      setAnswer={(e: boolean) => answer = e}
+    />);
 
-        render(<WrappedPopUpYesNo active={active}
-                                  setActive={(e: boolean) => active = e}
-                                  text={''}
-                                  setAnswer={(e: boolean) => answer = e}/>
-        )
+    const btnNO = screen.getByText('NO');
+    const btnYES = screen.getByText('YES');
 
-        const btnNO = screen.getByText('NO')
-        const btnYES = screen.getByText('YES')
+    fireEvent.click(btnNO);
+    expect(answer).toBe(false);
 
-        fireEvent.click(btnNO)
-        expect(answer).toBe(false)
+    fireEvent.click(btnYES);
+    expect(answer).toBe(true);
 
-        fireEvent.click(btnYES)
-        expect(answer).toBe(true)
+    expect(btnNO).toMatchSnapshot();
+    expect(btnYES).toMatchSnapshot();
+    expect(active).toBe(false);
+  });
 
-        expect(btnNO).toMatchSnapshot()
-        expect(btnYES).toMatchSnapshot()
-        expect(active).toBe(false)
-    })
+  test('The question text must display correctly', () => {
+    const text = 'It is sunny today?';
 
-    test('The question text must display correctly', () => {
+    const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo);
 
-        let text = 'It is sunny today?'
+    render(<WrappedPopUpYesNo
+      active
+      setActive={(() => {
+      })}
+      text={text}
+      setAnswer={() => {
+      }}
+    />);
 
-        const WrappedPopUpYesNo = withWrapForTesting(PopUpYesNo)
+    const innerTextHTML = screen.queryByText(text);
 
-        render(<WrappedPopUpYesNo active={true}
-                                  setActive={(() => {
-                                  })}
-                                  text={text}
-                                  setAnswer={() => {
-                                  }}/>
-        )
-
-        const innerTextHTML = screen.queryByText(text)
-
-        expect(innerTextHTML).toBeDefined()
-        expect(innerTextHTML).toMatchSnapshot()
-    })
-})
+    expect(innerTextHTML).toBeDefined();
+    expect(innerTextHTML).toMatchSnapshot();
+  });
+});

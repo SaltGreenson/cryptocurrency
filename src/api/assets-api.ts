@@ -1,5 +1,5 @@
-import {instance} from "./api"
-import {ResponseType} from "./types-api";
+import { instance } from './api';
+import { ResponseType } from './types-api';
 
 export enum IntervalEnum {
     m1='m1',
@@ -14,20 +14,20 @@ export enum IntervalEnum {
 }
 
 export const assetsApi = {
-    async assets(offset: number, limit: number): Promise<ResponseType> {
-        const response = await instance.get<ResponseType>(`assets?offset=${offset}&limit=${limit}`)
-        return response.data
-    },
-    async assetsById(id: string): Promise<ResponseType> {
-        const response = await instance.get<ResponseType>(`assets/${id}`)
-        return response.data
-    },
-    async assetsHistoryById(id: string, interval: IntervalEnum): Promise<ResponseType> {
-        const response = await instance.get<ResponseType>(`assets/${id}/history?interval=${interval}`)
-        return response.data
-    },
-    async assetsMarketsById(id:string, limit:number = 10): Promise<ResponseType> {
-        const response = await instance.get<ResponseType>(`assets/${id}/markets?limit=${limit}`)
-        return response.data
-    }
-}
+  async assets(offset: number, limit: number): Promise<ResponseType> {
+    const response = await instance.get<ResponseType>(`assets?offset=${offset}&limit=${limit}`);
+    return response.data;
+  },
+  async assetsById(id: string): Promise<ResponseType> {
+    const response = await instance.get<ResponseType>(`assets/${id}`);
+    return response.data;
+  },
+  async assetsHistoryById(id: string, interval: IntervalEnum): Promise<ResponseType> {
+    const response = await instance.get<ResponseType>(`assets/${id}/history?interval=${interval}`);
+    return response.data;
+  },
+  async assetsMarketsById(id:string, limit = 10): Promise<ResponseType> {
+    const response = await instance.get<ResponseType>(`assets/${id}/markets?limit=${limit}`);
+    return response.data;
+  },
+};

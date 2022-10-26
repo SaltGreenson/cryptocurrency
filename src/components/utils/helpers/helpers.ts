@@ -1,42 +1,47 @@
-export const setMaxValue = (value: number, decimal: number): { value: number, isBigger: boolean } => {
-    const max = Math.pow(10, decimal)
-    let isBigger = false
+import { useDispatch } from 'react-redux';
+import store from '../../../redux/redux-store';
 
-    if (Math.abs(value) > max) {
-        value = max - 1
-        isBigger = true
-    }
+export const setMaxValue = (val: number, decimal: number)
+    : { value: number, isBigger: boolean } => {
+  const max = 10 ** decimal;
+  let isBigger = false;
 
-    return {
-        value,
-        isBigger
-    }
-}
-export const formatNumberToPrice = (value: number, decimal: number = 13, fraction: number = 2) => {
-    const maxValue = setMaxValue(value, decimal)
-    value = maxValue.value
+  let value = val;
 
-    if (value < 0.1 && value > 0) {
-        fraction = 5
-    }
+  if (Math.abs(value) > max) {
+    value = max - 1;
+    isBigger = true;
+  }
 
-    const formattedValue: string = new Intl.NumberFormat('USD', {
-        currency: 'usd',
-        style: 'currency',
-        maximumFractionDigits: fraction,
-    }).format(+value)
+  return {
+    value,
+    isBigger,
+  };
+};
+export const formatNumberToPrice = (value: number, decimal = 13, fraction = 2) => {
+  const maxValue = setMaxValue(value, decimal);
+  let fr = fraction;
+  if (value < 0.1 && value > 0) {
+    fr = 5;
+  }
 
-    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
-}
+  const formattedValue: string = new Intl.NumberFormat('USD', {
+    currency: 'usd',
+    style: 'currency',
+    maximumFractionDigits: fr,
+  }).format(+maxValue.value);
 
-export const formatNumbersToPrettyStyle = (value: number, fraction: number = 2, decimal: number = 5): string => {
-    const maxValue = setMaxValue(value, decimal)
-    value = maxValue.value
+  return maxValue.isBigger ? `+${formattedValue}` : formattedValue;
+};
 
-    const formattedValue: string = new Intl.NumberFormat('USD', {
-        maximumFractionDigits: fraction,
-        style: 'decimal'
-    }).format(value)
+export const formatNumbersToPrettyStyle = (value: number, fraction = 2, decimal = 5)
+    : string => {
+  const maxValue = setMaxValue(value, decimal);
 
-    return maxValue.isBigger ? `+${formattedValue}` : formattedValue
-}
+  const formattedValue: string = new Intl.NumberFormat('USD', {
+    maximumFractionDigits: fraction,
+    style: 'decimal',
+  }).format(maxValue.value);
+
+  return maxValue.isBigger ? `+${formattedValue}` : formattedValue;
+};

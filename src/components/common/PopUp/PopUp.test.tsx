@@ -1,21 +1,21 @@
-import React from 'react'
-import PopUp from "./PopUp";
-import {fireEvent, render, screen} from "@testing-library/react";
-import {withWrapForTesting} from "../../utils/helpers/hocs-helper";
-
+import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import PopUp from './PopUp';
+import { withWrapForTesting } from '../../utils/helpers/hocs-helper';
 
 describe('PopUp TESTS', () => {
-    test('Active must be false state', () => {
-        let active = true
+  test('Active must be false state', () => {
+    let active = true;
 
-        const WrappedPopUp = withWrapForTesting(PopUp)
+    const WrappedPopUp = withWrapForTesting(PopUp);
 
-        render(<WrappedPopUp active={active}
-                             setActive={(e: boolean) => active = e}
-                             children={<p>Children</p>}/>)
+    render(<WrappedPopUp
+      active={active}
+      setActive={(e: boolean) => active = e}
+      children={<p>Children</p>}
+    />);
 
-        fireEvent.click(screen.getByTestId('popUpTestId'))
-        expect(active).toBe(false)
-
-    })
-})
+    fireEvent.click(screen.getByTestId('popUpTestId'));
+    expect(active).toBe(false);
+  });
+});

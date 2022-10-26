@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export type StyledDefaultButtonTypes = {
     bgColor: 'red' | 'green' | 'default'
@@ -11,21 +11,21 @@ export const StyledDefaultButton = styled.button<StyledDefaultButtonTypes>`
   height: 100%;
   max-width: 500px;
   border: none;
-  color: ${({theme}) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
   border-radius: 10px;
   transition: ease-out 0.4s;
   outline: none;
-  background-color: ${({bgColor, theme}) => bgColor === 'red' ?
-          theme.colors.red :
-          bgColor === 'green' ?
-                  theme.colors.green :
-                  theme.colors.lightDark};
+  background-color: ${({ bgColor, theme }) => (bgColor === 'red'
+    ? theme.colors.red
+    : bgColor === 'green'
+      ? theme.colors.green
+      : theme.colors.lightDark)};
 
   &:hover {
-    background-color: ${({theme}) => theme.colors.purple};
+    background-color: ${({ theme }) => theme.colors.purple};
   }
-`
+`;
 
 export type StyledSmallButtonTypes = {
     borderRadius: '10px 0 0 10px' | '0 10px 10px 0',
@@ -40,20 +40,20 @@ export const StyledSmallButton = styled.button<StyledSmallButtonTypes>`
   width: 25px;
   height: 25px;
   font-size: 30px;
-  background-color: ${({theme}) => theme.colors.lightDark};
+  background-color: ${({ theme }) => theme.colors.lightDark};
   cursor: pointer;
   user-select: none;
   transition: .3s;
-  border-radius: ${({borderRadius}) => borderRadius};
-  color: ${({theme}) => theme.colors.white};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
-    background-color: ${({bgColorHover, theme}) => bgColorHover === 'green' ?
-            theme.colors.green :
-            theme.colors.red
-    };
+    background-color: ${({ bgColorHover, theme }) => (bgColorHover === 'green'
+    ? theme.colors.green
+    : theme.colors.red)
+};
   }
-`
+`;
 
 export type StyledTransparentButtonPropsTypes = {
     color: 'blue' | 'yellow' | string,
@@ -63,27 +63,27 @@ export type StyledTransparentButtonPropsTypes = {
 
 export const StyledTransparentButton = styled.button<StyledTransparentButtonPropsTypes>`
   cursor: pointer;
-  font-size: ${({theme}) => theme.fonts.sizes.medium};
+  font-size: ${({ theme }) => theme.fonts.sizes.medium};
   transition: .3s;
   transition-timing-function: linear;
   user-select: none;
-  margin-right: ${({marginRight}) => marginRight ? marginRight : '2rem'};
+  margin-right: ${({ marginRight }) => (marginRight || '2rem')};
   background-color: transparent;
 
-  color: ${({color, theme}) => color === 'blue' ?
-          theme.colors.darkBlue :
-          color === 'yellow' ?
-                  theme.colors.yellow :
-                  color
-  };
+  color: ${({ color, theme }) => (color === 'blue'
+    ? theme.colors.darkBlue
+    : color === 'yellow'
+      ? theme.colors.yellow
+      : color)
+};
 
   &:focus, &:hover {
     outline: none;
-    color: ${({color, theme}) => color === 'blue' ?
-            theme.colors.lightBlue : theme.colors.orange};
-    ${({hoverColor}) => hoverColor && css`
+    color: ${({ color, theme }) => (color === 'blue'
+    ? theme.colors.lightBlue : theme.colors.orange)};
+    ${({ hoverColor }) => hoverColor && css`
       color: ${hoverColor};
     `}
     
   }
-`
+`;

@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Before the start
+You need to add a `/src/keys` folder containing the `index.ts` to your project
+
+### `index.ts`:
+````
+type KeysTypes = {
+    API: string,
+    localStorageName: string
+}
+const keys: KeysTypes = {
+  API: '00000000-0000-0000-0000-000000000000',
+  localStorageName: 'storageName',
+};
+````
+
 ## Available Scripts
 
 In the project directory, you can run:

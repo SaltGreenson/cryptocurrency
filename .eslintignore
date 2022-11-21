@@ -1,7 +1,0 @@
-node_modules
-build
-test
-src
-cypress.config.ts
-jest.config.ts
-cypress

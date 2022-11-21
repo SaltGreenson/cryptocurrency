@@ -2,10 +2,10 @@ import {
   Action, applyMiddleware, combineReducers, compose, legacy_createStore as createStore,
 } from 'redux';
 import thunkMiddleWare, { ThunkDispatch } from 'redux-thunk';
-import appReducer from './app-reducer';
-import marketsReducer from './markets-reducer';
-import assetsReducer from './assets-reducer';
-import profileReducer from './profile-reducer';
+import {appReducer} from './appReducer/appReducer';
+import {marketsReducer} from './marketsReducer/marketsReducer';
+import {assetsReducer} from './assetsReducer/assetsReducer';
+import {profileReducer} from './profileReducer/profileReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,

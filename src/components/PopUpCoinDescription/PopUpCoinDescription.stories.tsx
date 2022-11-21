@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import { func } from 'prop-types';
 import PopUpCoinDescription from './PopUpCoinDescription';
-import { CoinInPortfolioType } from '../../redux/profile-reducer';
+import { CoinInPortfolioType } from '../../redux/profileReducer/profileReducer';
 import { AssetsType } from '../../api/types-api';
 
 const initialCoin: AssetsType = {

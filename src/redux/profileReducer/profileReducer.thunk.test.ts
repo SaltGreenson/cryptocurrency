@@ -1,8 +1,9 @@
-import { actions, addCoinToPortfolio, initializeProfile } from './profile-reducer';
-import { AssetsType } from '../api/types-api';
-import { assetsApi } from '../api/assets-api';
+import { addCoinToPortfolio, initializeProfile } from './actionCreators';
+import { AssetsType } from '../../api/types-api';
+import { assetsApi } from '../../api/assets-api';
+import {actions} from './actions'
 
-jest.mock('../api/assets-api');
+jest.mock('../../api/assets-api');
 const assetsAPIMock = assetsApi as jest.Mocked<typeof assetsApi>;
 
 const coin: AssetsType = {

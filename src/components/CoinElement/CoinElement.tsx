@@ -33,7 +33,7 @@ export const CoinElement: React.FC<PropsTypes> = ({
         >
           &#9733;
         </Button.Transparent>
-        <Link to={`/:id=${coin.id}`} className={classes.title}>{coin.name}</Link>
+        <Link to={`/:id=${coin.id}`} className={classes.title} data-cy="linkToDescription">{coin.name}</Link>
         <Link to={`/:id=${coin.id}`} className={classes.symbol}>{coin.symbol}</Link>
       </div>
     </td>

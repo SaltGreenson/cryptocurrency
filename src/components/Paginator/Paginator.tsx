@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
-import classes from './Paginator.module.css';
-import Button from '../common/Styled/Button/Button';
-import { theme } from '../../global-styles';
+import React, { useState } from "react";
+import classNames from "classnames";
+import { Link } from "react-router-dom";
+import classes from "./Paginator.module.css";
+import Button from "../common/Styled/Button/Button";
+import { theme } from "../../global-styles";
 
 const Paginator: React.FC<PropsType> = ({
   totalItemsCount,
@@ -35,37 +35,51 @@ const Paginator: React.FC<PropsType> = ({
   return (
     <div className={classes.container}>
       <ul className={classes.paginatorWrap}>
-        {portionNumber > 1
-                && (
-                <Button.Transparent color={theme.colors.white} hoverColor={theme.colors.red} marginRight="0">
-                  <p onClick={() => onClickBtn(portionNumber - 1)}>&#11013;</p>
-                </Button.Transparent>
-                )}
+        {portionNumber > 1 && (
+          <Button.Transparent
+            color={theme.colors.white}
+            hoverColor={theme.colors.red}
+            marginRight="0"
+            data-cy="prevBtnPaginator"
+          >
+            <p onClick={() => onClickBtn(portionNumber - 1)}>&#11013;</p>
+          </Button.Transparent>
+        )}
         {pages
-          .filter((p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+          .filter(
+            (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
+          )
           .map((p) => (
-            <div key={p} className={classes.pageNumberWrap} onClick={() => onClickPage(p)}>
+            <div
+              key={p}
+              className={classes.pageNumberWrap}
+              onClick={() => onClickPage(p)}
+            >
               <Link
                 to={`/coins/:page=${p}`}
-                className={classNames({
-                  [classes.selectedPage]: currentPage === p,
-                }, classes.pageNumber)}
+                className={classNames(
+                  {
+                    [classes.selectedPage]: currentPage === p,
+                  },
+                  classes.pageNumber
+                )}
                 key={p}
               >
-                {' '}
-                {p}
-                {' '}
-
+                {" "}
+                {p}{" "}
               </Link>
             </div>
           ))}
-        {portionCount > portionNumber
-                && (
-                <Button.Transparent color={theme.colors.white} hoverColor={theme.colors.red} marginRight="0">
-                  <p onClick={() => onClickBtn(portionNumber + 1)}>&#10145;</p>
-                </Button.Transparent>
-                )}
-
+        {portionCount > portionNumber && (
+          <Button.Transparent
+            color={theme.colors.white}
+            hoverColor={theme.colors.red}
+            marginRight="0"
+            data-cy="nextBtnPaginator"
+          >
+            <p onClick={() => onClickBtn(portionNumber + 1)}>&#10145;</p>
+          </Button.Transparent>
+        )}
       </ul>
     </div>
   );
@@ -74,12 +88,12 @@ const Paginator: React.FC<PropsType> = ({
 export default Paginator;
 
 type PropsType = {
-    totalItemsCount: number
-    pageSize: number
-    currentPage?: number
-    onPageChanged?: (offset: number) => void
-    portionSize?: number
-}
+  totalItemsCount: number;
+  pageSize: number;
+  currentPage?: number;
+  onPageChanged?: (offset: number) => void;
+  portionSize?: number;
+};
 
 // -===========================================================================
 

@@ -16,6 +16,7 @@ const PopUp: React.FC<PropsTypes> = ({ active, setActive, children }) => createP
       ? classNames(classes.popUp, classes.active)
       : classes.popUp}
     onClick={() => setActive(false)}
+    data-cy="popUpBackground"
   >
 
     <div

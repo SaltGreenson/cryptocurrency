@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import PopUpCoinDescription from './PopUpCoinDescription';
 import { withWrapForTesting } from '../utils/helpers/hocs-helper';
 import { AssetsType } from '../../api/types-api';
-import { CoinInPortfolioType } from '../../redux/profile-reducer';
+import { CoinInPortfolioType } from '../../redux/profileReducer/profileReducer';
 
 describe('PopUpCoinDescription TESTS', () => {
   test('Only one button must be displayed', () => {

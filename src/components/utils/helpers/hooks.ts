@@ -1,5 +1,15 @@
-import { useDispatch } from 'react-redux';
-import store from '../../../redux/redux-store';
+import {useDispatch} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as ProfileACs from '../../../redux/profileReducer/actionCreators'
+import * as AppACs from '../../../redux/appReducer/actionCreators'
+import * as AssetsACs from '../../../redux/assetsReducer/actionCreators'
+import * as MarketsACs from '../../../redux/marketsReducer/actionCreators'
 
-export type AppDispatchType = typeof store.dispatch
-export const useThunkDispatch = () => useDispatch<AppDispatchType>();
+export const useActions = () => {
+    const dispatch = useDispatch()
+    return bindActionCreators({
+        ...AppACs,
+        ...ProfileACs,
+        ...AssetsACs,
+        ...MarketsACs}, dispatch)
+}

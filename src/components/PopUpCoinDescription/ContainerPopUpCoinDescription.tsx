@@ -1,36 +1,41 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AssetsType } from '../../api/types-api';
-import { getProfile } from '../../selectors/profile-selectors';
-import { addCoinToPortfolio, removeCoinFromPortfolio } from '../../redux/profile-reducer';
-import PopUpYesNo from '../common/PopUp/PopUpYesNo';
-import PopUpCoinDescription from './PopUpCoinDescription';
-import { formatNumbersToPrettyStyle, formatNumberToPrice } from '../utils/helpers/helpers';
-import {useThunkDispatch} from "../utils/helpers/hooks";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { AssetsType } from "../../api/types-api";
+import { getProfile } from "../../selectors/profile-selectors";
+import PopUpYesNo from "../common/PopUp/PopUpYesNo";
+import PopUpCoinDescription from "./PopUpCoinDescription";
+import {
+  formatNumbersToPrettyStyle,
+  formatNumberToPrice,
+} from "../utils/helpers/helpers";
+import { useActions } from "../utils/helpers/hooks";
 
 type PropsTypes = {
-    coin: AssetsType,
-    setIsPopUpActive: (b: boolean) => void
-    isAlreadyExistCoin: boolean,
-}
+  coin: AssetsType;
+  setIsPopUpActive: (b: boolean) => void;
+  isAlreadyExistCoin: boolean;
+};
 
 export const convertQuantity = (quantity: number) => {
   const max = 10 ** 9;
   return quantity > max ? max - 1 : quantity;
 };
 
-const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({ setIsPopUpActive, coin, ...rest }) => {
-  const [quantityCoin, setQuantityCoin] = useState<string>('0');
-  const [totalPrice, setTotalPrice] = useState<string>('0');
+const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({
+  setIsPopUpActive,
+  coin,
+  ...rest
+}) => {
+  const [quantityCoin, setQuantityCoin] = useState<string>("0");
+  const [totalPrice, setTotalPrice] = useState<string>("0");
   const [isAppend, setIsAppend] = useState<boolean>(true);
   const profile = useSelector(getProfile);
-  const [hiddenInputValue, setHiddenInputValue] = useState<string>('true');
+  const [hiddenInputValue, setHiddenInputValue] = useState<"true" | "false">("true");
   const [popUpYesNoActive, setPopUpYesNoAction] = useState<boolean>(false);
+  const { addCoinToPortfolio, removeCoinFromPortfolio } = useActions();
 
   const { portfolio } = profile;
   const idx = portfolio.findIndex((existing) => existing.coin.id === coin.id);
-
-  const dispatch = useDispatch();
 
   const popUpAnswer = (answer: boolean) => {
     if (!answer) {
@@ -38,17 +43,18 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({ setIsPopUpActive,
       return;
     }
     if (isAppend) {
-      // @ts-ignore
-      dispatch(addCoinToPortfolio(coin, +quantityCoin));
+      addCoinToPortfolio(coin, +quantityCoin);
     } else {
-      // @ts-ignore
-      dispatch(removeCoinFromPortfolio(coin, +quantityCoin));
+      removeCoinFromPortfolio(coin, +quantityCoin);
     }
-    setQuantityCoin('0');
-    setTotalPrice('0');
+    setQuantityCoin("0");
+    setTotalPrice("0");
   };
 
-  const showQuantity = () => `${formatNumbersToPrettyStyle(convertQuantity(+quantityCoin), 8)} ${coin.symbol}`;
+  const showQuantity = () =>
+    `${formatNumbersToPrettyStyle(convertQuantity(+quantityCoin), 8)} ${
+      coin.symbol
+    }`;
 
   const onClickHandler = (isAdd: boolean) => {
     if (+quantityCoin <= 0) {
@@ -83,10 +89,6 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({ setIsPopUpActive,
     }
   };
 
-  const hiddenInputSetValue = (text: string) => {
-    setHiddenInputValue(text);
-  };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = event.target.value;
     setQuantityCoin(quantity);
@@ -95,12 +97,12 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({ setIsPopUpActive,
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onClickHandler(hiddenInputValue !== 'false');
+    onClickHandler(hiddenInputValue === "true");
   };
 
   return (
     <>
-      {' '}
+      {" "}
       <PopUpCoinDescription
         coin={coin}
         quantityCoin={quantityCoin}
@@ -111,16 +113,17 @@ const ContainerPopUpCoinDescription: React.FC<PropsTypes> = ({ setIsPopUpActive,
         existingCoinFromProfile={portfolio[idx]}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        hiddenInputSetValue={hiddenInputSetValue}
+        hiddenInputSetValue={setHiddenInputValue}
         {...rest}
       />
-
       <PopUpYesNo
         active={popUpYesNoActive}
         setActive={setPopUpYesNoAction}
-        text={
-                        `Are you sure you want to ${isAppend ? 'buy' : 'sell'} ${showQuantity()} (${formatNumberToPrice(+totalPrice, 10, 2)}) ${coin.name}?`
-                    }
+        text={`Are you sure you want to ${
+          isAppend ? "buy" : "sell"
+        } ${showQuantity()} (${formatNumberToPrice(+totalPrice, 10, 2)}) ${
+          coin.name
+        }?`}
         setAnswer={popUpAnswer}
       />
     </>

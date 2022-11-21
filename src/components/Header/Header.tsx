@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './Header.module.css';
-import { ProfileType } from '../../redux/profile-reducer';
+import { ProfileType } from '../../redux/profileReducer/profileReducer';
 import MenuBurger, { ElementMenuBurgerType } from '../common/MenuBurger/MenuBurger';
 import { formatNumbersToPrettyStyle } from '../utils/helpers/helpers';
 
@@ -42,7 +42,7 @@ const Header: React.FC<PropsTypes> = ({ profile }) => {
 
       <div className={classes.titleWrap}>
         <h1>
-          <Link className={classes.title} to="/coins/:page=1">
+          <Link className={classes.title} to="/coins/:page=1" data-cy="headerLogo">
             CØOINCAP
           </Link>
         </h1>

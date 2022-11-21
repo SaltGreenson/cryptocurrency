@@ -15,15 +15,17 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <ThemeProvider theme={theme}>
+
     <React.StrictMode>
+
       <Provider store={store}>
         <HashRouter>
           <App />
         </HashRouter>
-
       </Provider>
 
     </React.StrictMode>
+
   </ThemeProvider>,
 );
 

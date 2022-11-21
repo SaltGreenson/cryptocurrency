@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
-import { ProfileType } from '../../redux/profile-reducer';
+import { ProfileType } from '../../redux/profileReducer/profileReducer';
 import { withWrapForTesting } from '../utils/helpers/hocs-helper';
 
 describe('Header tests', () => {

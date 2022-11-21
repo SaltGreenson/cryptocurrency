@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
 import Chart from 'chart.js/auto';
-import {
-  LinearScale, LineController, LineElement, PointElement, Title,
-} from 'chart.js';
-import { useNavigate } from 'react-router-dom';
-import { getIsFetching } from '../../selectors/app-selectors';
-import { getAssetsHistory } from '../../selectors/assets-selectors';
-import { setAssetByID, setAssetsHistoryById } from '../../redux/assets-reducer';
-import { IntervalEnum } from '../../api/assets-api';
-import LittlePreloader from '../common/LittlePreloader/LittlePreloader';
+import {LinearScale, LineController, LineElement, PointElement, Title,} from 'chart.js';
 import classes from './ChartComponent.module.css';
-import { AssetsHistoryType } from '../../api/types-api';
+import {AssetsHistoryType} from '../../api/types-api';
 
 export const formatDate = (date: Date) => new Intl.DateTimeFormat('en-US', {
   day: '2-digit',

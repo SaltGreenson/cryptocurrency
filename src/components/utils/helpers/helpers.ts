@@ -1,6 +1,3 @@
-import { useDispatch } from 'react-redux';
-import store from '../../../redux/redux-store';
-
 export const setMaxValue = (val: number, decimal: number)
     : { value: number, isBigger: boolean } => {
   const max = 10 ** decimal;

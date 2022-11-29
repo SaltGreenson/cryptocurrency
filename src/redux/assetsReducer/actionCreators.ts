@@ -5,10 +5,12 @@ import {actionsApp, AppActionsType} from "../appReducer/actions";
 import {AssetsType, ResponseType} from "../../api/types-api";
 import {assetsApi, IntervalEnum} from "../../api/assets-api";
 import {AssetsTop3Type} from "./assetsReducer";
+import {trpc} from "../../api/utils/trpc";
 
 export function setAssets(offset: number, limit: number)
     : ThunkAction<Promise<void>, RootState, unknown, ActionsTypes> {
     return async (dispatch: Dispatch<ActionsTypes | AppActionsType>) => {
+
         const response: ResponseType = await assetsApi.assets(offset, limit);
         dispatch(actions.setAssets(response));
     };
@@ -24,7 +26,6 @@ export function setAssetsTop3()
             const assetsTop3 = response.data
                 .sort((a, b) => a.rank - b.rank)
                 .slice(0, 3);
-
             const promise = assetsTop3.map((e: AssetsType) => (
                 assetsApi.assetsHistoryById(e.id, IntervalEnum.m5)));
             const histories: Array<ResponseType> = await Promise.all([...promise]);

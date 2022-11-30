@@ -4,10 +4,10 @@ import './index.css';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { theme } from './global-styles';
-import store from './redux/redux-store';
+import {theme} from "./global-styles";
+import store from "./redux/redux-store";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement,

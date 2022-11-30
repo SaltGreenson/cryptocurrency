@@ -1,7 +1,7 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import { func } from 'prop-types';
 import Input from './Input';
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 
 export default {
   title: 'Input/Number',

@@ -5,11 +5,15 @@ import {actionsApp, AppActionsType} from "../appReducer/actions";
 import {AssetsType, ResponseType} from "../../api/types-api";
 import {assetsApi, IntervalEnum} from "../../api/assets-api";
 import {AssetsTop3Type} from "./assetsReducer";
+import axios from "axios";
+import {keys} from "../../keys";
 
 export function setAssets(offset: number, limit: number)
     : ThunkAction<Promise<void>, RootState, unknown, ActionsTypes> {
     return async (dispatch: Dispatch<ActionsTypes | AppActionsType>) => {
         const response: ResponseType = await assetsApi.assets(offset, limit);
+        const t = await axios.get(`${keys.tRPC_CLIENT_URL}/assets?offset=0&limit=1`);
+        console.log(t)
         dispatch(actions.setAssets(response));
     };
 }
@@ -20,7 +24,6 @@ export function setAssetsTop3()
         try {
             dispatch(actions.setIsFetchingAssetPage(true));
             const response: ResponseType = await assetsApi.assets(0, 50);
-
             const assetsTop3 = response.data
                 .sort((a, b) => a.rank - b.rank)
                 .slice(0, 3);
